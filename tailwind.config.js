@@ -9,6 +9,8 @@ module.exports = {
         textSecondary: '#4E9F3D',
         borderSecondary: '#C7C7C7',
         searchBg: '#E5E5E5',
+        orange: '#FFB72B',
+        darkOrange: '#ED8C1D',
       },
 
       fontFamily: {
