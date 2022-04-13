@@ -9,6 +9,8 @@ import UserIcon from '../../asset/icon/user-icon.svg';
 const Navbar = () => {
   const [enteredSearch, setEnteredSearch] = useState('');
 
+  const isSearchInputValid = enteredSearch.trim().length > 0;
+
   const searchFormSubmitHandler = (e) => {
     e.preventDefault();
 
@@ -47,8 +49,8 @@ const Navbar = () => {
               onChange={searchChangeHandler}
             />
 
-            <XyzTransition xyz="fade-100% right-100% ease-in-out-back duration-3">
-              {enteredSearch.trim().length > 0 && (
+            <XyzTransition xyz="fade-100% in-up-100% out-down-100% ease-in-out-back duration-3">
+              {isSearchInputValid && (
                 <button
                   type="button"
                   className="absolute right-3 text-2xl"
