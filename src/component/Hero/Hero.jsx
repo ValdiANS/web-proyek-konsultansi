@@ -1,59 +1,79 @@
+import { useState } from 'react';
+
 import { Pagination } from 'swiper';
-import { Swiper, SwiperSlide } from 'swiper/react';
+import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
+
+import SlideControllerButton from './Swiper/SlideControllerButton';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
-import './Hero.css';
+
+const imgList = [
+  {
+    url: 'https://dummyimage.com/1200x674/e5e5e5/FFFFFF.png&text=Placeholder+image+1',
+    altText: 'Hero Image 1',
+  },
+  {
+    url: 'https://dummyimage.com/1200x674/e5e5e5/FFFFFF.png&text=Placeholder+image+2',
+    altText: 'Hero Image 2',
+  },
+  {
+    url: 'https://dummyimage.com/1200x674/e5e5e5/FFFFFF.png&text=Placeholder+image+3',
+    altText: 'Hero Image 3',
+  },
+  {
+    url: 'https://dummyimage.com/1200x674/e5e5e5/FFFFFF.png&text=Placeholder+image+4',
+    altText: 'Hero Image 4',
+  },
+];
 
 const Hero = () => {
+  const [activeImage, setActiveImage] = useState(0);
+
+  const swiper = useSwiper();
+
   const pagination = {
     clickable: true,
-    renderBullet: function (index, className) {
-      return `<div class="${className} opacity-100"></div>`;
+    type: 'custom',
+
+    renderCustom: (swiper, current, total) => {
+      setActiveImage(current);
     },
   };
 
   return (
-    <div className="w-full bg-corak bg-repeat bg-contain py-16">
+    <div className="w-full bg-corak bg-repeat bg-contain pt-16 pb-10">
       <Swiper
-        slidesPerView={1.3}
+        slidesPerView={1.4}
         centeredSlides={true}
         spaceBetween={32}
         pagination={pagination}
         modules={[Pagination]}
         className="relative"
       >
-        <SwiperSlide>
-          <img
-            src="https://dummyimage.com/1200x674/e5e5e5/FFFFFF.png&text=Placeholder+image+1"
-            alt="Hero Image 1"
-            className="w-full mx-auto object-cover object-center"
-          />
-        </SwiperSlide>
+        {imgList.map(({ url, altText }, index) => (
+          <SwiperSlide key={index + 1}>
+            <img
+              src={url}
+              alt={altText}
+              className="w-full mx-auto object-cover object-center"
+            />
+          </SwiperSlide>
+        ))}
 
-        <SwiperSlide>
-          <img
-            src="https://dummyimage.com/1200x674/e5e5e5/FFFFFF.png&text=Placeholder+image+2"
-            alt="Hero Image 2"
-            className="w-full mx-auto"
-          />
-        </SwiperSlide>
+        <div className="swiper-custom-pagination flex flex-row gap-x-5 justify-center mt-12">
+          {imgList.map((imgData, index) => {
+            const isActive = index + 1 === activeImage;
 
-        <SwiperSlide>
-          <img
-            src="https://dummyimage.com/1200x674/e5e5e5/FFFFFF.png&text=Placeholder+image+3"
-            alt="Hero Image 3"
-            className="w-full mx-auto"
-          />
-        </SwiperSlide>
-
-        <SwiperSlide>
-          <img
-            src="https://dummyimage.com/1200x674/e5e5e5/FFFFFF.png&text=Placeholder+image+4"
-            alt="Hero Image 4"
-            className="w-full mx-auto"
-          />
-        </SwiperSlide>
+            return (
+              <SlideControllerButton
+                key={index + 1}
+                idx={index}
+                isActive={isActive}
+              />
+            );
+          })}
+        </div>
       </Swiper>
     </div>
   );
