@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { XyzTransition, XyzTransitionGroup } from '@animxyz/react';
 
 import Logo from '../../asset/logo-mitra.png';
-import CartIcon from '../../asset/icon/cart-icon.svg';
-import UserIcon from '../../asset/icon/user-icon.svg';
+import CartIcon from '../SVG/CartIcon';
+import UserIcon from '../SVG/UserIcon';
 
 const Navbar = () => {
   const [enteredSearch, setEnteredSearch] = useState('');
@@ -32,7 +32,7 @@ const Navbar = () => {
       <nav className="container mx-auto flex flex-row items-center justify-between gap-x-4">
         <XyzTransition appear xyz="fade-100% left-100% ease-in-out-back">
           <a href="/" className="logo">
-            <img src={Logo} alt="Logo Hijrah" className="h-16 w-16" />
+            <img src={Logo} alt="Logo Hijrah" className="w-16 lg:h-16" />
           </a>
         </XyzTransition>
 
@@ -74,7 +74,7 @@ const Navbar = () => {
               className="cart flex flex-row items-center gap-x-4 px-4 py-2 rounded-lg duration-200 hover:bg-white active:brightness-90"
             >
               <div className="cart-icon">
-                <img src={CartIcon} alt="Cart" />
+                <CartIcon className="w-10" />
               </div>
               <div className="cart__content text-textPrimary text-sm">
                 <div>Keranjang</div>
@@ -89,7 +89,7 @@ const Navbar = () => {
               className="user flex flex-row items-center gap-x-2 px-4 py-2 rounded-lg duration-200 hover:bg-white active:brightness-90"
             >
               <div className="user-icon">
-                <img src={UserIcon} alt="User's Avatar" />
+                <UserIcon className="w-10" />
               </div>
               <div className="user-name text-lg font-medium">Rangga</div>
             </a>
