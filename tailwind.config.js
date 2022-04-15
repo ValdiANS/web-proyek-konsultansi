@@ -24,6 +24,14 @@ module.exports = {
       borderWidth: {
         0.5: '0.5px',
       },
+
+      borderRadius: {
+        '10px': '10px',
+      },
+
+      spacing: {
+        'fit-important': 'fit-content!important',
+      },
     },
   },
   plugins: [],
