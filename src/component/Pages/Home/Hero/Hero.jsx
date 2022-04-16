@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Pagination } from 'swiper';
 import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
 
-import SlideControllerButton from './Swiper/SlideControllerButton';
+import SlideControllerButton from './SlideControllerButton';
 
 import 'swiper/css';
 import 'swiper/css/pagination';

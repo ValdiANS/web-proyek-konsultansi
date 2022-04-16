@@ -4,10 +4,10 @@ import { XyzTransition, XyzTransitionGroup } from '@animxyz/react';
 
 import 'swiper/css';
 
-import Logo from '../../asset/logo-mitra.png';
+import Logo from '../../../asset/logo-mitra.png';
 
-import Hero from '../Hero/Hero';
-import Card from '../UI/Card';
+import Hero from './Hero/Hero';
+import Card from '../../UI/Card';
 
 const Home = () => {
   return (

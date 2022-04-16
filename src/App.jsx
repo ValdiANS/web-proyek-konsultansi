@@ -3,7 +3,7 @@ import { Fragment } from 'react';
 import AppHeader from './component/Layout/AppHeader';
 import AppFooter from './component/Layout/AppFooter';
 import Navbar from './component/Nav/Navbar';
-import Home from './component/Pages/Home';
+import Home from './component/Pages/Home/Home';
 
 const App = () => {
   return (
