@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import { XyzTransition, XyzTransitionGroup } from '@animxyz/react';
 
@@ -69,8 +70,8 @@ const Navbar = () => {
             appear
             xyz="fade-100% right-100% ease-in-out-back stagger-1"
           >
-            <a
-              href="#cartPage"
+            <Link
+              to="/cart"
               className="cart flex flex-row items-center gap-x-4 px-4 py-2 rounded-lg duration-200 hover:bg-white active:brightness-90"
             >
               <div className="cart-icon">
@@ -82,7 +83,7 @@ const Navbar = () => {
                   Rp. 200.000
                 </div>
               </div>
-            </a>
+            </Link>
 
             <a
               href="#userDetailPage"
