@@ -19,25 +19,25 @@ const CategoriesSection = ({ className = '' }) => {
         >
           <CategoryCard
             className="w-full h-40 bg-[#1F1F21]"
-            link="#"
+            to="/categories/makanan-ringan"
             title="Makanan Ringan"
           />
 
           <CategoryCard
             className="w-full h-40 bg-[#DCA047]/75"
-            link="#"
+            to="/categories/biskuit"
             title="Biskuit"
           />
 
           <CategoryCard
             className="w-full h-40 bg-[#0B0F52]/75"
-            link="#"
+            to="/categories/biskuit"
             title="Biskuit"
           />
 
           <CategoryCard
             className="w-full h-40 bg-[#111315]/75"
-            link="#"
+            to="/categories/biskuit"
             title="Biskuit"
           />
         </XyzTransitionGroup>
