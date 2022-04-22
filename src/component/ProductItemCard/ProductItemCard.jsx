@@ -1,9 +1,11 @@
 import { useState } from 'react';
+import { Link } from 'react-router-dom';
 
 import Card from '../UI/Card';
 import AmountControl from './AmountControl';
 
 const ProductItemCard = ({
+  id = 0,
   productName = '',
   thumbnailUrl = '',
   amount = 1,
@@ -32,7 +34,9 @@ const ProductItemCard = ({
       </div>
 
       <div className="terlaris-card-content mt-5">
-        <div className="font-bold">{productName}</div>
+        <Link to={`/products/${id}`} className="font-bold hover:underline">
+          {productName}
+        </Link>
         <div>{itemAmount} pcs</div>
 
         <div className="price text-textSecondary">Rp{localPrice}</div>
