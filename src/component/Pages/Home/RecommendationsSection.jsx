@@ -17,6 +17,7 @@ const RecommendationsSection = ({ className = '' }) => {
         >
           <div>
             <ProductItemCard
+              id={1}
               productName="Indomie Goreng"
               thumbnailUrl="https://dummyimage.com/1280x862/e5e5e5/FFFFFF.png&text=Placeholder+Terlaris+1"
               price={3500}
@@ -25,6 +26,7 @@ const RecommendationsSection = ({ className = '' }) => {
 
           <div>
             <ProductItemCard
+              id={1}
               productName="Indomie Goreng"
               thumbnailUrl="https://dummyimage.com/1280x862/e5e5e5/FFFFFF.png&text=Placeholder+Terlaris+2"
               price={3500}
@@ -33,6 +35,7 @@ const RecommendationsSection = ({ className = '' }) => {
 
           <div>
             <ProductItemCard
+              id={1}
               productName="Indomie Goreng"
               thumbnailUrl="https://dummyimage.com/1280x862/e5e5e5/FFFFFF.png&text=Placeholder+Terlaris+3"
               price={3500}
@@ -41,6 +44,7 @@ const RecommendationsSection = ({ className = '' }) => {
 
           <div>
             <ProductItemCard
+              id={1}
               productName="Indomie Goreng"
               thumbnailUrl="https://dummyimage.com/1280x862/e5e5e5/FFFFFF.png&text=Placeholder+Terlaris+4"
               price={3500}
