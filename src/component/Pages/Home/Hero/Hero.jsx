@@ -42,7 +42,7 @@ const Hero = () => {
   };
 
   return (
-    <div className="w-full bg-corak bg-repeat bg-contain pt-16 pb-10">
+    <div className="w-full bg-repeat bg-contain pt-16 pb-10">
       <Swiper
         slidesPerView={1.4}
         centeredSlides={true}
