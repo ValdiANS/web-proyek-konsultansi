@@ -1,6 +1,6 @@
 const express = require('express'),
   app = express(),
-  apiPort = process.env.PORT || 3000,
+  apiPort = process.env.PORT || 8000,
   cors = require('cors'),
   mongoose = require('mongoose'),
   AdminRouter = require('./routes/adminRoutes'), //created route loading here
