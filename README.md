@@ -12,7 +12,7 @@
 - Animxyz (animation)
 - Axios
 
-## Library (Server)
+## Server
 
 - Express
 - Mongoose
@@ -23,6 +23,7 @@
 ## How to Use
 
 To use this project, you can download or clone this repository and then:
+
 1. go to client directory then run `npm install`.
 2. go to server directory then run `npm install`.
 
