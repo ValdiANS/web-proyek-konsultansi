@@ -12,7 +12,7 @@
 - Animxyz (animation)
 - Axios
 
-## Library (Server)
+## Server
 
 - Express
 - Mongoose
