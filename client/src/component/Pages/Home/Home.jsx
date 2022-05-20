@@ -26,7 +26,7 @@ const Home = () => {
           </a>
         </div>
 
-        <h1 className="font-semibold text-5xl">Mari Hijrah Bersama</h1>
+        <h1 className="font-semibold text-5xl text-white">Mari Hijrah Bersama</h1>
       </section>
 
       <div className="bg-corak pt-4 pb-16">

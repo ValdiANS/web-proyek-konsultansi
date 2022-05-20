@@ -89,20 +89,20 @@ const Navbar = () => {
                 <div className="cart__content text-textPrimary text-sm">
                   <div>Keranjang</div>
                   <div className="cart__content__price text-textSecondary">
-                    Rp. 200.000
+                    Rp. 0
                   </div>
                 </div>
               </Link>
 
-              <a
-                href="#userDetailPage"
+              <Link
+                to="/login"
                 className="user flex flex-row items-center gap-x-2 px-4 py-2 rounded-lg duration-200 hover:bg-gray-100 active:brightness-90"
               >
                 <div className="user-icon">
                   <UserIcon className="w-10" />
                 </div>
-                <div className="user-name text-lg font-medium">Rangga</div>
-              </a>
+                <div className="user-name text-lg font-medium">Login</div>
+              </Link>
             </XyzTransitionGroup>
           </div>
         </div>

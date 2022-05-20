@@ -12,6 +12,8 @@ client/dist
 client/dist-ssr
 client/*.local
 
+node_modules
+
 server/data/db/*
 server/node_modules
 

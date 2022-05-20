@@ -3,10 +3,12 @@ import { useState } from 'react';
 import Card from '../../UI/Card';
 import TrashIcon from '../../SVG/TrashIcon';
 import AmountControl from '../../ProductItemCard/AmountControl';
+import { Link } from 'react-router-dom';
 
 const CartItem = ({
   onCheck = () => {},
   onDelete = (name = '') => {},
+  onUncheck = () => {},
   thumbnailUrl = '',
   name = '',
   brand = '',
@@ -24,7 +26,20 @@ const CartItem = ({
   };
 
   const subtractAmountHandler = () => {
-    setItemAmount((prevVal) => (prevVal === 1 ? prevVal : prevVal - 1));
+    setItemAmount((prevVal) => {
+      if (prevVal === 1) {
+        onUncheck({
+          thumbnailUrl,
+          name,
+          brand,
+          price,
+          amount,
+          inStock,
+        });
+      }
+
+      return prevVal === 1 ? prevVal : prevVal - 1;
+    });
   };
 
   const checkboxClickHandler = () => {
@@ -68,7 +83,9 @@ const CartItem = ({
             {inStock ? 'Ada' : 'Tidak ada'} stok
           </div>
           <div>
-            <h1 className="font-bold">{name}</h1>
+            <Link to={`/products/1`}>
+              <h1 className="font-bold">{name}</h1>
+            </Link>
             <p>{brand}</p>
           </div>
         </div>
