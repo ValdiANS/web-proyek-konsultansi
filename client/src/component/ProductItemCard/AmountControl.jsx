@@ -16,5 +16,4 @@ const AmountControl = ({
     </Card>
   );
 };
-
 export default AmountControl;
