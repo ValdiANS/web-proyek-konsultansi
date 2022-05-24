@@ -28,7 +28,7 @@ const ProductItemCard = ({
   };
 
   return (
-    <Card className="border-0.5 border-solid border-textPrimary p-6 bg-white">
+    <Card className="p-6 bg-white shadow-[2px_4px_10px_rgba(0,0,0,0.1)]">
       <div className="img-container">
         <img src={thumbnailUrl} alt={productName} className="rounded-t-10px" />
       </div>

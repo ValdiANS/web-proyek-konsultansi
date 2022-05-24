@@ -4,7 +4,7 @@ import ProductItemCard from '../../ProductItemCard/ProductItemCard';
 const BestSellerSection = ({ className = '' }) => {
   return (
     <section className={`container mx-auto ${className}`}>
-      <h1 className="font-light text-4xl mb-7">
+      <h1 className="font-light text-xl sm:text-4xl mb-7">
         Sort by <strong className="font-bold">Terlaris</strong>
       </h1>
 
@@ -12,7 +12,7 @@ const BestSellerSection = ({ className = '' }) => {
         <XyzTransitionGroup
           appearVisible
           xyz="fade up-100% stagger-1 ease-out-back"
-          className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 justify-between gap-8 lg:gap-x-24"
+          className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-4 justify-between gap-x-2 gap-y-2 sm:gap-8 lg:gap-x-24"
         >
           <div>
             <ProductItemCard

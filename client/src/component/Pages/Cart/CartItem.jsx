@@ -58,7 +58,7 @@ const CartItem = ({
   };
 
   return (
-    <Card className="border border-solid border-black p-3 flex flex-row gap-x-8">
+    <Card className="p-3 flex flex-row gap-x-8 shadow-[0_4px_20px_rgba(0,0,0,0.25)]">
       <div className="flex flex-col justify-between">
         <input
           type="checkbox"
@@ -79,8 +79,12 @@ const CartItem = ({
 
       <div className="flex flex-col justify-between w-full">
         <div>
-          <div className="bg-[#55E322] px-4 py-1 w-fit">
-            {inStock ? 'Ada' : 'Tidak ada'} stok
+          <div
+            className={`${
+              inStock ? 'bg-[#55E322]' : 'bg-[#D80000]'
+            }  px-4 py-1 w-fit`}
+          >
+            {inStock ? 'Ada Stok' : 'Stok Habis'}
           </div>
           <div>
             <Link to={`/products/1`}>

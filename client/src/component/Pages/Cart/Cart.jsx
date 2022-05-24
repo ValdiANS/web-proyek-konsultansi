@@ -1,8 +1,9 @@
 import { Fragment, useState } from 'react';
-import { Link } from 'react-router-dom';
-import ShippingInfoModal from '../../Modal/ShippingInfoModal';
+import { Link, useNavigate } from 'react-router-dom';
+import AppFooter from '../../Layout/AppFooter';
+import AppHeader from '../../Layout/AppHeader';
+import Navbar from '../../Nav/Navbar';
 
-import Card from '../../UI/Card';
 import CartItem from './CartItem';
 
 const dummyCartItems = [
@@ -38,7 +39,7 @@ const dummyCartItems = [
 ];
 
 const Cart = () => {
-  const [isShowModal, setIsShowModal] = useState(false);
+  const navigate = useNavigate();
 
   const [cartItems, setCartItems] = useState([...dummyCartItems]);
   const [checkedItems, setCheckedItems] = useState([...dummyCartItems]);
@@ -107,17 +108,15 @@ const Cart = () => {
     .reduce((prev, current) => prev + current.price, 0)
     .toLocaleString('id-ID');
 
-  const orderBtnClickHandler = () => {
-    setIsShowModal(true);
-  };
-
-  const hideModalHandler = () => {
-    setIsShowModal(false);
+  const lanjutkanPesananBtnClickHandler = () => {
+    navigate('/checkout');
   };
 
   return (
     <Fragment>
-      {isShowModal && <ShippingInfoModal onHide={hideModalHandler} />}
+      <AppHeader>
+        <Navbar />
+      </AppHeader>
 
       <div className="container mx-auto mb-16">
         <div className="breadcumb-container mb-5">
@@ -151,7 +150,7 @@ const Cart = () => {
             </div>
 
             <div className="w-full max-w-xs">
-              <Card className="sticky top-8 p-4 border border-solid border-black">
+              <div className="sticky top-8 px-8 py-12 shadow-[0px_4px_20px_rgba(0,0,0,0.25)]">
                 <h2 className="font-semibold text-lg mb-2">
                   Ringkasan Pembelanjaan
                 </h2>
@@ -180,16 +179,18 @@ const Cart = () => {
                 </div>
 
                 <button
-                  onClick={orderBtnClickHandler}
+                  onClick={lanjutkanPesananBtnClickHandler}
                   className="w-full p-2 mt-4 rounded-10px bg-black font-bold text-center border-2 border-solid border-transparent text-white transition-all duration-200 hover:bg-transparent hover:border-black hover:text-inherit"
                 >
-                  Order Sekarang
+                  Lanjutkan Pesanan
                 </button>
-              </Card>
+              </div>
             </div>
           </div>
         </section>
       </div>
+
+      <AppFooter></AppFooter>
     </Fragment>
   );
 };

@@ -4,7 +4,7 @@ const SlideControllerButton = ({ idx, isActive = false }) => {
   const swiper = useSwiper();
 
   const btnClass = `w-12 h-[5px] cursor-pointer rounded-none duration-500 ${
-    isActive ? 'bg-orange' : 'bg-primary'
+    isActive ? 'bg-black/25' : 'bg-primary'
   }`;
 
   const clickHandler = () => {

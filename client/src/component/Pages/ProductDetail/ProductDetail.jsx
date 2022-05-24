@@ -1,9 +1,40 @@
 import { useState, Fragment } from 'react';
 import { Link } from 'react-router-dom';
 
+import { Pagination } from 'swiper';
+import { Swiper, SwiperSlide, useSwiper } from 'swiper/react';
+
 import AddToCartSuccessHandler from '../../../component/Modal/AddToCartSuccessHandler';
+import SlideControllerButton from '../Home/Hero/SlideControllerButton';
 
 import Card from '../../UI/Card';
+
+import 'swiper/css';
+import 'swiper/css/pagination';
+
+import WhatsappImg from '../../../asset/image/whatsapp-icon.png';
+import AppHeader from '../../Layout/AppHeader';
+import Navbar from '../../Nav/Navbar';
+import AppFooter from '../../Layout/AppFooter';
+
+const imgList = [
+  {
+    url: 'https://dummyimage.com/1200x674/e5e5e5/FFFFFF.png&text=Placeholder+image+1',
+    altText: 'Hero Image 1',
+  },
+  {
+    url: 'https://dummyimage.com/1200x674/e5e5e5/FFFFFF.png&text=Placeholder+image+2',
+    altText: 'Hero Image 2',
+  },
+  {
+    url: 'https://dummyimage.com/1200x674/e5e5e5/FFFFFF.png&text=Placeholder+image+3',
+    altText: 'Hero Image 3',
+  },
+  {
+    url: 'https://dummyimage.com/1200x674/e5e5e5/FFFFFF.png&text=Placeholder+image+4',
+    altText: 'Hero Image 4',
+  },
+];
 
 const ProductDetail = () => {
   const [showAddToCartSuccessHandler, setShowAddToCartSuccessHandler] =
@@ -34,13 +65,29 @@ const ProductDetail = () => {
     setShowAddToCartSuccessHandler(false);
   };
 
+  // UI
+  const [activeImage, setActiveImage] = useState(0);
+
+  const pagination = {
+    clickable: true,
+    type: 'custom',
+
+    renderCustom: (swiper, current, total) => {
+      setActiveImage(current);
+    },
+  };
+
   return (
     <Fragment>
+      <AppHeader>
+        <Navbar />
+      </AppHeader>
+
       {showAddToCartSuccessHandler && (
         <AddToCartSuccessHandler onHide={hideSuccesModalHandler} />
       )}
 
-      <div className="bg-secondary pt-3 pb-24">
+      <div className="bg-secondary pt-3 pb-8">
         <div className="container mx-auto">
           <div className="breadcumb-container">
             <Link to="/" className="text-borderSecondary">
@@ -48,77 +95,124 @@ const ProductDetail = () => {
             </Link>
           </div>
 
-          <div className="product-container mt-8 grid grid-cols-3 gap-x-12 h-full">
-            <Card className="img-slider-container p-8 bg-white h-full">
-              <img
-                src="https://dummyimage.com/1280x862/e5e5e5/FFFFFF.png&text=Placeholder+Terlaris+1"
-                alt="Indomie Goreng"
-                className="rounded-t-10px"
-              />
-            </Card>
+          <div className="product-container mt-8 p-8 h-full bg-white max-w-screen-lg mx-auto">
+            <div>
+              <Swiper
+                slidesPerView={1}
+                centeredSlides={true}
+                spaceBetween={16}
+                pagination={pagination}
+                modules={[Pagination]}
+                className="relative w-full max-w-md"
+              >
+                {imgList.map(({ url, altText }, index) => (
+                  <SwiperSlide key={index + 1}>
+                    <img
+                      src={url}
+                      alt={altText}
+                      className="w-full mx-auto object-cover object-center"
+                    />
+                  </SwiperSlide>
+                ))}
 
-            <Card className="description-container p-8 bg-white">
-              <section>
-                <h1 className="font-bold text-4xl text-[#5E5E5E] mb-4">
-                  Indomie Goreng
-                </h1>
+                <div className="swiper-custom-pagination flex flex-row gap-x-5 justify-center mt-8">
+                  {imgList.map((imgData, index) => {
+                    const isActive = index + 1 === activeImage;
 
-                <p>
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  Suscipit libero non repellendus ipsa molestiae reiciendis
-                  natus impedit tempora rem sapiente.
-                </p>
+                    return (
+                      <SlideControllerButton
+                        key={index + 1}
+                        idx={index}
+                        isActive={isActive}
+                      />
+                    );
+                  })}
+                </div>
+              </Swiper>
+            </div>
+
+            <div className="mt-16 flex flex-row gap-x-10">
+              <section className="w-full">
+                <div>
+                  <h1 className="text-4xl font-bold mb-2">Indomie Goreng</h1>
+                  <div className="text-base font-semibold text-[#5E5E5E]">
+                    1 pcs
+                  </div>
+                </div>
+
+                <div className="mt-16">
+                  <h2 className="text-base font-semibold mb-5">
+                    Deskripsi Produk
+                  </h2>
+
+                  <table>
+                    <tr>
+                      <td className="pb-4 text-[#5E5E5E]">Brand</td>
+
+                      <td className="pb-4 pl-8 text-[#2B77EE]">Indofood</td>
+                    </tr>
+
+                    <tr>
+                      <td className="pb-4 text-[#5E5E5E]">Kategori</td>
+
+                      <td className="pb-4 pl-8 text-[#ED8C1D]">Makanan</td>
+                    </tr>
+
+                    <tr>
+                      <td className="pb-4 text-[#5E5E5E]">Berat/Ukuran</td>
+
+                      <td className="pb-4 pl-8 text-textSecondary">85 gr</td>
+                    </tr>
+                  </table>
+                </div>
               </section>
-            </Card>
 
-            <div className="flex flex-col gap-y-8">
-              <Card className="p-8 bg-white">
-                <h2 className="font-bold text-3xl text-[#5E5E5E] text-center mb-4">
-                  Rp{localPrice}
-                </h2>
+              <div className="w-full">
+                <div>
+                  <span className="block text-center text-3xl font-bold text-[#5E5E5E] mb-4">
+                    Rp3.500
+                  </span>
 
-                <Card className="flex flex-row justify-around items-center border border-solid border-borderSecondary">
-                  <button
-                    onClick={subtractAmountHandler}
-                    className="w-8 h-8 rounded-full bg-primary text-white"
-                  >
-                    -
-                  </button>
-                  <span>{itemAmount}</span>
-                  <button
-                    onClick={addAmountHandler}
-                    className="w-8 h-8 rounded-full bg-primary text-white"
-                  >
-                    +
-                  </button>
-                </Card>
+                  <Card className="flex flex-row justify-around items-center border border-solid border-borderSecondary">
+                    <button
+                      onClick={subtractAmountHandler}
+                      className="w-8 h-8 rounded-full bg-primary text-white"
+                    >
+                      -
+                    </button>
+                    <span>{itemAmount}</span>
+                    <button
+                      onClick={addAmountHandler}
+                      className="w-8 h-8 rounded-full bg-primary text-white"
+                    >
+                      +
+                    </button>
+                  </Card>
 
-                <Card className="overflow-hidden mt-4">
-                  <button
-                    onClick={addToCartHandler}
-                    className="w-full bg-darkOrange py-2 font-semibold text-center"
-                  >
-                    Add to Cart
-                  </button>
-                </Card>
-              </Card>
+                  <Card className="overflow-hidden mt-4">
+                    <button
+                      onClick={addToCartHandler}
+                      className="w-full bg-darkOrange py-2 font-semibold text-center"
+                    >
+                      Add to Cart
+                    </button>
+                  </Card>
 
-              <Card className="bg-white flex flex-row items-center">
-                <div className="img-container py-4 px-5 border-r-8 border-solid border-black mr-5">
-                  <img
-                    src="https://dummyimage.com/100x100/e5e5e5/FFFFFF.png&text=Whatsapp"
-                    alt="Whatsapp"
-                    className="w-14 h-14 rounded-full"
-                  />
+                  <div className="flex flex-row gap-x-2 justify-center items-center mt-8">
+                    <img src={WhatsappImg} alt="Whatsapp Icon" />
+
+                    <span className="text-3xl text-[#5E5E5E] font-bold">
+                      081234567890
+                    </span>
+                  </div>
                 </div>
-                <div className="phone-number font-bold text-3xl text-[#5E5E5E]">
-                  081234567890
-                </div>
-              </Card>
+              </div>
             </div>
           </div>
         </div>
       </div>
+
+      <AppFooter />
     </Fragment>
   );
 };

@@ -10,7 +10,7 @@ const CategoryCard = forwardRef(
         <Link to={to} className="block w-full h-full px-8 py-6 ">
           <small className="text-sm">Best Sellers</small>
 
-          <h2 className="text-xl">{title}</h2>
+          <h2 className="sm:text-xl">{title}</h2>
         </Link>
       </Card>
     );

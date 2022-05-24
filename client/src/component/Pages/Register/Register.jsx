@@ -1,6 +1,9 @@
 import { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
+import AppFooter from '../../Layout/AppFooter';
+import AppHeader from '../../Layout/AppHeader';
 import RegisterSuccessModal from '../../Modal/RegisterSuccessModal';
+import Navbar from '../../Nav/Navbar';
 
 const Register = () => {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
@@ -18,6 +21,10 @@ const Register = () => {
 
   return (
     <Fragment>
+      <AppHeader>
+        <Navbar />
+      </AppHeader>
+
       {showSuccessModal && (
         <RegisterSuccessModal onHide={hideSuccessModalHandler} />
       )}
@@ -139,6 +146,8 @@ const Register = () => {
           </section>
         </div>
       </div>
+
+      <AppFooter />
     </Fragment>
   );
 };

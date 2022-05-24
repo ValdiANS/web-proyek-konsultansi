@@ -1,4 +1,8 @@
+import { Fragment } from 'react';
 import { Link } from 'react-router-dom';
+import AppFooter from '../../Layout/AppFooter';
+import AppHeader from '../../Layout/AppHeader';
+import Navbar from '../../Nav/Navbar';
 
 const ForgetPassword = () => {
   const sendEmailSubmitHandler = (e) => {
@@ -8,47 +12,55 @@ const ForgetPassword = () => {
   };
 
   return (
-    <div className="container mx-auto mb-16">
-      <div className="breadcumb-container mb-5">
-        <Link to="/login" className="text-borderSecondary">
-          Login
-        </Link>
-      </div>
+    <Fragment>
+      <AppHeader>
+        <Navbar />
+      </AppHeader>
 
-      <div className="w-full max-w-screen-md mx-auto">
-        <section>
-          <h1 className="text-3xl font-bold">Apa anda melupakan password?</h1>
+      <div className="container mx-auto mb-16">
+        <div className="breadcumb-container mb-5">
+          <Link to="/login" className="text-borderSecondary">
+            Login
+          </Link>
+        </div>
 
-          <p className="font-light mt-2">
-            Jika anda lupa, ketikkan email anda yang digunakan untuk login. Kami
-            akan mengirimkan email berisikan password sementara
-          </p>
+        <div className="w-full max-w-screen-md mx-auto">
+          <section>
+            <h1 className="text-3xl font-bold">Apa anda melupakan password?</h1>
 
-          <form
-            onSubmit={sendEmailSubmitHandler}
-            className="max-w-[350px] mt-8 space-y-6"
-          >
-            <div className="input flex flex-col">
-              <label htmlFor="email" className="text-lg">
-                Email
-              </label>
-              <input
-                type="email"
-                id="email"
-                className="border-b border-b-solid border-b-black"
-              />
-            </div>
+            <p className="font-light mt-2">
+              Jika anda lupa, ketikkan email anda yang digunakan untuk login.
+              Kami akan mengirimkan email berisikan password sementara
+            </p>
 
-            <button
-              type="submit"
-              className="w-full max-w-[350px] bg-primary px-x py-2 text-white"
+            <form
+              onSubmit={sendEmailSubmitHandler}
+              className="max-w-[350px] mt-8 space-y-6"
             >
-              KIRIM
-            </button>
-          </form>
-        </section>
+              <div className="input flex flex-col">
+                <label htmlFor="email" className="text-lg">
+                  Email
+                </label>
+                <input
+                  type="email"
+                  id="email"
+                  className="border-b border-b-solid border-b-black"
+                />
+              </div>
+
+              <button
+                type="submit"
+                className="w-full max-w-[350px] bg-primary px-x py-2 text-white"
+              >
+                KIRIM
+              </button>
+            </form>
+          </section>
+        </div>
       </div>
-    </div>
+
+      <AppFooter />
+    </Fragment>
   );
 };
 

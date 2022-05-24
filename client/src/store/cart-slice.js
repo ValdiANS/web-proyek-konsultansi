@@ -3,23 +3,31 @@ import { createSlice } from '@reduxjs/toolkit';
 /*
 cart item data schema:
 {
-  id: 1,
-  name: 'Test',
-  price: 6,
-  quantity: 3,
-  total: 18
-}
+    id: 0
+    thumbnailUrl:
+      'https://dummyimage.com/1280x862/e5e5e5/FFFFFF.png&text=Cart+Item+1',
+    name: 'Indomie Goreng 1',
+    brand: 'Indofood',
+    price: 3500,
+    quantity: 1,
+    inStock: true,
+    selected: false
+  },
+
 */
 
 const checkIsItemExist = (
   targetItem = {
     id: 0,
+    thumbnailUrl: '',
     name: '',
+    brand: '',
     price: 0,
-    description: '',
     quantity: 0,
-    total: 0,
+    inStock: true,
+    selected: false,
   },
+
   items = []
 ) => {
   const idx = items.findIndex((item) => item.id === targetItem.id);
@@ -36,32 +44,23 @@ const checkIsItemExist = (
   };
 };
 
+const calculateTotalPrice = (items = []) => {
+  const totalPrice = items.reduce((prev, current) => prev + current.price, 0);
+
+  return totalPrice;
+};
+
 const initialCartState = {
-  items: [
-    {
-      id: 0,
-      name: 'Test Item',
-      quantity: 3,
-      price: 6,
-      total: 18,
-    },
-  ],
-  totalQuantity: 3,
-  changed: false,
+  items: [],
+  totalQuantity: 0,
+  totalPrice: 0,
 };
 
 const cartSlice = createSlice({
   name: 'cart',
   initialState: initialCartState,
   reducers: {
-    replaceCart(state, action) {
-      state.items = action.payload.items || [];
-      state.totalQuantity = action.payload.totalQuantity;
-    },
-
     addCartItem(state, action) {
-      state.changed = true;
-
       try {
         const item = action.payload.item;
         const checkItem = checkIsItemExist(item, state.items);
@@ -78,6 +77,8 @@ const cartSlice = createSlice({
         state.items[checkItem.itemIndex].total =
           state.items[checkItem.itemIndex].price *
           state.items[checkItem.itemIndex].quantity;
+
+        state.totalPrice = calculateTotalPrice(state.items);
       } catch (err) {
         alert(err.message);
         console.log('Error:');
@@ -86,24 +87,22 @@ const cartSlice = createSlice({
     },
 
     increaseItemQuantity(state, action) {
-      state.changed = true;
-
-      state.totalQuantity += action.payload.amount;
+      state.totalQuantity += action.payload.quantity;
 
       const itemIndex = state.items.findIndex(
         (item) => item.id === action.payload.id
       );
 
-      state.items[itemIndex].quantity += action.payload.amount;
+      state.items[itemIndex].quantity += action.payload.quantity;
 
       state.items[itemIndex].total =
         state.items[itemIndex].price * state.items[itemIndex].quantity;
+
+      state.totalPrice = calculateTotalPrice(state.items);
     },
 
     decreaseItemQuantity(state, action) {
-      state.changed = true;
-
-      state.totalQuantity -= action.payload.amount;
+      state.totalQuantity -= action.payload.quantity;
 
       const itemIndex = state.items.findIndex(
         (item) => item.id === action.payload.id
@@ -112,14 +111,32 @@ const cartSlice = createSlice({
       const itemQuantity = state.items[itemIndex].quantity;
 
       if (itemQuantity === 1) {
-        state.items.splice(itemIndex, 1);
+        // state.items.splice(itemIndex, 1);
         return;
       }
 
-      state.items[itemIndex].quantity -= action.payload.amount;
+      state.items[itemIndex].quantity -= action.payload.quantity;
 
       state.items[itemIndex].total =
         state.items[itemIndex].price * state.items[itemIndex].quantity;
+
+      state.totalPrice = calculateTotalPrice(state.items);
+    },
+
+    selectItem(state, action) {
+      const itemIndex = state.items.findIndex(
+        (item) => item.id === action.payload.id
+      );
+
+      state.items[itemIndex].selected = true;
+    },
+
+    unselectItem(state, action) {
+      const itemIndex = state.items.findIndex(
+        (item) => item.id === action.payload.id
+      );
+
+      state.items[itemIndex].selected = false;
     },
   },
 });

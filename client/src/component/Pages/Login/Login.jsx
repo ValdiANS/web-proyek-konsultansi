@@ -1,6 +1,9 @@
 import { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
+import AppFooter from '../../Layout/AppFooter';
+import AppHeader from '../../Layout/AppHeader';
 import LoginSuccessModal from '../../Modal/LoginSuccessModal';
+import Navbar from '../../Nav/Navbar';
 
 const Login = () => {
   const [showLoginSuccessModal, setShowLoginSuccessModal] = useState(false);
@@ -24,6 +27,10 @@ const Login = () => {
 
   return (
     <Fragment>
+      <AppHeader>
+        <Navbar />
+      </AppHeader>
+
       {showLoginSuccessModal && (
         <LoginSuccessModal
           onHide={hideLoginSuccessModalHandler}
@@ -90,7 +97,7 @@ const Login = () => {
               maka pilih opsi ini untuk mendaftar
             </p>
 
-            <div className="flex flex-row justify-center">
+            <div className="flex flex-row justify-start">
               <Link
                 to="/register"
                 className="w-full max-w-[350px] bg-primary px-x py-2 text-white block text-center"
@@ -101,6 +108,8 @@ const Login = () => {
           </section>
         </div>
       </div>
+
+      <AppFooter />
     </Fragment>
   );
 };
