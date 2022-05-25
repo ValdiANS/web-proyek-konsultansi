@@ -95,7 +95,9 @@ const MobileNavbar = ({
           >
             <Link
               to="/cart"
-              className="cart flex flex-row items-center gap-x-4 px-2 py-2 rounded-lg duration-200 hover:bg-gray-100 active:brightness-90 sm:px-4"
+              className={`${
+                hideCartBtn ? 'invisible' : ''
+              } cart flex flex-row items-center gap-x-4 px-2 py-2 rounded-lg duration-200 hover:bg-gray-100 active:brightness-90 sm:px-4`}
             >
               <div className="cart-icon">
                 <CartIcon className="w-8" />
