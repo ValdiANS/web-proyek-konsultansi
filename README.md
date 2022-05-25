@@ -19,6 +19,7 @@
 - Nodemon
 - Cors
 - Body-parser
+- EJS (Embedded JavaScript)
 
 ## How to Use
 
