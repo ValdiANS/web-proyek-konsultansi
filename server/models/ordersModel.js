@@ -4,10 +4,10 @@ var Schema = mongoose.Schema;
 
 var OrdersSchema = new Schema({
   id_user:{
-    type: Number
+    type: String
   },
   id_cart:{
-    type: Number
+    type: String
   },
   jumlah_bayar:{
     type: Number,

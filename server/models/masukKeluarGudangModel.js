@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 
 var MasukKeluarGudangSchema = new Schema({
   id_produk:{
-    type: Number
+    type: String
   },
   jumlah_produk:{
     type: Number

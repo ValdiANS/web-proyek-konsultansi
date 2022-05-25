@@ -7,6 +7,7 @@ const express = require('express'),
   CartRouter = require('./routes/cartRoutes'), 
   DetailCartRouter = require('./routes/detailCartRoutes'), 
   DetailWishlistRouter = require('./routes/detailWishlistRoutes'), 
+  KategoriRouter = require('./routes/kategoriRoutes'), 
   MasukKeluarGudangRouter = require('./routes/masukKeluarGudangRoutes'), 
   OrdersRouter = require('./routes/ordersRoutes'), 
   ProdukRouter = require('./routes/produkRoutes'), 
@@ -35,6 +36,7 @@ app.use('/api', AdminRouter)
 app.use('/api', CartRouter)
 app.use('/api', DetailCartRouter)
 app.use('/api', DetailWishlistRouter)
+app.use('/api', KategoriRouter)
 app.use('/api', MasukKeluarGudangRouter)
 app.use('/api', OrdersRouter)
 app.use('/api', ProdukRouter)

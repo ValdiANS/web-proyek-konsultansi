@@ -1,6 +1,6 @@
 # Web Grosir Hijrah
 
-## Tech Stack
+## Tech Stacke
 
 - React
 - Tailwind CSS

@@ -4,10 +4,10 @@ var Schema = mongoose.Schema;
 
 var DetailWishlistSchema = new Schema({
   id_wishlist:{
-    type: Number
+    type: String
   },
   id_produk:{
-  	type: Number
+  	type: String
   }
 });
 
