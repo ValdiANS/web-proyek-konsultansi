@@ -4,7 +4,7 @@ var Schema = mongoose.Schema;
 
 var WishlistSchema = new Schema({
   id_user:{
-    type: Number
+    type: String
   }
 });
 

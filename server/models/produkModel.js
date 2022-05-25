@@ -6,6 +6,16 @@ var ProdukSchema = new Schema({
   nama:{
     type: String
   },
+  brand:{
+    type: String
+  },
+  berat:{
+    type: Number,
+    default: 0
+  },
+  id_kategori:{
+    type: String,
+  },
   harga:{
     type: Number
   },
