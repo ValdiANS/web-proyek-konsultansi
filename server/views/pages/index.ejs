@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('../partials/head'); %>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col">
+                <div class="d-flex align-items-start">
+                    <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                      <button class="nav-link active" id="homeTab" data-bs-toggle="pill" data-bs-target="#homePane" type="button" role="tab" aria-controls="homePane" aria-selected="true">Home</button>
+                      <button class="nav-link" id="routesTab" data-bs-toggle="pill" data-bs-target="#routesPane" type="button" role="tab" aria-controls="routesPane" aria-selected="false">Routes</button>
+                    </div>
+                    <div class="tab-content ms-3" id="v-pills-tabContent">
+                        <div class="tab-pane fade show active" id="homePane" role="tabpanel" aria-labelledby="homeTab" tabindex="0">
+                            <h3>Welcome to TokoHijrah API</h3>
+                            <p>Yo!</p>
+                        </div>
+                        <div class="tab-pane fade" id="routesPane" role="tabpanel" aria-labelledby="routesTab" tabindex="0">
+                            <h3>Routes</h3>
+                            <p>The routes will be described here!</p>
+                            <p><strong>Notes: all of the routes are same.</strong></p>
+                            <hr>
+                            <h3>Model Name (misal: Admin)</h3>
+                            <ul>
+                                <li>
+                                    <p><strong>api/modelName (misal: api/admin):</strong> di sini ada beberapa method (<strong>GET</strong>, <strong>POST</strong>, <strong>PUT</strong>, <strong>DELETE</strong>)</p>
+                                    <ul>
+                                        <li>
+                                            <p>
+                                                <strong>GET</strong> <span class="badge bg-warning">butuh id</span> : fungsinya buat nampilin satu data sesuai dengan id yang diakses dan nanti di bagian link itu jadi api/admin/_id (misal: api/admin/628e57d2105a2a7dea61fd40).
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <p>
+                                                <strong>POST</strong> <span class="badge bg-success">ngga butuh id</span> : fungsinya buat create data dan caranya tinggal dimasukin aja datanya ke bagian body (JSON)
+                                                <br>contoh: {
+                                                    <br>&emsp;"nama": "Administrator 1",
+                                                    <br>&emsp;"username": "admin",
+                                                    <br>&emsp;"password": "admin123",
+                                                    <br>&emsp;"email": "admin@mail.com"
+                                                <br>}
+                                            </p>
+                                        </li>
+                                        <li>
+                                            <p><strong>PUT</strong> <span class="badge bg-warning">butuh id</span> : fungsinya buat ngerubah satu data sesuai dengan id yang diakses dan ini mirip kek method <strong>GET</strong> (di bagian link itu ngaksesnya sama api/admin/_id (misal: api/admin/628e57d2105a2a7dea61fd40)), bedanya dia ada body (JSON) buat data perubahannya.</p>
+                                        </li>
+                                        <li>
+                                            <p><strong>DELETE</strong> <span class="badge bg-warning">butuh id</span> : fungsinya buat ngehapus satu data sesuai dengan id yang diakses dan ini mirip kek method <strong>GET</strong> (di bagian link itu ngaksesnya sama api/admin/_id (misal: api/admin/628e57d2105a2a7dea61fd40)), bedanya di fungsi buat ngehapus.</p>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <p><strong>api/modelName+s (misal: api/admins):</strong> di sini ada satu method (<strong>GET</strong>)</p>
+                                    <ul>
+                                        <li>
+                                            <p><strong>GET</strong> <span class="badge bg-success">ngga butuh id</span> : fungsinya buat nampilin semua data dari model (misal: Admin).</p>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                  </div>
+            </div>
+        </div>
+    </div>
+    <footer>
+        <%- include('../partials/footer'); %>
+    </footer>
+    <%- include('../partials/script'); %>
+</body>
+</html>
