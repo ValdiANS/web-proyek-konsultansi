@@ -1,5 +1,5 @@
 import { Fragment, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import useWindowSize from '../../../hooks/useWindowSize';
 import { screenConfig } from '../../../script/config/config';
 import AppFooter from '../../Layout/AppFooter';
@@ -9,6 +9,8 @@ import MobileNavbar from '../../Nav/MobileNavbar';
 import Navbar from '../../Nav/Navbar';
 
 const RegisterDesktop = () => {
+  const navigate = useNavigate();
+
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const registerSubmitHandler = (e) => {
@@ -20,6 +22,8 @@ const RegisterDesktop = () => {
 
   const hideSuccessModalHandler = () => {
     setShowSuccessModal(false);
+
+    navigate('/login');
   };
 
   return (
@@ -156,6 +160,8 @@ const RegisterDesktop = () => {
 };
 
 const RegisterMobile = () => {
+  const navigate = useNavigate();
+
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const registerSubmitHandler = (e) => {
@@ -167,6 +173,8 @@ const RegisterMobile = () => {
 
   const hideSuccessModalHandler = () => {
     setShowSuccessModal(false);
+
+    navigate('/login');
   };
 
   return (
