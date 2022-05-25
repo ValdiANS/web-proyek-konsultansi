@@ -58,52 +58,60 @@ const CartItem = ({
   };
 
   return (
-    <Card className="p-3 flex flex-row gap-x-8 shadow-[0_4px_20px_rgba(0,0,0,0.25)]">
+    <Card className="p-3 flex flex-row gap-x-2 sm:gap-x-8 shadow-[0_4px_20px_rgba(0,0,0,0.25)]">
       <div className="flex flex-col justify-between">
         <input
           type="checkbox"
           name="check"
-          className="w-6 h-6"
+          className="w-5 h-5 sm:w-6 sm:h-6"
           onChange={checkboxClickHandler}
           checked={checked}
         />
 
         <button onClick={deleteClickHandler}>
-          <TrashIcon />
+          <TrashIcon className="w-5 sm:w-auto" />
         </button>
       </div>
 
-      <Card className="border border-solid border-black p-4 max-w-[14rem]">
-        <img src={thumbnailUrl} alt={name} className="rounded-t-10px w-full" />
+      <Card className="sm:border sm:border-solid sm:border-black sm:p-4 max-w-[100px] sm:max-w-[14rem] flex flex-row items-center">
+        <img
+          src={thumbnailUrl}
+          alt={name}
+          className="sm:rounded-t-10px w-full"
+        />
       </Card>
 
-      <div className="flex flex-col justify-between w-full">
-        <div>
-          <div
-            className={`${
-              inStock ? 'bg-[#55E322]' : 'bg-[#D80000]'
-            }  px-4 py-1 w-fit`}
-          >
-            {inStock ? 'Ada Stok' : 'Stok Habis'}
+      <div className="flex flex-col sm:flex-row sm:gap-x-8 gap-y-2">
+        <div className="flex flex-row sm:flex-col justify-between w-full gap-x-4">
+          <div className="w-full">
+            <div
+              className={`${
+                inStock ? 'bg-[#55E322]' : 'bg-[#D80000]'
+              }  px-4 py-1 w-fit text-xs sm:text-base`}
+            >
+              {inStock ? 'Ada Stok' : 'Stok Habis'}
+            </div>
+
+            <div>
+              <Link to={`/products/1`}>
+                <h1 className="text-sm sm:text-base font-bold">{name}</h1>
+              </Link>
+
+              <p className="text-xs sm:text-base">{brand}</p>
+            </div>
           </div>
-          <div>
-            <Link to={`/products/1`}>
-              <h1 className="font-bold">{name}</h1>
-            </Link>
-            <p>{brand}</p>
-          </div>
+
+          <div className="text-textSecondary self-end">Rp{localPrice}</div>
         </div>
 
-        <div className="text-textSecondary">Rp{localPrice}</div>
-      </div>
-
-      <div className="grid place-items-end justify-end w-full">
-        <AmountControl
-          amount={itemAmount}
-          onAddAmount={addAmountHandler}
-          onSubtractAmount={subtractAmountHandler}
-          className="p-2 border-black gap-x-8"
-        />
+        <div className="grid place-items-end justify-start sm:justify-end w-full">
+          <AmountControl
+            amount={itemAmount}
+            onAddAmount={addAmountHandler}
+            onSubtractAmount={subtractAmountHandler}
+            className="p-2 border-black gap-x-8"
+          />
+        </div>
       </div>
     </Card>
   );

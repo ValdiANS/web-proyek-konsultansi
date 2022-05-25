@@ -23,7 +23,7 @@ const Categories = () => {
       </AppHeader>
 
       <div className="container mx-auto mt-3 mb-24 px-4 sm:px-0">
-        <div className="breadcumb-container">
+        <div className="breadcumb-container hidden sm:block">
           <Link to="/" className="text-borderSecondary">
             Home
           </Link>

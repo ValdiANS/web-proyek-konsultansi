@@ -12,8 +12,6 @@ const CheckoutItem = ({
 
   return (
     <Card className="p-3 flex flex-row gap-x-8 shadow-[0_4px_20px_rgba(0,0,0,0.25)]">
-      <div className="flex flex-col justify-between"></div>
-
       <Card className="border border-solid border-black p-4 max-w-[14rem]">
         <img src={thumbnailUrl} alt={name} className="rounded-t-10px w-full" />
       </Card>

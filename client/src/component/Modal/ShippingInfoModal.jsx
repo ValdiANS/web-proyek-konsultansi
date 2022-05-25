@@ -7,7 +7,7 @@ const ShippingInfoModal = ({ onHide }) => {
 
   return (
     <Modal onHide={onHide}>
-      <div className="w-[400px] bg-white py-12 px-8 relative">
+      <div className="w-[320px] sm:w-[400px] bg-white py-12 px-8 relative">
         <button onClick={onHide} className="absolute -top-7 -right-6 text-5xl">
           ⓧ
         </button>
@@ -54,9 +54,9 @@ const ShippingInfoModal = ({ onHide }) => {
             <div className="flex flex-row justify-center">
               <button
                 type="submit"
-                className="w-full bg-primary px-x py-2 text-white"
+                className="w-full bg-[#4E9F3D] px-x py-2 text-white rounded-10px mt-8"
               >
-                Lanjutkan
+                LANJUTKAN KE WHATSAPP
               </button>
             </div>
           </div>
