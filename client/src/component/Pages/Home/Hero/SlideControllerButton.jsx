@@ -3,8 +3,8 @@ import { useSwiper } from 'swiper/react';
 const SlideControllerButton = ({ idx, isActive = false }) => {
   const swiper = useSwiper();
 
-  const btnClass = `w-12 h-[5px] cursor-pointer rounded-none duration-500 ${
-    isActive ? 'bg-orange' : 'bg-primary'
+  const btnClass = `w-4 sm:w-12 h-[4px] sm:h-[5px] cursor-pointer rounded-none duration-500 ${
+    isActive ? 'bg-black/25' : 'bg-primary'
   }`;
 
   const clickHandler = () => {

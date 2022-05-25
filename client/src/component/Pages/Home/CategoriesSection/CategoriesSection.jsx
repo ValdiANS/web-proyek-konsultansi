@@ -7,7 +7,7 @@ import CategoryCard from './CategoryCard';
 const CategoriesSection = ({ className = '' }) => {
   return (
     <section className={`container mx-auto ${className}`}>
-      <h1 className="font-light text-4xl mb-7">
+      <h1 className="font-light text-xl sm:text-4xl mb-7">
         Browse by <strong className="font-bold">Categories</strong>
       </h1>
 

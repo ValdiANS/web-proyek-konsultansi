@@ -8,7 +8,7 @@ const MarqueeBrandSection = ({ className = '' }) => {
       <XyzTransition appearVisible xyz="fade down-3 ease-in-out-back">
         <Swiper
           slidesPerView={'auto'}
-          spaceBetween={110}
+          spaceBetween={64}
           loop={true}
           autoplay={{
             delay: 1500,

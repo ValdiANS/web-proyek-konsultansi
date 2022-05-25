@@ -1,13 +1,17 @@
 import { XyzTransition } from '@animxyz/react';
 
 import { Swiper, SwiperSlide } from 'swiper/react';
+import useWindowSize from '../../../../hooks/useWindowSize';
+import { screenConfig } from '../../../../script/config/config';
 
 import FeaturedCard from './FeaturedCard';
 
 const FeaturedSection = ({ className = '' }) => {
+  const [screenWidth, screenHeight] = useWindowSize();
+
   return (
     <section className={`featured-brand container mx-auto ${className}`}>
-      <h1 className="font-light text-4xl mb-7">
+      <h1 className="font-light text-xl sm:text-4xl mb-7">
         Featured <strong className="font-bold">Brand</strong>
       </h1>
 
@@ -15,6 +19,7 @@ const FeaturedSection = ({ className = '' }) => {
         <XyzTransition appearVisible xyz="fade left-100% ease-ease">
           <Swiper
             slidesPerView={'auto'}
+            centeredSlides={screenWidth <= screenConfig.sm}
             spaceBetween={24}
             className="cursor-grab active:cursor-grabbing"
           >
