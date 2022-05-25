@@ -19,6 +19,10 @@ const express = require('express'),
 mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/TokoHijrahDB'); 
 
+app.set('view engine', 'ejs')
+app.set('views', 'views/pages')
+app.use(express.static('public'))
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(bodyParser.json());
@@ -29,7 +33,7 @@ app.use(bodyParser.json());
 routes(app); //register the route*/
 
 app.get('/', (req, res) => {
-    res.send('Hello World!')
+    res.render('')
 })
 
 app.use('/api', AdminRouter)
