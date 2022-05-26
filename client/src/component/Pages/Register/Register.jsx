@@ -8,24 +8,11 @@ import RegisterSuccessModal from '../../Modal/RegisterSuccessModal';
 import MobileNavbar from '../../Nav/MobileNavbar';
 import Navbar from '../../Nav/Navbar';
 
-const RegisterDesktop = () => {
-  const navigate = useNavigate();
-
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
-
-  const registerSubmitHandler = (e) => {
-    e.preventDefault();
-    alert('Register submitted!');
-
-    setShowSuccessModal(true);
-  };
-
-  const hideSuccessModalHandler = () => {
-    setShowSuccessModal(false);
-
-    navigate('/login');
-  };
-
+const RegisterDesktop = ({
+  showSuccessModal = false,
+  registerSubmitHandler = (e) => {},
+  hideSuccessModalHandler = () => {},
+}) => {
   return (
     <Fragment>
       <AppHeader>
@@ -60,7 +47,7 @@ const RegisterDesktop = () => {
                   />
                 </div>
 
-                <div className="input flex flex-col">
+                <div className="input flex flex-col col-start-1 col-end-2">
                   <label htmlFor="password" className="text-lg">
                     Password
                   </label>
@@ -104,7 +91,7 @@ const RegisterDesktop = () => {
                   />
                 </div>
 
-                <div className="input flex flex-col">
+                <div className="input flex flex-col col-start-1 col-end-3">
                   <label htmlFor="address" className="text-lg">
                     Alamat
                   </label>
@@ -159,24 +146,11 @@ const RegisterDesktop = () => {
   );
 };
 
-const RegisterMobile = () => {
-  const navigate = useNavigate();
-
-  const [showSuccessModal, setShowSuccessModal] = useState(false);
-
-  const registerSubmitHandler = (e) => {
-    e.preventDefault();
-    alert('Register submitted!');
-
-    setShowSuccessModal(true);
-  };
-
-  const hideSuccessModalHandler = () => {
-    setShowSuccessModal(false);
-
-    navigate('/login');
-  };
-
+const RegisterMobile = ({
+  showSuccessModal = false,
+  registerSubmitHandler = (e) => {},
+  hideSuccessModalHandler = () => {},
+}) => {
   return (
     <Fragment>
       <AppHeader>
@@ -314,17 +288,42 @@ const RegisterMobile = () => {
 const Register = () => {
   const [screenWidth, screenHeight] = useWindowSize();
 
+  const navigate = useNavigate();
+
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
+
+  const registerSubmitHandler = (e) => {
+    e.preventDefault();
+    alert('Register submitted!');
+
+    setShowSuccessModal(true);
+  };
+
+  const hideSuccessModalHandler = () => {
+    setShowSuccessModal(false);
+
+    navigate('/login');
+  };
+
   if (screenWidth <= screenConfig.sm) {
     return (
       <Fragment>
-        <RegisterMobile />
+        <RegisterMobile
+          showSuccessModal={showSuccessModal}
+          registerSubmitHandler={registerSubmitHandler}
+          hideSuccessModalHandler={hideSuccessModalHandler}
+        />
       </Fragment>
     );
   }
 
   return (
     <Fragment>
-      <RegisterDesktop />
+      <RegisterDesktop
+        showSuccessModal={showSuccessModal}
+        registerSubmitHandler={registerSubmitHandler}
+        hideSuccessModalHandler={hideSuccessModalHandler}
+      />
     </Fragment>
   );
 };

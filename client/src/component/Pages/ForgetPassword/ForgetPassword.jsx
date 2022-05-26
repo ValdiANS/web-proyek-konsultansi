@@ -7,17 +7,7 @@ import AppHeader from '../../Layout/AppHeader';
 import MobileNavbar from '../../Nav/MobileNavbar';
 import Navbar from '../../Nav/Navbar';
 
-const ForgetPasswordDesktop = () => {
-  const navigate = useNavigate();
-
-  const sendEmailSubmitHandler = (e) => {
-    e.preventDefault();
-
-    alert('Email submitted!');
-
-    navigate('/');
-  };
-
+const ForgetPasswordDesktop = ({ sendEmailSubmitHandler = () => {} }) => {
   return (
     <Fragment>
       <AppHeader>
@@ -71,17 +61,7 @@ const ForgetPasswordDesktop = () => {
   );
 };
 
-const ForgetPasswordMobile = () => {
-  const navigate = useNavigate();
-
-  const sendEmailSubmitHandler = (e) => {
-    e.preventDefault();
-
-    alert('Email submitted!');
-
-    navigate('/');
-  };
-
+const ForgetPasswordMobile = ({ sendEmailSubmitHandler = () => {} }) => {
   return (
     <Fragment>
       <AppHeader>
@@ -134,17 +114,27 @@ const ForgetPasswordMobile = () => {
 const ForgetPassword = () => {
   const [screenWidth, screenHeight] = useWindowSize();
 
+  const navigate = useNavigate();
+
+  const sendEmailSubmitHandler = (e) => {
+    e.preventDefault();
+
+    alert('Email submitted!');
+
+    navigate('/');
+  };
+
   if (screenWidth <= screenConfig.sm) {
     return (
       <Fragment>
-        <ForgetPasswordMobile />
+        <ForgetPasswordMobile sendEmailSubmitHandler={sendEmailSubmitHandler} />
       </Fragment>
     );
   }
 
   return (
     <Fragment>
-      <ForgetPasswordDesktop />
+      <ForgetPasswordDesktop sendEmailSubmitHandler={sendEmailSubmitHandler} />
     </Fragment>
   );
 };

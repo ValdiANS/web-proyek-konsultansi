@@ -17,54 +17,19 @@ import AppHeader from '../../Layout/AppHeader';
 import Navbar from '../../Nav/Navbar';
 import AppFooter from '../../Layout/AppFooter';
 
-const imgList = [
-  {
-    url: 'https://dummyimage.com/1200x674/e5e5e5/FFFFFF.png&text=Placeholder+image+1',
-    altText: 'Hero Image 1',
-  },
-  {
-    url: 'https://dummyimage.com/1200x674/e5e5e5/FFFFFF.png&text=Placeholder+image+2',
-    altText: 'Hero Image 2',
-  },
-  {
-    url: 'https://dummyimage.com/1200x674/e5e5e5/FFFFFF.png&text=Placeholder+image+3',
-    altText: 'Hero Image 3',
-  },
-  {
-    url: 'https://dummyimage.com/1200x674/e5e5e5/FFFFFF.png&text=Placeholder+image+4',
-    altText: 'Hero Image 4',
-  },
-];
-
-const ProductDetailDesktop = () => {
-  const [showAddToCartSuccessHandler, setShowAddToCartSuccessHandler] =
-    useState(false);
-
-  const [itemAmount, setItemAmount] = useState(1);
-
-  const price = 3500 * itemAmount;
-  const localPrice = price.toLocaleString('id-ID');
-
-  const addAmountHandler = () => {
-    setItemAmount((prevVal) => prevVal + 1);
-
-    console.log(`Add ${productName} amount`);
-  };
-
-  const subtractAmountHandler = () => {
-    setItemAmount((prevVal) => (prevVal === 1 ? prevVal : prevVal - 1));
-
-    console.log(`Subtract ${productName} amount`);
-  };
-
-  const addToCartHandler = () => {
-    setShowAddToCartSuccessHandler(true);
-  };
-
-  const hideSuccesModalHandler = () => {
-    setShowAddToCartSuccessHandler(false);
-  };
-
+const ProductDetailDesktop = ({
+  imgList = [],
+  showAddToCartSuccessHandler = false,
+  setShowAddToCartSuccessHandler = () => {},
+  itemAmount = 1,
+  setItemAmount = () => {},
+  price = 0,
+  localPrice,
+  addAmountHandler = () => {},
+  subtractAmountHandler = () => {},
+  addToCartHandler = () => {},
+  hideSuccesModalHandler = () => {},
+}) => {
   // UI
   const [activeImage, setActiveImage] = useState(0);
 
@@ -136,7 +101,7 @@ const ProductDetailDesktop = () => {
                 <div>
                   <h1 className="text-4xl font-bold mb-2">Indomie Goreng</h1>
                   <div className="text-base font-semibold text-[#5E5E5E]">
-                    1 pcs
+                    {itemAmount} pcs
                   </div>
                 </div>
 
@@ -172,7 +137,7 @@ const ProductDetailDesktop = () => {
               <div className="w-full">
                 <div>
                   <span className="block text-center text-3xl font-bold text-[#5E5E5E] mb-4">
-                    Rp3.500
+                    Rp{localPrice}
                   </span>
 
                   <Card className="flex flex-row justify-around items-center border border-solid border-borderSecondary">

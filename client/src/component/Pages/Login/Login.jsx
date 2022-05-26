@@ -8,26 +8,13 @@ import LoginSuccessModal from '../../Modal/LoginSuccessModal';
 import MobileNavbar from '../../Nav/MobileNavbar';
 import Navbar from '../../Nav/Navbar';
 
-const LoginDesktop = () => {
-  const [showLoginSuccessModal, setShowLoginSuccessModal] = useState(false);
-
-  const [emailValue, setEmailValue] = useState('');
-
-  const emailChangeHandler = (e) => {
-    setEmailValue(e.target.value);
-  };
-
-  const loginSubmitHandler = (e) => {
-    e.preventDefault();
-
-    alert('Login submitted!');
-    setShowLoginSuccessModal(true);
-  };
-
-  const hideLoginSuccessModalHandler = () => {
-    setShowLoginSuccessModal(false);
-  };
-
+const LoginDesktop = ({
+  showLoginSuccessModal = false,
+  emailValue = '',
+  emailChangeHandler = (e) => {},
+  loginSubmitHandler = (e) => {},
+  hideLoginSuccessModalHandler = () => {},
+}) => {
   return (
     <Fragment>
       <AppHeader>
@@ -79,7 +66,10 @@ const LoginDesktop = () => {
                 </div>
               </div>
 
-              <Link to="/forget-password" className="text-lg my-3 block">
+              <Link
+                to="/forget-password"
+                className="text-lg my-3 block underline underline-offset-4 w-fit"
+              >
                 Apa anda lupa dengan password?
               </Link>
 
@@ -117,26 +107,13 @@ const LoginDesktop = () => {
   );
 };
 
-const LoginMobile = () => {
-  const [showLoginSuccessModal, setShowLoginSuccessModal] = useState(false);
-
-  const [emailValue, setEmailValue] = useState('');
-
-  const emailChangeHandler = (e) => {
-    setEmailValue(e.target.value);
-  };
-
-  const loginSubmitHandler = (e) => {
-    e.preventDefault();
-
-    alert('Login submitted!');
-    setShowLoginSuccessModal(true);
-  };
-
-  const hideLoginSuccessModalHandler = () => {
-    setShowLoginSuccessModal(false);
-  };
-
+const LoginMobile = ({
+  showLoginSuccessModal = false,
+  emailValue = '',
+  emailChangeHandler = (e) => {},
+  loginSubmitHandler = (e) => {},
+  hideLoginSuccessModalHandler = () => {},
+}) => {
   return (
     <Fragment>
       <AppHeader>
@@ -232,17 +209,48 @@ const LoginMobile = () => {
 const Login = () => {
   const [screenWidth, screenHeight] = useWindowSize();
 
+  const [showLoginSuccessModal, setShowLoginSuccessModal] = useState(false);
+
+  const [emailValue, setEmailValue] = useState('');
+
+  const emailChangeHandler = (e) => {
+    setEmailValue(e.target.value);
+  };
+
+  const loginSubmitHandler = (e) => {
+    e.preventDefault();
+
+    alert('Login submitted!');
+    setShowLoginSuccessModal(true);
+  };
+
+  const hideLoginSuccessModalHandler = () => {
+    setShowLoginSuccessModal(false);
+  };
+
   if (screenWidth <= screenConfig.sm) {
     return (
       <Fragment>
-        <LoginMobile />
+        <LoginMobile
+          showLoginSuccessModal={showLoginSuccessModal}
+          emailValue={emailValue}
+          emailChangeHandler={emailChangeHandler}
+          loginSubmitHandler={loginSubmitHandler}
+          hideLoginSuccessModalHandler={hideLoginSuccessModalHandler}
+        />
       </Fragment>
     );
   }
 
   return (
     <Fragment>
-      <LoginDesktop />
+      <LoginDesktop
+        showLoginSuccessModal={showLoginSuccessModal}
+        emailValue={emailValue}
+        emailChangeHandler={emailChangeHandler}
+        loginSubmitHandler={loginSubmitHandler}
+        hideLoginSuccessModalHandler={hideLoginSuccessModalHandler}
+      />
     </Fragment>
   );
 };

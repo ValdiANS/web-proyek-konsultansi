@@ -63,31 +63,15 @@ const HomeDesktop = () => {
   );
 };
 
-const HomeMobile = () => {
-  const navigate = useNavigate();
-
-  const [enteredSearch, setEnteredSearch] = useState('');
-
-  const isSearchInputValid = enteredSearch.trim().length > 0;
-
-  const searchFormSubmitHandler = (e) => {
-    e.preventDefault();
-
-    console.log(enteredSearch);
-
-    alert(`Submitted: ${enteredSearch}`);
-
-    navigate(`/search?q=${enteredSearch.trim()}`);
-  };
-
-  const searchChangeHandler = (e) => {
-    setEnteredSearch(e.target.value);
-  };
-
-  const resetSearchHandler = () => {
-    setEnteredSearch('');
-  };
-
+const HomeMobile = ({
+  navigate,
+  enteredSearch = '',
+  setEnteredSearch = (val) => {},
+  isSearchInputValid = false,
+  searchFormSubmitHandler = (e) => {},
+  searchChangeHandler = (e) => {},
+  resetSearchHandler = () => {},
+}) => {
   return (
     <Fragment>
       <AppHeader>
@@ -166,10 +150,42 @@ const HomeMobile = () => {
 const Home = () => {
   const [screenWidth, screenHeight] = useWindowSize();
 
+  const navigate = useNavigate();
+
+  const [enteredSearch, setEnteredSearch] = useState('');
+
+  const isSearchInputValid = enteredSearch.trim().length > 0;
+
+  const searchFormSubmitHandler = (e) => {
+    e.preventDefault();
+
+    console.log(enteredSearch);
+
+    alert(`Submitted: ${enteredSearch}`);
+
+    navigate(`/search?q=${enteredSearch.trim()}`);
+  };
+
+  const searchChangeHandler = (e) => {
+    setEnteredSearch(e.target.value);
+  };
+
+  const resetSearchHandler = () => {
+    setEnteredSearch('');
+  };
+
   if (screenWidth <= screenConfig.sm) {
     return (
       <Fragment>
-        <HomeMobile />
+        <HomeMobile
+          navigate={navigate}
+          enteredSearch={enteredSearch}
+          setEnteredSearch={setEnteredSearch}
+          isSearchInputValid={isSearchInputValid}
+          searchFormSubmitHandler={searchFormSubmitHandler}
+          searchChangeHandler={searchChangeHandler}
+          resetSearchHandler={resetSearchHandler}
+        />
       </Fragment>
     );
   }

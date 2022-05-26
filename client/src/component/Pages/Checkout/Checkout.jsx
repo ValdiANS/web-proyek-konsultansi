@@ -11,19 +11,11 @@ import useWindowSize from '../../../hooks/useWindowSize';
 import { screenConfig } from '../../../script/config/config';
 import CheckoutItemMobile from './CheckoutItemMobile';
 
-const CheckoutDesktop = () => {
-  const [isShowModal, setIsShowModal] = useState(false);
-
-  const orderBtnClickHandler = () => {
-    alert('Submitted: Order Sekarang');
-
-    setIsShowModal(true);
-  };
-
-  const hideModalHandler = () => {
-    setIsShowModal(false);
-  };
-
+const CheckoutDesktop = ({
+  isShowModal = false,
+  orderBtnClickHandler = () => {},
+  hideModalHandler = () => {},
+}) => {
   return (
     <Fragment>
       <AppHeader>
@@ -100,19 +92,11 @@ const CheckoutDesktop = () => {
   );
 };
 
-const CheckoutMobile = () => {
-  const [isShowModal, setIsShowModal] = useState(false);
-
-  const orderBtnClickHandler = () => {
-    alert('Submitted: Order Sekarang');
-
-    setIsShowModal(true);
-  };
-
-  const hideModalHandler = () => {
-    setIsShowModal(false);
-  };
-
+const CheckoutMobile = ({
+  isShowModal = false,
+  orderBtnClickHandler = () => {},
+  hideModalHandler = () => {},
+}) => {
   return (
     <Fragment>
       <AppHeader>
@@ -213,17 +197,37 @@ const CheckoutMobile = () => {
 const Checkout = () => {
   const [screenWidth, screenHeight] = useWindowSize();
 
+  const [isShowModal, setIsShowModal] = useState(false);
+
+  const orderBtnClickHandler = () => {
+    alert('Submitted: Order Sekarang');
+
+    setIsShowModal(true);
+  };
+
+  const hideModalHandler = () => {
+    setIsShowModal(false);
+  };
+
   if (screenWidth <= screenConfig.sm) {
     return (
       <Fragment>
-        <CheckoutMobile />
+        <CheckoutMobile
+          isShowModal={isShowModal}
+          orderBtnClickHandler={orderBtnClickHandler}
+          hideModalHandler={hideModalHandler}
+        />
       </Fragment>
     );
   }
 
   return (
     <Fragment>
-      <CheckoutDesktop />
+      <CheckoutDesktop
+        isShowModal={isShowModal}
+        orderBtnClickHandler={orderBtnClickHandler}
+        hideModalHandler={hideModalHandler}
+      />
     </Fragment>
   );
 };

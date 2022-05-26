@@ -27,17 +27,69 @@ const imgList = [
 const ProductDetail = () => {
   const [screenWidth, screenHeight] = useWindowSize();
 
+  const [showAddToCartSuccessHandler, setShowAddToCartSuccessHandler] =
+    useState(false);
+
+  const [itemAmount, setItemAmount] = useState(1);
+
+  const price = 3500 * itemAmount;
+  const localPrice = price.toLocaleString('id-ID');
+
+  const addAmountHandler = () => {
+    setItemAmount((prevVal) => prevVal + 1);
+
+    console.log(`Add ${productName} amount`);
+  };
+
+  const subtractAmountHandler = () => {
+    setItemAmount((prevVal) => (prevVal === 1 ? prevVal : prevVal - 1));
+
+    console.log(`Subtract ${productName} amount`);
+  };
+
+  const addToCartHandler = () => {
+    setShowAddToCartSuccessHandler(true);
+  };
+
+  const hideSuccesModalHandler = () => {
+    setShowAddToCartSuccessHandler(false);
+  };
+
   if (screenWidth <= screenConfig.sm) {
     return (
       <Fragment>
-        <ProductDetailMobile />
+        <ProductDetailMobile
+          imgList={imgList}
+          showAddToCartSuccessHandler={showAddToCartSuccessHandler}
+          setShowAddToCartSuccessHandler={setShowAddToCartSuccessHandler}
+          itemAmount={itemAmount}
+          setItemAmount={setItemAmount}
+          price={price}
+          localPrice={localPrice}
+          addAmountHandler={addAmountHandler}
+          subtractAmountHandler={subtractAmountHandler}
+          addToCartHandler={addToCartHandler}
+          hideSuccesModalHandler={hideSuccesModalHandler}
+        />
       </Fragment>
     );
   }
 
   return (
     <Fragment>
-      <ProductDetailDesktop />
+      <ProductDetailDesktop
+        imgList={imgList}
+        showAddToCartSuccessHandler={showAddToCartSuccessHandler}
+        setShowAddToCartSuccessHandler={setShowAddToCartSuccessHandler}
+        itemAmount={itemAmount}
+        setItemAmount={setItemAmount}
+        price={price}
+        localPrice={localPrice}
+        addAmountHandler={addAmountHandler}
+        subtractAmountHandler={subtractAmountHandler}
+        addToCartHandler={addToCartHandler}
+        hideSuccesModalHandler={hideSuccesModalHandler}
+      />
     </Fragment>
   );
 };

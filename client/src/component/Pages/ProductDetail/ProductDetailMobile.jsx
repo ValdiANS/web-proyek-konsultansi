@@ -17,54 +17,19 @@ import AppHeader from '../../Layout/AppHeader';
 import MobileNavbar from '../../Nav/MobileNavbar';
 import AppFooter from '../../Layout/AppFooter';
 
-const imgList = [
-  {
-    url: 'https://dummyimage.com/1200x674/e5e5e5/FFFFFF.png&text=Placeholder+image+1',
-    altText: 'Hero Image 1',
-  },
-  {
-    url: 'https://dummyimage.com/1200x674/e5e5e5/FFFFFF.png&text=Placeholder+image+2',
-    altText: 'Hero Image 2',
-  },
-  {
-    url: 'https://dummyimage.com/1200x674/e5e5e5/FFFFFF.png&text=Placeholder+image+3',
-    altText: 'Hero Image 3',
-  },
-  {
-    url: 'https://dummyimage.com/1200x674/e5e5e5/FFFFFF.png&text=Placeholder+image+4',
-    altText: 'Hero Image 4',
-  },
-];
-
-const ProductDetailMobile = () => {
-  const [showAddToCartSuccessHandler, setShowAddToCartSuccessHandler] =
-    useState(false);
-
-  const [itemAmount, setItemAmount] = useState(1);
-
-  const price = 3500 * itemAmount;
-  const localPrice = price.toLocaleString('id-ID');
-
-  const addAmountHandler = () => {
-    setItemAmount((prevVal) => prevVal + 1);
-
-    console.log(`Add ${productName} amount`);
-  };
-
-  const subtractAmountHandler = () => {
-    setItemAmount((prevVal) => (prevVal === 1 ? prevVal : prevVal - 1));
-
-    console.log(`Subtract ${productName} amount`);
-  };
-
-  const addToCartHandler = () => {
-    setShowAddToCartSuccessHandler(true);
-  };
-
-  const hideSuccesModalHandler = () => {
-    setShowAddToCartSuccessHandler(false);
-  };
-
+const ProductDetailMobile = ({
+  imgList = [],
+  showAddToCartSuccessHandler = false,
+  setShowAddToCartSuccessHandler = () => {},
+  itemAmount = 1,
+  setItemAmount = () => {},
+  price = 0,
+  localPrice,
+  addAmountHandler = () => {},
+  subtractAmountHandler = () => {},
+  addToCartHandler = () => {},
+  hideSuccesModalHandler = () => {},
+}) => {
   // UI
   const [activeImage, setActiveImage] = useState(0);
 
@@ -129,11 +94,11 @@ const ProductDetailMobile = () => {
               <section className="mt-5">
                 <h1 className="text-xl font-bold">Indomie Goreng</h1>
                 <div className="text-[#5E5E5E] text-base font-semibold">
-                  1 pcs
+                  {itemAmount} pcs
                 </div>
 
                 <div className="text-[#5E5E5E] text-2xl font-bold mt-4">
-                  Rp3.500
+                  Rp{localPrice}
                 </div>
               </section>
             </div>

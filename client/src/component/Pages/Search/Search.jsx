@@ -10,11 +10,7 @@ import Navbar from '../../Nav/Navbar';
 import ProductItemCard from '../../ProductItemCard/ProductItemCard';
 import SearchNotFound from './SearchNotFound';
 
-const SearchDesktop = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const searchQuery = searchParams.get('q');
-
+const SearchDesktop = ({ searchParams, setSearchParams, searchQuery }) => {
   if (!searchQuery || searchQuery === '' || searchQuery.length === 0) {
     return <Navigate to="/" replace={true} />;
   }
@@ -68,11 +64,7 @@ const SearchDesktop = () => {
   );
 };
 
-const SearchMobile = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const searchQuery = searchParams.get('q');
-
+const SearchMobile = ({ searchParams, setSearchParams, searchQuery }) => {
   if (!searchQuery || searchQuery === '' || searchQuery.length === 0) {
     return <Navigate to="/" replace={true} />;
   }
@@ -126,17 +118,29 @@ const SearchMobile = () => {
 const Search = () => {
   const [screenWidth, screenHeight] = useWindowSize();
 
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const searchQuery = searchParams.get('q');
+
   if (screenWidth <= screenConfig.sm) {
     return (
       <Fragment>
-        <SearchMobile />
+        <SearchMobile
+          searchParams={searchParams}
+          setSearchParams={setSearchParams}
+          searchQuery={searchQuery}
+        />
       </Fragment>
     );
   }
 
   return (
     <Fragment>
-      <SearchDesktop />
+      <SearchDesktop
+        searchParams={searchParams}
+        setSearchParams={setSearchParams}
+        searchQuery={searchQuery}
+      />
     </Fragment>
   );
 };
