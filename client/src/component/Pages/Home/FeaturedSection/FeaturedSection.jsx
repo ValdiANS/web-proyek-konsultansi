@@ -5,6 +5,8 @@ import useWindowSize from '../../../../hooks/useWindowSize';
 import { screenConfig } from '../../../../script/config/config';
 
 import FeaturedCard from './FeaturedCard';
+import featuredIndomieImage from '../../../../asset/featured-indomie.png';
+import featuredKapalApiImage from '../../../../asset/hero/hero-kapal-api.png';
 
 const FeaturedSection = ({ className = '' }) => {
   const [screenWidth, screenHeight] = useWindowSize();
@@ -26,7 +28,7 @@ const FeaturedSection = ({ className = '' }) => {
             <SwiperSlide className="w-fit-important">
               <FeaturedCard
                 link="#"
-                thumbnailUrl="https://dummyimage.com/1280x507/e5e5e5/FFFFFF.png&text=Placeholder+Brand+1"
+                thumbnailUrl={featuredIndomieImage}
                 brand="Wings Food"
                 productName="Indomie"
               />
@@ -35,7 +37,7 @@ const FeaturedSection = ({ className = '' }) => {
             <SwiperSlide className="w-fit-important">
               <FeaturedCard
                 link="#"
-                thumbnailUrl="https://dummyimage.com/1280x768/e5e5e5/FFFFFF.png&text=Placeholder+Brand+2"
+                thumbnailUrl={featuredKapalApiImage}
                 brand="Wings Food"
                 productName="Kapal Api"
               />
@@ -44,7 +46,7 @@ const FeaturedSection = ({ className = '' }) => {
             <SwiperSlide className="w-fit-important">
               <FeaturedCard
                 link="#"
-                thumbnailUrl="https://dummyimage.com/1280x507/e5e5e5/FFFFFF.png&text=Placeholder+Brand+3"
+                thumbnailUrl={featuredIndomieImage}
                 brand="Wings Food"
                 productName="Indomie"
               />
@@ -53,7 +55,7 @@ const FeaturedSection = ({ className = '' }) => {
             <SwiperSlide className="w-fit-important">
               <FeaturedCard
                 link="#"
-                thumbnailUrl="https://dummyimage.com/1280x768/e5e5e5/FFFFFF.png&text=Placeholder+Brand+4"
+                thumbnailUrl={featuredKapalApiImage}
                 brand="Wings Food"
                 productName="Kapal Api"
               />
@@ -62,7 +64,7 @@ const FeaturedSection = ({ className = '' }) => {
             <SwiperSlide className="w-fit-important">
               <FeaturedCard
                 link="#"
-                thumbnailUrl="https://dummyimage.com/1280x507/e5e5e5/FFFFFF.png&text=Placeholder+Brand+5"
+                thumbnailUrl={featuredIndomieImage}
                 brand="Wings Food"
                 productName="Indomie"
               />
@@ -71,7 +73,7 @@ const FeaturedSection = ({ className = '' }) => {
             <SwiperSlide className="w-fit-important">
               <FeaturedCard
                 link="#"
-                thumbnailUrl="https://dummyimage.com/1280x768/e5e5e5/FFFFFF.png&text=Placeholder+Brand+6"
+                thumbnailUrl={featuredKapalApiImage}
                 brand="Wings Food"
                 productName="Kapal Api"
               />

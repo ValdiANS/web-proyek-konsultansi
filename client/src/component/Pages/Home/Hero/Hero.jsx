@@ -10,22 +10,25 @@ import 'swiper/css/pagination';
 import useWindowSize from '../../../../hooks/useWindowSize';
 import { screenConfig } from '../../../../script/config/config';
 
+import heroIndomie from '../../../../asset/hero/hero-indomie.png';
+import heroKapalApi from '../../../../asset/hero/hero-kapal-api.png';
+
 const imgList = [
   {
-    url: 'https://dummyimage.com/1200x674/e5e5e5/FFFFFF.png&text=Placeholder+image+1',
-    altText: 'Hero Image 1',
+    url: heroIndomie,
+    altText: 'Indomie Mie Goreng Ayam Pop',
   },
   {
-    url: 'https://dummyimage.com/1200x674/e5e5e5/FFFFFF.png&text=Placeholder+image+2',
-    altText: 'Hero Image 2',
+    url: heroKapalApi,
+    altText: 'Kapal Api',
   },
   {
-    url: 'https://dummyimage.com/1200x674/e5e5e5/FFFFFF.png&text=Placeholder+image+3',
-    altText: 'Hero Image 3',
+    url: heroIndomie,
+    altText: 'Indomie Mie Goreng Ayam Pop',
   },
   {
-    url: 'https://dummyimage.com/1200x674/e5e5e5/FFFFFF.png&text=Placeholder+image+4',
-    altText: 'Hero Image 4',
+    url: heroKapalApi,
+    altText: 'Kapal Api',
   },
 ];
 
@@ -59,7 +62,7 @@ const Hero = () => {
             <img
               src={url}
               alt={altText}
-              className="w-full mx-auto object-cover object-center"
+              className="w-full mx-auto object-cover object-center max-h-[600px] aspect-[2.09/1]"
             />
           </SwiperSlide>
         ))}
@@ -96,7 +99,7 @@ const Hero = () => {
             <img
               src={url}
               alt={altText}
-              className="w-full mx-auto object-cover object-center"
+              className="w-full mx-auto object-cover object-center h-full max-h-[300px] aspect-[2.09/1]"
             />
           </SwiperSlide>
         ))}

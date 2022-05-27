@@ -45,12 +45,12 @@ const ProductItemCard = ({
         <AddToCartSuccessHandler onHide={hideSuccesModalHandler} />
       )}
 
-      <Card className="p-4 sm:p-6 bg-white shadow-[2px_4px_10px_rgba(0,0,0,0.1)]">
-        <div className="img-container">
+      <Card className="h-full p-4 sm:p-6 bg-white shadow-[2px_4px_10px_rgba(0,0,0,0.1)] flex flex-col justify-between">
+        <div className="img-container h-full">
           <img
             src={thumbnailUrl}
             alt={productName}
-            className="rounded-t-10px"
+            className="rounded-t-10px object-cover object-center w-full h-full max-h-[150px]"
           />
         </div>
 

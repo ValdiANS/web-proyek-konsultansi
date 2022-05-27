@@ -48,7 +48,7 @@ const HomeDesktop = () => {
         </section>
 
         <div className="bg-corak pt-4 pb-16">
-          <NeedsSection className="px-4 sm:px-0" />
+          {/* <NeedsSection className="px-4 sm:px-0" /> */}
 
           <BestSellerSection className="mt-12 px-4 sm:px-0" />
 
@@ -132,7 +132,7 @@ const HomeMobile = ({
         </section>
 
         <div className="bg-corak pt-9 pb-16">
-          <NeedsSection className="px-4 sm:px-0" />
+          {/* <NeedsSection className="px-4 sm:px-0" /> */}
 
           <BestSellerSection className="mt-7 px-4" />
 

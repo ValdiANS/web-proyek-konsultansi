@@ -1,10 +1,23 @@
-import { memo } from 'react';
+import { memo, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import { XyzTransitionGroup } from '@animxyz/react';
 
 import CategoryCard from './CategoryCard';
+import { fetchCategoriesData } from '../../../../store/category-slice';
 
 const CategoriesSection = ({ className = '' }) => {
+  const dispatch = useDispatch();
+
+  const [categoriesData, boxColor] = useSelector((state) => [
+    state.categories.categories,
+    state.categories.boxColor,
+  ]);
+
+  useEffect(() => {
+    dispatch(fetchCategoriesData());
+  }, []);
+
   return (
     <section className={`container mx-auto ${className}`}>
       <h1 className="font-light text-xl sm:text-4xl mb-7">
@@ -17,13 +30,20 @@ const CategoriesSection = ({ className = '' }) => {
           appearVisible
           xyz="fade-100% right-100% ease-in-out-back stagger-1"
         >
-          <CategoryCard
-            className="w-full h-40 bg-[#1F1F21]"
-            to="/categories/makanan-ringan"
-            title="Makanan Ringan"
-          />
+          {categoriesData.map((category, index) => (
+            <CategoryCard
+              key={category._id}
+              className={`w-full h-40 ${
+                index === 0
+                  ? `bg-[${boxColor[index]}]`
+                  : `bg-[${boxColor[index]}]/75`
+              }`}
+              to={`/categories/${category._id}`}
+              title={category.nama}
+            />
+          ))}
 
-          <CategoryCard
+          {/* <CategoryCard
             className="w-full h-40 bg-[#DCA047]/75"
             to="/categories/biskuit"
             title="Biskuit"
@@ -39,7 +59,7 @@ const CategoriesSection = ({ className = '' }) => {
             className="w-full h-40 bg-[#111315]/75"
             to="/categories/biskuit"
             title="Biskuit"
-          />
+          /> */}
         </XyzTransitionGroup>
       </div>
     </section>

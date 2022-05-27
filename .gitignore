@@ -12,6 +12,8 @@ client/dist
 client/dist-ssr
 client/*.local
 
+client/public/image
+
 node_modules
 
 server/data/db/*
