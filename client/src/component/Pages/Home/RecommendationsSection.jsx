@@ -31,41 +31,9 @@ const RecommendationsSection = ({ className = '' }) => {
         >
           {[...recommendations].reverse().map((product) => (
             <div key={product._id}>
-              <ProductItemCard
-                id={product._id}
-                productName={product.nama}
-                thumbnailUrl={`/image/${product.link_gambar}`}
-                price={product.harga}
-              />
+              <ProductItemCard product={product} amount={1} />
             </div>
           ))}
-
-          {/* <div>
-            <ProductItemCard
-              id={1}
-              productName="Indomie Goreng"
-              thumbnailUrl="https://dummyimage.com/1280x862/e5e5e5/FFFFFF.png&text=Placeholder+Terlaris+2"
-              price={3500}
-            />
-          </div>
-
-          <div>
-            <ProductItemCard
-              id={1}
-              productName="Indomie Goreng"
-              thumbnailUrl="https://dummyimage.com/1280x862/e5e5e5/FFFFFF.png&text=Placeholder+Terlaris+3"
-              price={3500}
-            />
-          </div>
-
-          <div>
-            <ProductItemCard
-              id={1}
-              productName="Indomie Goreng"
-              thumbnailUrl="https://dummyimage.com/1280x862/e5e5e5/FFFFFF.png&text=Placeholder+Terlaris+4"
-              price={3500}
-            />
-          </div> */}
         </XyzTransitionGroup>
       </div>
     </section>

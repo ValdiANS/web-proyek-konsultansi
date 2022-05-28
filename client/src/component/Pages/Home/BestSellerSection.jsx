@@ -29,12 +29,7 @@ const BestSellerSection = ({ className = '' }) => {
         >
           {bestSellers.map((product) => (
             <div key={product._id}>
-              <ProductItemCard
-                id={product._id}
-                productName={product.nama}
-                thumbnailUrl={`/image/${product.link_gambar}`}
-                price={product.harga}
-              />
+              <ProductItemCard product={product} amount={1} />
             </div>
           ))}
         </XyzTransitionGroup>

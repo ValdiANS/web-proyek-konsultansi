@@ -7,9 +7,14 @@ import Logo from '../../asset/logo-mitra.png';
 import CartIcon from '../SVG/CartIcon';
 import UserIcon from '../SVG/UserIcon';
 import SearchIcon from '../SVG/SearchIcon';
+import { useSelector } from 'react-redux';
 
 const Navbar = ({ hideSearchBar = false }) => {
   const navigate = useNavigate();
+
+  const totalPrice = useSelector((state) =>
+    state.cart.totalPrice.toLocaleString('id-ID')
+  );
 
   const [enteredSearch, setEnteredSearch] = useState('');
 
@@ -95,7 +100,7 @@ const Navbar = ({ hideSearchBar = false }) => {
                 <div className="cart__content text-textPrimary text-sm hidden sm:block">
                   <div>Keranjang</div>
                   <div className="cart__content__price text-textSecondary">
-                    Rp. 0
+                    Rp. {totalPrice}
                   </div>
                 </div>
               </Link>

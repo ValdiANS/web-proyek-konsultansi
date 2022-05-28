@@ -33,11 +33,7 @@ const CategoriesSection = ({ className = '' }) => {
           {categoriesData.map((category, index) => (
             <CategoryCard
               key={category._id}
-              className={`w-full h-40 ${
-                index === 0
-                  ? `bg-[${boxColor[index]}]`
-                  : `bg-[${boxColor[index]}]/75`
-              }`}
+              className={`w-full h-40 ${boxColor[index]}`}
               to={`/categories/${category._id}`}
               title={category.nama}
             />

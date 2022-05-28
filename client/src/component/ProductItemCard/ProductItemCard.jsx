@@ -1,37 +1,44 @@
 import { Fragment, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { cartActions } from '../../store/cart-slice';
 import AddToCartSuccessHandler from '../Modal/AddToCartSuccessHandler';
 
 import Card from '../UI/Card';
 import AmountControl from './AmountControl';
 
-const ProductItemCard = ({
-  id = 0,
-  productName = '',
-  thumbnailUrl = '',
-  amount = 1,
-  price = 0,
-}) => {
+const ProductItemCard = ({ product = {}, amount = 1 }) => {
+  const dispatch = useDispatch();
+
   const [showAddToCartSuccessHandler, setShowAddToCartSuccessHandler] =
     useState(false);
 
   const [itemAmount, setItemAmount] = useState(amount);
 
-  const localPrice = price.toLocaleString('id-ID');
+  const localPrice = product.harga.toLocaleString('id-ID');
 
   const addAmountHandler = () => {
     setItemAmount((prevVal) => prevVal + 1);
 
-    console.log(`Add ${productName} amount`);
+    console.log(`Add ${product.nama} amount`);
   };
 
   const subtractAmountHandler = () => {
     setItemAmount((prevVal) => (prevVal === 1 ? prevVal : prevVal - 1));
 
-    console.log(`Subtract ${productName} amount`);
+    console.log(`Subtract ${product.nama} amount`);
   };
 
   const addToCartHandler = () => {
+    dispatch(
+      cartActions.addCartItem({
+        ...product,
+        kuantitas: itemAmount,
+        totalHarga: itemAmount * product.harga,
+        selected: true,
+      })
+    );
+
     setShowAddToCartSuccessHandler(true);
   };
 
@@ -48,17 +55,20 @@ const ProductItemCard = ({
       <Card className="h-full p-4 sm:p-6 bg-white shadow-[2px_4px_10px_rgba(0,0,0,0.1)] flex flex-col justify-between">
         <div className="img-container h-full">
           <img
-            src={thumbnailUrl}
-            alt={productName}
+            src={`/image/${product.link_gambar}`}
+            alt={product.nama}
             className="rounded-t-10px object-cover object-center w-full h-full max-h-[150px]"
           />
         </div>
 
         <div className="terlaris-card-content mt-5">
-          <Link to={`/products/${id}`} className="font-bold hover:underline">
-            {productName}
+          <Link
+            to={`/products/${product._id}`}
+            className="font-bold hover:underline"
+          >
+            {product.nama}
           </Link>
-          <div>{itemAmount} pcs</div>
+          <div>{1} pcs</div>
 
           <div className="price text-textSecondary">Rp{localPrice}</div>
 

@@ -20,9 +20,11 @@ import AppFooter from '../../Layout/AppFooter';
 const ProductDetailMobile = ({
   imgList = [],
   showAddToCartSuccessHandler = false,
-  setShowAddToCartSuccessHandler = () => {},
+  name = '',
+  brand = '',
+  category = '',
+  weight = '',
   itemAmount = 1,
-  setItemAmount = () => {},
   price = 0,
   localPrice,
   addAmountHandler = () => {},
@@ -70,7 +72,7 @@ const ProductDetailMobile = ({
                       <img
                         src={url}
                         alt={altText}
-                        className="w-full mx-auto object-cover object-center"
+                        className="w-full mx-auto object-contain object-center h-[300px]"
                       />
                     </SwiperSlide>
                   ))}
@@ -92,7 +94,7 @@ const ProductDetailMobile = ({
               </div>
 
               <section className="mt-5">
-                <h1 className="text-xl font-bold">Indomie Goreng</h1>
+                <h1 className="text-xl font-bold">{name}</h1>
                 <div className="text-[#5E5E5E] text-base font-semibold">
                   {itemAmount} pcs
                 </div>
@@ -112,7 +114,7 @@ const ProductDetailMobile = ({
                     <td className="text-sm pb-2 text-[#5E5E5E]">Brand</td>
 
                     <td className="text-sm pb-2 pl-8 text-[#2B77EE]">
-                      Indofood
+                      {brand}
                     </td>
                   </tr>
 
@@ -120,7 +122,7 @@ const ProductDetailMobile = ({
                     <td className="text-sm pb-2 text-[#5E5E5E]">Kategori</td>
 
                     <td className="text-sm pb-2 pl-8 text-[#ED8C1D]">
-                      Makanan
+                      {category}
                     </td>
                   </tr>
 
@@ -130,7 +132,7 @@ const ProductDetailMobile = ({
                     </td>
 
                     <td className="text-sm pb-2 pl-8 text-textSecondary">
-                      85 gr
+                      {weight} gr
                     </td>
                   </tr>
                 </tbody>

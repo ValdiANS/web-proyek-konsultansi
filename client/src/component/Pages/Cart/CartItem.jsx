@@ -1,60 +1,48 @@
-import { useState } from 'react';
-
 import Card from '../../UI/Card';
 import TrashIcon from '../../SVG/TrashIcon';
 import AmountControl from '../../ProductItemCard/AmountControl';
 import { Link } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
+import { cartActions } from '../../../store/cart-slice';
 
 const CartItem = ({
-  onCheck = () => {},
-  onDelete = (name = '') => {},
-  onUncheck = () => {},
-  thumbnailUrl = '',
-  name = '',
+  _id = '',
+  nama = '',
   brand = '',
-  price = 0,
-  amount = 1,
-  inStock = true,
-  checked = false,
+  stok = 0,
+  link_gambar = '',
+  kuantitas = 0,
+  totalHarga = 0,
+  selected = false,
 }) => {
-  const [itemAmount, setItemAmount] = useState(amount);
+  const dispatch = useDispatch();
 
-  const localPrice = (price * itemAmount).toLocaleString('id-ID');
+  const localPrice = totalHarga.toLocaleString('id-ID');
 
   const addAmountHandler = () => {
-    setItemAmount((prevVal) => prevVal + 1);
+    dispatch(
+      cartActions.increaseItemQuantity({
+        _id,
+        kuantitas: 1,
+      })
+    );
   };
 
   const subtractAmountHandler = () => {
-    setItemAmount((prevVal) => {
-      if (prevVal === 1) {
-        onUncheck({
-          thumbnailUrl,
-          name,
-          brand,
-          price,
-          amount,
-          inStock,
-        });
-      }
-
-      return prevVal === 1 ? prevVal : prevVal - 1;
-    });
+    dispatch(
+      cartActions.decreaseItemQuantity({
+        _id,
+        kuantitas: 1,
+      })
+    );
   };
 
   const checkboxClickHandler = () => {
-    onCheck({
-      thumbnailUrl,
-      name,
-      brand,
-      price,
-      amount,
-      inStock,
-    });
+    dispatch(cartActions.selectItem({ _id }));
   };
 
   const deleteClickHandler = () => {
-    onDelete(name);
+    dispatch(cartActions.deleteCartItem({ _id }));
   };
 
   return (
@@ -65,7 +53,7 @@ const CartItem = ({
           name="check"
           className="w-5 h-5 sm:w-6 sm:h-6"
           onChange={checkboxClickHandler}
-          checked={checked}
+          checked={selected}
         />
 
         <button onClick={deleteClickHandler}>
@@ -73,28 +61,28 @@ const CartItem = ({
         </button>
       </div>
 
-      <Card className="sm:border sm:border-solid sm:border-black sm:p-4 max-w-[100px] sm:max-w-[14rem] flex flex-row items-center">
+      <Card className="w-full sm:border sm:border-solid sm:border-black sm:p-4 max-w-[100px] sm:max-w-[150px] flex flex-row items-center">
         <img
-          src={thumbnailUrl}
-          alt={name}
-          className="sm:rounded-t-10px w-full"
+          src={`/image/${link_gambar}`}
+          alt={nama}
+          className="sm:rounded-t-10px w-full h-[100px] sm:h-[150px] object-contain object-center"
         />
       </Card>
 
-      <div className="flex flex-col sm:flex-row sm:gap-x-8 gap-y-2">
+      <div className="w-full flex flex-col sm:flex-row sm:gap-x-8 gap-y-2">
         <div className="flex flex-row sm:flex-col justify-between w-full gap-x-4">
           <div className="w-full">
             <div
               className={`${
-                inStock ? 'bg-[#55E322]' : 'bg-[#D80000]'
+                stok > 0 ? 'bg-[#55E322]' : 'bg-[#D80000]'
               }  px-4 py-1 w-fit text-xs sm:text-base`}
             >
-              {inStock ? 'Ada Stok' : 'Stok Habis'}
+              {stok > 0 ? 'Ada Stok' : 'Stok Habis'}
             </div>
 
             <div>
-              <Link to={`/products/1`}>
-                <h1 className="text-sm sm:text-base font-bold">{name}</h1>
+              <Link to={`/products/${_id}`}>
+                <h1 className="text-sm sm:text-base font-bold">{nama}</h1>
               </Link>
 
               <p className="text-xs sm:text-base">{brand}</p>
@@ -104,9 +92,9 @@ const CartItem = ({
           <div className="text-textSecondary self-end">Rp{localPrice}</div>
         </div>
 
-        <div className="grid place-items-end justify-start sm:justify-end w-full">
+        <div className="grid place-items-end justify-start sm:justify-end">
           <AmountControl
-            amount={itemAmount}
+            amount={kuantitas}
             onAddAmount={addAmountHandler}
             onSubtractAmount={subtractAmountHandler}
             className="p-2 border-black gap-x-8"

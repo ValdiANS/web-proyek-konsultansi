@@ -17,10 +17,6 @@ import Checkout from './component/Pages/Checkout/Checkout';
 const App = () => {
   return (
     <Fragment>
-      {/* <AppHeader>
-        <Navbar />
-      </AppHeader> */}
-
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/cart" element={<Cart />} />
@@ -34,8 +30,6 @@ const App = () => {
       </Routes>
 
       <Outlet />
-
-      {/* <AppFooter /> */}
     </Fragment>
   );
 };

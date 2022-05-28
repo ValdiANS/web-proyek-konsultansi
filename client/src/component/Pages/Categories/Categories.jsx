@@ -11,10 +11,10 @@ import config, { screenConfig } from '../../../script/config/config';
 import MobileNavbar from '../../Nav/MobileNavbar';
 
 const boxBgColor = {
-  makanan: '#1F1F21',
-  minuman: '#E5B875',
-  obat: '#484B7D',
-  rokok: '#4C4E4F',
+  makanan: 'bg-[#1F1F21]',
+  minuman: 'bg-[#E5B875]',
+  obat: 'bg-[#484B7D]',
+  rokok: 'bg-[#4C4E4F]',
 };
 
 const Categories = () => {
@@ -88,9 +88,9 @@ const Categories = () => {
 
         <div className="flex flex-row justify-center mt-4 mb-12">
           <CategoryCard
-            className={`w-full h-40 max-w-xs bg-[${
+            className={`w-full h-40 max-w-xs ${
               boxBgColor[categoryData.nama.toLowerCase()]
-            }]`}
+            }`}
             to={`/categories/${categoryData._id}`}
             title={categoryData.nama}
           />
@@ -104,57 +104,8 @@ const Categories = () => {
 
           <div className="item-card-container grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 justify-between gap-2 sm:gap-8 lg:gap-x-24">
             {categoryProducts.map((product) => (
-              <ProductItemCard
-                key={product._id}
-                id={product._id}
-                productName={product.nama}
-                thumbnailUrl={`/image/${product.link_gambar}`}
-                price={product.harga}
-              />
+              <ProductItemCard key={product._id} product={product} amount={1} />
             ))}
-
-            {/* <ProductItemCard
-              id={1}
-              productName="Indomie Goreng"
-              thumbnailUrl="https://dummyimage.com/1280x862/e5e5e5/FFFFFF.png&text=Placeholder+Terlaris+1"
-              price={3500}
-            />
-            <ProductItemCard
-              id={1}
-              productName="Indomie Goreng"
-              thumbnailUrl="https://dummyimage.com/1280x862/e5e5e5/FFFFFF.png&text=Placeholder+Terlaris+1"
-              price={3500}
-            />
-            <ProductItemCard
-              id={1}
-              productName="Indomie Goreng"
-              thumbnailUrl="https://dummyimage.com/1280x862/e5e5e5/FFFFFF.png&text=Placeholder+Terlaris+1"
-              price={3500}
-            />
-            <ProductItemCard
-              id={1}
-              productName="Indomie Goreng"
-              thumbnailUrl="https://dummyimage.com/1280x862/e5e5e5/FFFFFF.png&text=Placeholder+Terlaris+1"
-              price={3500}
-            />
-            <ProductItemCard
-              id={1}
-              productName="Indomie Goreng"
-              thumbnailUrl="https://dummyimage.com/1280x862/e5e5e5/FFFFFF.png&text=Placeholder+Terlaris+1"
-              price={3500}
-            />
-            <ProductItemCard
-              id={1}
-              productName="Indomie Goreng"
-              thumbnailUrl="https://dummyimage.com/1280x862/e5e5e5/FFFFFF.png&text=Placeholder+Terlaris+1"
-              price={3500}
-            />
-            <ProductItemCard
-              id={1}
-              productName="Indomie Goreng"
-              thumbnailUrl="https://dummyimage.com/1280x862/e5e5e5/FFFFFF.png&text=Placeholder+Terlaris+1"
-              price={3500}
-            /> */}
           </div>
         </section>
       </div>

@@ -20,9 +20,11 @@ import AppFooter from '../../Layout/AppFooter';
 const ProductDetailDesktop = ({
   imgList = [],
   showAddToCartSuccessHandler = false,
-  setShowAddToCartSuccessHandler = () => {},
+  name = '',
+  brand = '',
+  category = '',
+  weight = '',
   itemAmount = 1,
-  setItemAmount = () => {},
   price = 0,
   localPrice,
   addAmountHandler = () => {},
@@ -75,7 +77,7 @@ const ProductDetailDesktop = ({
                     <img
                       src={url}
                       alt={altText}
-                      className="w-full mx-auto object-cover object-center"
+                      className="w-full mx-auto object-contain object-center h-[400px]"
                     />
                   </SwiperSlide>
                 ))}
@@ -99,7 +101,7 @@ const ProductDetailDesktop = ({
             <div className="mt-16 flex flex-row gap-x-10">
               <section className="w-full">
                 <div>
-                  <h1 className="text-4xl font-bold mb-2">Indomie Goreng</h1>
+                  <h1 className="text-4xl font-bold mb-2">{name}</h1>
                   <div className="text-base font-semibold text-[#5E5E5E]">
                     {itemAmount} pcs
                   </div>
@@ -115,19 +117,21 @@ const ProductDetailDesktop = ({
                       <tr>
                         <td className="pb-4 text-[#5E5E5E]">Brand</td>
 
-                        <td className="pb-4 pl-8 text-[#2B77EE]">Indofood</td>
+                        <td className="pb-4 pl-8 text-[#2B77EE]">{brand}</td>
                       </tr>
 
                       <tr>
                         <td className="pb-4 text-[#5E5E5E]">Kategori</td>
 
-                        <td className="pb-4 pl-8 text-[#ED8C1D]">Makanan</td>
+                        <td className="pb-4 pl-8 text-[#ED8C1D]">{category}</td>
                       </tr>
 
                       <tr>
                         <td className="pb-4 text-[#5E5E5E]">Berat/Ukuran</td>
 
-                        <td className="pb-4 pl-8 text-textSecondary">85 gr</td>
+                        <td className="pb-4 pl-8 text-textSecondary">
+                          {weight} gr
+                        </td>
                       </tr>
                     </tbody>
                   </table>

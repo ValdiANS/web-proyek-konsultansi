@@ -5,8 +5,9 @@ const config = {
   baseApiUrl,
   apiUrl: {
     products: `${baseApiUrl}api/produks`,
+    product: (productId = '') => `${baseApiUrl}api/produk/${productId}`,
     categories: `${baseApiUrl}api/kategoris`,
-    category: `${baseApiUrl}api/kategori`,
+    category: (categoryId = '') => `${baseApiUrl}api/kategori/${categoryId}`,
   },
   screen: {
     sm: '640',

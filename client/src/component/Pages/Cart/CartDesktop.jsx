@@ -10,7 +10,6 @@ import CartItem from './CartItem';
 
 const CartDesktop = ({
   cartItems = [],
-  checkedItems = [],
   showCheckoutWarningModal = false,
   isAllChecked = false,
   addAllHandler = () => {},

@@ -3,7 +3,12 @@ import config from '../script/config/config';
 
 const initialCategoriesState = {
   categories: [],
-  boxColor: ['#1F1F21', '#DCA047', '#0B0F52', '#111315'],
+  boxColor: [
+    'bg-[#1F1F21]',
+    'bg-[#DCA047]/75',
+    'bg-[#0B0F52]/75',
+    'bg-[#111315]/75',
+  ],
 };
 
 const categoriesSlice = createSlice({
