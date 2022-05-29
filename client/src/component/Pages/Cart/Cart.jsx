@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import useWindowSize from '../../../hooks/useWindowSize';
 import { screenConfig } from '../../../script/config/config';
 import { cartActions } from '../../../store/cart-slice';
+import { checkoutActions } from '../../../store/checkout-slice';
 
 import CartDesktop from './CartDesktop';
 
@@ -61,15 +62,27 @@ const Cart = () => {
     return totalCheckedItems;
   });
 
-  const totalPrice = useSelector((state) =>
-    state.cart.totalPrice.toLocaleString('id-ID')
+  const totalSelectedQuantity = selectedItems.reduce(
+    (prevVal, currentVal) => prevVal + currentVal.kuantitas,
+    0
   );
+
+  const totalPrice = useSelector((state) => state.cart.totalPrice);
+  const localTotalPrice = totalPrice.toLocaleString('id-ID');
 
   const lanjutkanPesananBtnClickHandler = () => {
     if (totalItems === 0) {
       setShowCheckoutWarningModal(true);
       return;
     }
+
+    dispatch(
+      checkoutActions.replaceCheckoutState({
+        items: selectedItems,
+        totalQuantity: totalSelectedQuantity,
+        totalPrice: totalPrice,
+      })
+    );
 
     navigate('/checkout');
   };
@@ -102,7 +115,7 @@ const Cart = () => {
           addAllHandler={addAllHandler}
           renderCartItems={renderCartItems}
           totalItems={totalItems}
-          totalPrice={totalPrice}
+          totalPrice={localTotalPrice}
           lanjutkanPesananBtnClickHandler={lanjutkanPesananBtnClickHandler}
           hideCheckoutWarningModalHandler={hideCheckoutWarningModalHandler}
           hideDeleteAllConfirmationModalHandler={
@@ -128,7 +141,7 @@ const Cart = () => {
         addAllHandler={addAllHandler}
         renderCartItems={renderCartItems}
         totalItems={totalItems}
-        totalPrice={totalPrice}
+        totalPrice={localTotalPrice}
         lanjutkanPesananBtnClickHandler={lanjutkanPesananBtnClickHandler}
         hideCheckoutWarningModalHandler={hideCheckoutWarningModalHandler}
       />

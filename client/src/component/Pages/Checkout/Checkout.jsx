@@ -1,5 +1,5 @@
 import { Fragment, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Navigate } from 'react-router-dom';
 
 import CheckoutItem from './CheckoutItem';
 import ShippingInfoModal from '../../Modal/ShippingInfoModal';
@@ -9,12 +9,16 @@ import MobileNavbar from '../../Nav/MobileNavbar';
 import AppFooter from '../../Layout/AppFooter';
 import useWindowSize from '../../../hooks/useWindowSize';
 import { screenConfig } from '../../../script/config/config';
-import CheckoutItemMobile from './CheckoutItemMobile';
+
+import { useDispatch, useSelector } from 'react-redux';
 
 const CheckoutDesktop = ({
   isShowModal = false,
   orderBtnClickHandler = () => {},
   hideModalHandler = () => {},
+  checkoutItems = [],
+  totalPrice = '',
+  totalCheckoutItems = 0,
 }) => {
   return (
     <Fragment>
@@ -36,14 +40,15 @@ const CheckoutDesktop = ({
 
           <div className="w-full flex sm:flex-col md:flex-row gap-x-8 gap-y-8">
             <div className="checkout-item-container w-full flex flex-col gap-y-5">
-              {Array(1, 2, 3, 4).map((val) => (
+              {checkoutItems.map((item) => (
                 <CheckoutItem
-                  key={val}
-                  thumbnailUrl="https://dummyimage.com/1280x862/e5e5e5/FFFFFF.png&text=Placeholder+Terlaris+1"
-                  price={3500}
-                  name="Indomie Goreng"
-                  brand="Indofood"
-                  amount={val}
+                  key={item._id}
+                  _id={item._id}
+                  thumbnailUrl={item.link_gambar}
+                  price={item.harga}
+                  name={item.nama}
+                  brand={item.brand}
+                  amount={item.kuantitas}
                 />
               ))}
             </div>
@@ -57,9 +62,11 @@ const CheckoutDesktop = ({
                 <div className="flex flex-row justify-between">
                   <div className="flex flex-col -gap-y-1">
                     <h3>Harga Normal</h3>
-                    <small className="text-[#909090]">({1} Barang)</small>
+                    <small className="text-[#909090]">
+                      ({totalCheckoutItems} Barang)
+                    </small>
                   </div>
-                  <div>Rp {'10.500'}</div>
+                  <div>Rp {totalPrice}</div>
                 </div>
 
                 <div className="flex flex-row justify-between mt-2">
@@ -72,7 +79,7 @@ const CheckoutDesktop = ({
 
                 <div className="flex flex-row justify-between mt-8">
                   <h3>Total Harga</h3>
-                  <div className="font-bold">Rp {'10.500'}</div>
+                  <div className="font-bold">Rp {totalPrice}</div>
                 </div>
 
                 <button
@@ -96,6 +103,9 @@ const CheckoutMobile = ({
   isShowModal = false,
   orderBtnClickHandler = () => {},
   hideModalHandler = () => {},
+  checkoutItems = [],
+  totalPrice = '',
+  totalCheckoutItems = 0,
 }) => {
   return (
     <Fragment>
@@ -113,14 +123,15 @@ const CheckoutMobile = ({
       <div className="container mx-auto mb-16">
         <div>
           <div className="checkout-item-container w-full flex flex-col gap-y-2 bg-white shadow-[0px_2px_10px_rgba(0,0,0,0.25)] py-8 mt-4">
-            {Array(1, 2, 3, 4).map((val) => (
-              <CheckoutItemMobile
-                key={val}
-                thumbnailUrl="https://dummyimage.com/1280x862/e5e5e5/FFFFFF.png&text=Placeholder+Terlaris+1"
-                price={3500}
-                name="Indomie Goreng"
-                brand="Indofood"
-                amount={val}
+            {checkoutItems.map((item) => (
+              <CheckoutItem
+                key={item._id}
+                _id={item._id}
+                thumbnailUrl={item.link_gambar}
+                price={item.harga}
+                name={item.nama}
+                brand={item.brand}
+                amount={item.kuantitas}
               />
             ))}
           </div>
@@ -129,29 +140,29 @@ const CheckoutMobile = ({
             <div className="flex flex-row justify-between">
               <div>
                 <h3 className="text-lg">Subtotal</h3>
-                <small className="text-sm text-[#909090]">({4} Barang)</small>
+                <small className="text-sm text-[#909090]">
+                  ({totalCheckoutItems} Barang)
+                </small>
               </div>
 
-              <div className="text-lg font-bold">
-                Rp {(10500).toLocaleString('id-ID')}
-              </div>
+              <div className="text-lg font-bold">Rp {totalPrice}</div>
             </div>
 
-            <div className="flex flex-row justify-between">
+            {/* <div className="flex flex-row justify-between">
               <h3 className="text-lg">Biaya Kemasan</h3>
 
               <div className="text-lg font-bold">
                 Rp {(5000).toLocaleString('id-ID')}
               </div>
-            </div>
+            </div> */}
 
-            <div className="flex flex-row justify-between">
+            {/* <div className="flex flex-row justify-between">
               <h3 className="text-lg">Diskon</h3>
 
               <div className="text-lg font-bold text-[#D80000]">
-                Rp {(5000).toLocaleString('id-ID')}
+                Rp {(0).toLocaleString('id-ID')}
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
@@ -160,9 +171,7 @@ const CheckoutMobile = ({
         <div className="flex flex-row justify-between">
           <h3 className="text-lg">Total</h3>
 
-          <div className="text-lg font-bold">
-            Rp {(5000).toLocaleString('id-ID')}
-          </div>
+          <div className="text-lg font-bold">Rp {totalPrice}</div>
         </div>
 
         <button
@@ -197,10 +206,18 @@ const CheckoutMobile = ({
 const Checkout = () => {
   const [screenWidth, screenHeight] = useWindowSize();
 
+  const dispatch = useDispatch();
+
   const [isShowModal, setIsShowModal] = useState(false);
 
+  const checkoutItems = useSelector((state) => state.checkout.items);
+  const totalCheckoutItems = checkoutItems.length;
+  const totalPrice = useSelector((state) =>
+    state.checkout.totalPrice.toLocaleString('id-ID')
+  );
+
   const orderBtnClickHandler = () => {
-    alert('Submitted: Order Sekarang');
+    // alert('Submitted: Order Sekarang');
 
     setIsShowModal(true);
   };
@@ -209,6 +226,10 @@ const Checkout = () => {
     setIsShowModal(false);
   };
 
+  if (totalCheckoutItems === 0) {
+    return <Navigate to="/" replace={true} />;
+  }
+
   if (screenWidth <= screenConfig.sm) {
     return (
       <Fragment>
@@ -216,6 +237,9 @@ const Checkout = () => {
           isShowModal={isShowModal}
           orderBtnClickHandler={orderBtnClickHandler}
           hideModalHandler={hideModalHandler}
+          checkoutItems={checkoutItems}
+          totalPrice={totalPrice}
+          totalCheckoutItems={totalCheckoutItems}
         />
       </Fragment>
     );
@@ -227,6 +251,9 @@ const Checkout = () => {
         isShowModal={isShowModal}
         orderBtnClickHandler={orderBtnClickHandler}
         hideModalHandler={hideModalHandler}
+        checkoutItems={checkoutItems}
+        totalPrice={totalPrice}
+        totalCheckoutItems={totalCheckoutItems}
       />
     </Fragment>
   );

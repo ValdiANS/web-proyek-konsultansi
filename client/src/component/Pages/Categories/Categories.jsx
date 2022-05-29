@@ -11,10 +11,23 @@ import config, { screenConfig } from '../../../script/config/config';
 import MobileNavbar from '../../Nav/MobileNavbar';
 
 const boxBgColor = {
-  makanan: 'bg-[#1F1F21]',
-  minuman: 'bg-[#E5B875]',
-  obat: 'bg-[#484B7D]',
-  rokok: 'bg-[#4C4E4F]',
+  minuman: 'bg-[#1F1F21]',
+  rokok: 'bg-[#E5B875]',
+  shampo: 'bg-[#484B7D]',
+  'sabun batang': 'bg-[#4C4E4F]',
+  'sabun cuci': 'bg-[#1F1F21]',
+  ketchap: 'bg-[#E5B875]',
+  'minuman sachet': 'bg-[#484B7D]',
+  odol: 'bg-[#4C4E4F]',
+  'sikat gigi': 'bg-[#1F1F21]',
+  mie: 'bg-[#E5B875]',
+  'lada bubuk': 'bg-[#484B7D]',
+  'makanan ringan': 'bg-[#4C4E4F]',
+  obat: 'bg-[#1F1F21]',
+  koyo: 'bg-[#E5B875]',
+  skincare: 'bg-[#484B7D]',
+  korek: 'bg-[#4C4E4F]',
+  pampers: 'bg-[#1F1F21]',
 };
 
 const Categories = () => {
@@ -28,7 +41,7 @@ const Categories = () => {
 
   useEffect(() => {
     const fetchCategoryInfo = async () => {
-      const response = await fetch(`${config.apiUrl.category}/${categoryId}`);
+      const response = await fetch(`${config.apiUrl.category(categoryId)}`);
 
       if (!response.ok) {
         throw new Error('Could not fetch category data!');

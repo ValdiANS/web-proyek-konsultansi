@@ -33,29 +33,11 @@ const CategoriesSection = ({ className = '' }) => {
           {categoriesData.map((category, index) => (
             <CategoryCard
               key={category._id}
-              className={`w-full h-40 ${boxColor[index]}`}
+              className={`w-full h-40 ${boxColor[index % 4]}`}
               to={`/categories/${category._id}`}
               title={category.nama}
             />
           ))}
-
-          {/* <CategoryCard
-            className="w-full h-40 bg-[#DCA047]/75"
-            to="/categories/biskuit"
-            title="Biskuit"
-          />
-
-          <CategoryCard
-            className="w-full h-40 bg-[#0B0F52]/75"
-            to="/categories/biskuit"
-            title="Biskuit"
-          />
-
-          <CategoryCard
-            className="w-full h-40 bg-[#111315]/75"
-            to="/categories/biskuit"
-            title="Biskuit"
-          /> */}
         </XyzTransitionGroup>
       </div>
     </section>

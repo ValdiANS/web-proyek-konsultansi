@@ -5,11 +5,13 @@ import { categoriesReducer } from './category-slice';
 import { uiReducer } from './ui-slice';
 import { bestSellersReducer } from './best-seller-slice';
 import { recommendationsReducer } from './recommendation-slice';
+import { checkoutReducer } from './checkout-slice';
 
 const store = configureStore({
   reducer: {
     ui: uiReducer,
     cart: cartReducer,
+    checkout: checkoutReducer,
     categories: categoriesReducer,
     'best-sellers': bestSellersReducer,
     recommendations: recommendationsReducer,

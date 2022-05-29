@@ -16,6 +16,7 @@ import WhatsappImg from '../../../asset/image/whatsapp-icon.png';
 import AppHeader from '../../Layout/AppHeader';
 import Navbar from '../../Nav/Navbar';
 import AppFooter from '../../Layout/AppFooter';
+import config from '../../../script/config/config';
 
 const ProductDetailDesktop = ({
   imgList = [],
@@ -173,7 +174,7 @@ const ProductDetailDesktop = ({
                     <img src={WhatsappImg} alt="Whatsapp Icon" />
 
                     <span className="text-3xl text-[#5E5E5E] font-bold">
-                      081234567890
+                      {config.whatsappNumber}
                     </span>
                   </div>
                 </div>

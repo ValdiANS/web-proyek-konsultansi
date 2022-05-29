@@ -1,8 +1,13 @@
 // Ini perlu diganti
 const baseApiUrl = 'http://192.168.43.26:8000/';
+const whatsappNumber = '+62xxxxxxxxxxx';
 
 const config = {
   baseApiUrl,
+  whatsappNumber,
+  chatToWhatsappLink: (phoneNumber, message) =>
+    `https://wa.me/${phoneNumber}?text=${message}`,
+
   apiUrl: {
     products: `${baseApiUrl}api/produks`,
     product: (productId = '') => `${baseApiUrl}api/produk/${productId}`,

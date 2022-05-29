@@ -1,9 +1,6 @@
 import { Fragment } from 'react';
-import { Outlet, Route, Routes } from 'react-router-dom';
+import { Navigate, Outlet, Route, Routes } from 'react-router-dom';
 
-import AppHeader from './component/Layout/AppHeader';
-import AppFooter from './component/Layout/AppFooter';
-import Navbar from './component/Nav/Navbar';
 import Home from './component/Pages/Home/Home';
 import Categories from './component/Pages/Categories/Categories';
 import ProductDetail from './component/Pages/ProductDetail/ProductDetail';
@@ -27,6 +24,8 @@ const App = () => {
         <Route path="/forget-password" element={<ForgetPassword />} />
         <Route path="/register" element={<Register />} />
         <Route path="/search" element={<Search />} />
+
+        <Route path="*" element={<Navigate to="/" replace={true} />} />
       </Routes>
 
       <Outlet />

@@ -60,7 +60,7 @@ const ProductDetail = () => {
     useState(false);
 
   const thumbnailImgList = [
-    { url: `/image/${productInfo?.link_gambar}`, altText: productInfo?.nama },
+    { url: productInfo?.link_gambar, altText: productInfo?.nama },
   ];
 
   const [itemAmount, setItemAmount] = useState(1);

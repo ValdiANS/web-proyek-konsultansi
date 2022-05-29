@@ -61,11 +61,11 @@ const CartItem = ({
         </button>
       </div>
 
-      <Card className="w-full sm:border sm:border-solid sm:border-black sm:p-4 max-w-[100px] sm:max-w-[150px] flex flex-row items-center">
+      <Card className="w-full sm:border sm:border-solid sm:border-black sm:p-4 max-w-[80px] sm:max-w-[150px] flex flex-row items-center">
         <img
-          src={`/image/${link_gambar}`}
+          src={link_gambar}
           alt={nama}
-          className="sm:rounded-t-10px w-full h-[100px] sm:h-[150px] object-contain object-center"
+          className="sm:rounded-t-10px w-full h-[80px] sm:h-[150px] object-contain object-center"
         />
       </Card>
 

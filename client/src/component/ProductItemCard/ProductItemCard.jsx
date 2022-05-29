@@ -55,7 +55,7 @@ const ProductItemCard = ({ product = {}, amount = 1 }) => {
       <Card className="h-full p-4 sm:p-6 bg-white shadow-[2px_4px_10px_rgba(0,0,0,0.1)] flex flex-col justify-between">
         <div className="img-container h-full">
           <img
-            src={`/image/${product.link_gambar}`}
+            src={product.link_gambar}
             alt={product.nama}
             className="rounded-t-10px object-cover object-center w-full h-full max-h-[150px]"
           />

@@ -11,24 +11,10 @@ import ProductItemCard from '../../ProductItemCard/ProductItemCard';
 import SearchNotFound from './SearchNotFound';
 
 const SearchDesktop = ({
-  searchParams,
-  setSearchParams,
   searchQuery,
   productList = [],
   isLoading = false,
 }) => {
-  if (!searchQuery || searchQuery === '' || searchQuery.length === 0) {
-    return <Navigate to="/" replace={true} />;
-  }
-
-  if (productList.length === 0) {
-    return (
-      <Fragment>
-        {!isLoading && <SearchNotFound keyword={searchQuery} />}
-      </Fragment>
-    );
-  }
-
   return (
     <Fragment>
       <AppHeader>
@@ -67,25 +53,7 @@ const SearchDesktop = ({
   );
 };
 
-const SearchMobile = ({
-  searchParams,
-  setSearchParams,
-  searchQuery,
-  productList = [],
-  isLoading = false,
-}) => {
-  if (!searchQuery || searchQuery === '' || searchQuery.length === 0) {
-    return <Navigate to="/" replace={true} />;
-  }
-
-  if (productList.length === 0) {
-    return (
-      <Fragment>
-        {!isLoading && <SearchNotFound keyword={searchQuery} />}
-      </Fragment>
-    );
-  }
-
+const SearchMobile = ({ searchQuery, productList = [], isLoading = false }) => {
   return (
     <Fragment>
       <AppHeader>
@@ -109,11 +77,6 @@ const SearchMobile = ({
               return (
                 <ProductItemCard
                   key={product._id}
-                  // id={product._id}
-                  // productName={product.nama}
-                  // thumbnailUrl={`/image/${product.link_gambar}`}
-                  // price={product.harga}
-
                   product={product}
                   amount={1}
                 />
@@ -153,6 +116,8 @@ const Search = () => {
       );
 
       setSearchedProductList(filteredProducts);
+
+      setIsLoading(false);
     };
 
     setIsLoading(true);
@@ -165,9 +130,19 @@ const Search = () => {
 
       alert(error.message);
     }
-
-    setIsLoading(false);
   }, [searchQuery]);
+
+  if (!searchQuery || searchQuery === '' || searchQuery.length === 0) {
+    return <Navigate to="/" replace={true} />;
+  }
+
+  if (searchedProductList.length === 0) {
+    return (
+      <Fragment>
+        {!isLoading && <SearchNotFound keyword={searchQuery} />}
+      </Fragment>
+    );
+  }
 
   if (screenWidth <= screenConfig.sm) {
     return (

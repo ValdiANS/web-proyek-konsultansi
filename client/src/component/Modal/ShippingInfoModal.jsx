@@ -1,8 +1,51 @@
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import config from '../../script/config/config';
 import Modal from './Modal';
 
 const ShippingInfoModal = ({ onHide }) => {
+  const navigate = useNavigate();
+
+  const checkoutItems = useSelector((state) => state.checkout.items);
+  const totalCheckoutPrice = useSelector((state) => state.checkout.totalPrice);
+
+  const [enteredName, setEnteredName] = useState('');
+  const [enteredWhatsappNumber, setEnteredWhatsappNumber] = useState('');
+  const [enteredAddress, setEnteredAddress] = useState('');
+
   const formSubmitHandler = (e) => {
+    console.log(enteredName);
+    console.log(enteredWhatsappNumber);
+    console.log(enteredAddress);
+
+    let whatsappMessage = `Nama: ${enteredName}%0aNo. Whatsapp: ${enteredWhatsappNumber} %0aAlamat: ${enteredAddress} %0a%0a----------%0a%0a`;
+
+    checkoutItems.forEach((item) => {
+      whatsappMessage += `${item.nama} | ${item.kuantitas}x | Rp${item.harga} %0a`;
+    });
+
+    whatsappMessage += `%0a----------%0aTotal: Rp${totalCheckoutPrice}`;
+
+    window.open(
+      config.chatToWhatsappLink(config.whatsappNumber, whatsappMessage)
+    );
+
+    navigate('/');
+
     e.preventDefault();
+  };
+
+  const nameChangeHandler = (e) => {
+    setEnteredName(e.target.value);
+  };
+
+  const whatsappNumberChangeHandler = (e) => {
+    setEnteredWhatsappNumber(e.target.value);
+  };
+
+  const addressChangeHandler = (e) => {
+    setEnteredAddress(e.target.value);
   };
 
   return (
@@ -25,6 +68,8 @@ const ShippingInfoModal = ({ onHide }) => {
               <input
                 type="text"
                 id="name"
+                value={enteredName}
+                onChange={nameChangeHandler}
                 className="border-b border-b-solid border-b-black"
               />
             </div>
@@ -36,6 +81,8 @@ const ShippingInfoModal = ({ onHide }) => {
               <input
                 type="text"
                 id="noWA"
+                value={enteredWhatsappNumber}
+                onChange={whatsappNumberChangeHandler}
                 className="border-b border-b-solid border-b-black"
               />
             </div>
@@ -47,6 +94,8 @@ const ShippingInfoModal = ({ onHide }) => {
               <textarea
                 type="text"
                 id="address"
+                value={enteredAddress}
+                onChange={addressChangeHandler}
                 className="border-b border-b-solid border-b-black"
               ></textarea>
             </div>

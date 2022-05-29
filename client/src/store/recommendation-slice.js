@@ -31,7 +31,7 @@ const fetchRecommendationsData = () => {
 
       const respData = await response.json();
 
-      return respData.data.slice(0, 4);
+      return respData.data.slice(5, 9);
     };
 
     try {
