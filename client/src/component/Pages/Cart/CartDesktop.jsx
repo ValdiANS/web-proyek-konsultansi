@@ -72,7 +72,7 @@ const CartDesktop = ({
 
                     <div className="flex flex-row justify-between">
                       <div className="flex flex-col -gap-y-1">
-                        <h3>Harga Normal</h3>
+                        <h3>Harga</h3>
                         <small className="text-[#909090]">
                           ({totalItems} Barang)
                         </small>
@@ -80,13 +80,13 @@ const CartDesktop = ({
                       <div>Rp {totalPrice}</div>
                     </div>
 
-                    <div className="flex flex-row justify-between mt-2">
+                    {/* <div className="flex flex-row justify-between mt-2">
                       <div className="flex flex-col -gap-y-1">
                         <h3>Diskon Produk</h3>
                         <small className="text-[#909090]">(0 Barang)</small>
                       </div>
                       <div className="font-bold text-red-600">-Rp. 0</div>
-                    </div>
+                    </div> */}
 
                     <div className="flex flex-row justify-between mt-8">
                       <h3>Total Harga</h3>

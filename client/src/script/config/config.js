@@ -1,6 +1,6 @@
 // Ini perlu diganti
 const baseApiUrl = 'http://192.168.43.26:8000/';
-const whatsappNumber = '+62xxxxxxxxxxx';
+const whatsappNumber = '+6282123018338';
 
 const config = {
   baseApiUrl,
@@ -13,6 +13,13 @@ const config = {
     product: (productId = '') => `${baseApiUrl}api/produk/${productId}`,
     categories: `${baseApiUrl}api/kategoris`,
     category: (categoryId = '') => `${baseApiUrl}api/kategori/${categoryId}`,
+    users: `${baseApiUrl}api/users`,
+    user: (userId = '') => `${baseApiUrl}api/user/${userId}`,
+    carts: `${baseApiUrl}api/carts`,
+    cart: (cartId = '') => `${baseApiUrl}api/cart/${cartId}`,
+    detailcarts: `${baseApiUrl}api/detailcarts`,
+    detailcart: (detailcartId = '') =>
+      `${baseApiUrl}api/detailcart/${detailcartId}`,
   },
   screen: {
     sm: '640',

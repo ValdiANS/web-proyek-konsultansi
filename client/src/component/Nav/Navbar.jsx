@@ -7,10 +7,19 @@ import Logo from '../../asset/logo-mitra.png';
 import CartIcon from '../SVG/CartIcon';
 import UserIcon from '../SVG/UserIcon';
 import SearchIcon from '../SVG/SearchIcon';
-import { useSelector } from 'react-redux';
+import LogoutIcon from '../SVG/LogoutIcon';
+import { useDispatch, useSelector } from 'react-redux';
+import { logoutAndDeleteFromLocalStorage } from '../../store/login-slice';
+import { cartActions } from '../../store/cart-slice';
 
 const Navbar = ({ hideSearchBar = false }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+
+  const isUserLogin = useSelector((state) => state.login.isLogin);
+  const userInfo = useSelector((state) => state.login.userInfo);
+
+  const [showLoginPopup, setShowLoginPopup] = useState(false);
 
   const totalPrice = useSelector((state) =>
     state.cart.totalPrice.toLocaleString('id-ID')
@@ -25,7 +34,7 @@ const Navbar = ({ hideSearchBar = false }) => {
 
     console.log(enteredSearch);
 
-    alert(`Submitted: ${enteredSearch}`);
+    // alert(`Submitted: ${enteredSearch}`);
 
     navigate(`/search?q=${enteredSearch.trim()}`);
   };
@@ -36,6 +45,17 @@ const Navbar = ({ hideSearchBar = false }) => {
 
   const resetSearchHandler = () => {
     setEnteredSearch('');
+  };
+
+  const toggleLoginPopup = () => {
+    setShowLoginPopup((prevState) => !prevState);
+  };
+
+  const logoutHandler = () => {
+    dispatch(logoutAndDeleteFromLocalStorage());
+    dispatch(cartActions.deleteAllCartItem());
+
+    alert('Logout berhasil!');
   };
 
   return (
@@ -105,21 +125,70 @@ const Navbar = ({ hideSearchBar = false }) => {
                 </div>
               </Link>
 
-              <Link
-                to="/login"
-                className="user flex flex-row items-center gap-x-2 px-2 py-2 rounded-lg duration-200 hover:bg-gray-100 active:brightness-90 sm:px-4"
-              >
-                <div className="user-icon">
-                  <UserIcon className="w-10" />
-                </div>
-                <div className="user-name text-lg font-medium hidden sm:block">
-                  Login
-                </div>
-              </Link>
+              <div className="sm:relative">
+                <Link
+                  to={isUserLogin ? '#' : '/login'}
+                  onClick={isUserLogin ? toggleLoginPopup : ''}
+                  className="user flex flex-row items-center gap-x-2 px-2 py-2 rounded-lg duration-200 hover:bg-gray-100 active:brightness-90 sm:px-4"
+                >
+                  <div className="user-icon">
+                    <UserIcon className="w-10" />
+                  </div>
+                  <div className="user-name text-lg font-medium hidden sm:block">
+                    {isUserLogin ? userInfo.nama : 'Login'}
+                  </div>
+                </Link>
+
+                {/* {isUserLogin && showLoginPopup && (
+                  <div className="login-popup shadow-[2px_12px_20px_rgba(0,0,0,0.25)] w-full max-w-[250px] absolute top-full right-4 sm:left-0 bg-white z-10">
+                    <div className="px-4 py-2 bg-black/10">
+                      <div className="user-icon">
+                        <UserIcon className="w-10" />
+                      </div>
+                      <div className="text-lg font-semibold">
+                        {userInfo.nama}
+                      </div>
+                      <div className="text-xs w-full break-all">
+                        {userInfo.email}
+                      </div>
+                    </div>
+                    <div className="relative">
+                      <button
+                        onClick={logoutHandler}
+                        className="w-full flex flex-row items-center gap-x-2 text-lg font-semibold px-4 py-2"
+                      >
+                        <LogoutIcon /> Logout
+                      </button>
+                    </div>
+                  </div>
+                )} */}
+              </div>
             </XyzTransitionGroup>
           </div>
         </div>
       </nav>
+
+      {isUserLogin && showLoginPopup && (
+        <div className="container mx-auto w-full flex flex-row justify-end">
+          <div className="login-popup shadow-[2px_12px_20px_rgba(0,0,0,0.25)] w-full max-w-[250px] bg-white mt-4">
+            <div className="px-4 py-2 bg-black/10">
+              <div className="user-icon">
+                <UserIcon className="w-10" />
+              </div>
+              <div className="text-lg font-semibold">{userInfo.nama}</div>
+              <div className="text-xs w-full break-all">{userInfo.email}</div>
+            </div>
+            <div className="relative">
+              <button
+                onClick={logoutHandler}
+                className="w-full flex flex-row items-center gap-x-2 text-lg font-semibold px-4 py-2"
+              >
+                <LogoutIcon /> Logout
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

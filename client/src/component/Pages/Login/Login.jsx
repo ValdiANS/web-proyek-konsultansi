@@ -1,19 +1,28 @@
-import { Fragment, useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Fragment, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import useWindowSize from '../../../hooks/useWindowSize';
-import { screenConfig } from '../../../script/config/config';
+import config, { screenConfig } from '../../../script/config/config';
+import { getCartItemFromAccount } from '../../../store/cart-slice';
+import { setLoginAndStoreLoginInfo } from '../../../store/login-slice';
 import AppFooter from '../../Layout/AppFooter';
 import AppHeader from '../../Layout/AppHeader';
+import LoginFailedModal from '../../Modal/LoginFailedModal';
 import LoginSuccessModal from '../../Modal/LoginSuccessModal';
 import MobileNavbar from '../../Nav/MobileNavbar';
 import Navbar from '../../Nav/Navbar';
 
 const LoginDesktop = ({
   showLoginSuccessModal = false,
+  showLoginFailedModal = false,
+  loginFailedMessage = '',
   emailValue = '',
+  passwordValue = '',
   emailChangeHandler = (e) => {},
+  passwordChangeHandler = (e) => {},
   loginSubmitHandler = (e) => {},
   hideLoginSuccessModalHandler = () => {},
+  hideLoginFailedModalHandler = () => {},
 }) => {
   return (
     <Fragment>
@@ -25,6 +34,13 @@ const LoginDesktop = ({
         <LoginSuccessModal
           onHide={hideLoginSuccessModalHandler}
           username={emailValue}
+        />
+      )}
+
+      {showLoginFailedModal && (
+        <LoginFailedModal
+          onHide={hideLoginFailedModalHandler}
+          message={loginFailedMessage}
         />
       )}
 
@@ -61,6 +77,8 @@ const LoginDesktop = ({
                   <input
                     type="password"
                     id="password"
+                    value={passwordValue}
+                    onChange={passwordChangeHandler}
                     className="border-b border-b-solid border-b-black"
                   />
                 </div>
@@ -109,10 +127,15 @@ const LoginDesktop = ({
 
 const LoginMobile = ({
   showLoginSuccessModal = false,
+  showLoginFailedModal = false,
+  loginFailedMessage = '',
   emailValue = '',
+  passwordValue = '',
   emailChangeHandler = (e) => {},
+  passwordChangeHandler = (e) => {},
   loginSubmitHandler = (e) => {},
   hideLoginSuccessModalHandler = () => {},
+  hideLoginFailedModalHandler = () => {},
 }) => {
   return (
     <Fragment>
@@ -129,6 +152,13 @@ const LoginMobile = ({
         <LoginSuccessModal
           onHide={hideLoginSuccessModalHandler}
           username={emailValue}
+        />
+      )}
+
+      {showLoginFailedModal && (
+        <LoginFailedModal
+          onHide={hideLoginFailedModalHandler}
+          message={loginFailedMessage}
         />
       )}
 
@@ -164,6 +194,8 @@ const LoginMobile = ({
               <input
                 type="password"
                 id="password"
+                value={passwordValue}
+                onChange={passwordChangeHandler}
                 className="border-b border-b-solid border-b-black text-lg"
               />
             </div>
@@ -208,24 +240,89 @@ const LoginMobile = ({
 
 const Login = () => {
   const [screenWidth, screenHeight] = useWindowSize();
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const [showLoginSuccessModal, setShowLoginSuccessModal] = useState(false);
+  const [showLoginFailedModal, setShowLoginFailedModal] = useState(false);
+  const [loginFailedMessage, setLoginFailedMessage] =
+    useState('Akun tidak ada');
 
   const [emailValue, setEmailValue] = useState('');
+  const [passwordValue, setPasswordValue] = useState('');
+
+  const isUserLogin = useSelector((state) => state.login.isLogin);
+  const userId = useSelector((state) => state.login.userId);
+  const userCartId = useSelector((state) => state.login.userCartId);
+
+  useEffect(() => {
+    if (isUserLogin && userCartId !== '') {
+      console.log(userCartId);
+      dispatch(getCartItemFromAccount(userCartId));
+
+      return;
+    }
+  }, [isUserLogin, userCartId]);
 
   const emailChangeHandler = (e) => {
     setEmailValue(e.target.value);
   };
 
-  const loginSubmitHandler = (e) => {
+  const passwordChangeHandler = (e) => {
+    setPasswordValue(e.target.value);
+  };
+
+  const loginSubmitHandler = async (e) => {
     e.preventDefault();
 
-    alert('Login submitted!');
-    setShowLoginSuccessModal(true);
+    // alert('Login submitted!');
+
+    try {
+      const usersResponse = await fetch(config.apiUrl.users);
+
+      if (!usersResponse.ok) {
+        throw new Error(
+          'Could not process login! Try again or refresh browser!'
+        );
+      }
+
+      const usersResponseJson = await usersResponse.json();
+      const users = usersResponseJson.data;
+
+      const userInfo = users.find(({ email }) => {
+        return email === emailValue;
+      });
+
+      if (userInfo) {
+        if (userInfo.password === passwordValue) {
+          dispatch(setLoginAndStoreLoginInfo({ id: userInfo._id }));
+          setShowLoginSuccessModal(true);
+
+          return;
+        }
+
+        setLoginFailedMessage('Password salah!');
+        setShowLoginFailedModal(true);
+        return;
+      }
+
+      setLoginFailedMessage('Akun tidak ada!');
+      setShowLoginFailedModal(true);
+    } catch (error) {
+      console.log('Login error:');
+      console.log(error);
+
+      alert(error.message);
+    }
   };
 
   const hideLoginSuccessModalHandler = () => {
     setShowLoginSuccessModal(false);
+    navigate('/');
+  };
+
+  const hideLoginFailedModalHandler = () => {
+    setShowLoginFailedModal(false);
   };
 
   if (screenWidth <= screenConfig.sm) {
@@ -233,10 +330,15 @@ const Login = () => {
       <Fragment>
         <LoginMobile
           showLoginSuccessModal={showLoginSuccessModal}
+          showLoginFailedModal={showLoginFailedModal}
+          loginFailedMessage={loginFailedMessage}
           emailValue={emailValue}
+          passwordValue={passwordValue}
           emailChangeHandler={emailChangeHandler}
+          passwordChangeHandler={passwordChangeHandler}
           loginSubmitHandler={loginSubmitHandler}
           hideLoginSuccessModalHandler={hideLoginSuccessModalHandler}
+          hideLoginFailedModalHandler={hideLoginFailedModalHandler}
         />
       </Fragment>
     );
@@ -246,10 +348,15 @@ const Login = () => {
     <Fragment>
       <LoginDesktop
         showLoginSuccessModal={showLoginSuccessModal}
+        showLoginFailedModal={showLoginFailedModal}
+        loginFailedMessage={loginFailedMessage}
         emailValue={emailValue}
+        passwordValue={passwordValue}
         emailChangeHandler={emailChangeHandler}
+        passwordChangeHandler={passwordChangeHandler}
         loginSubmitHandler={loginSubmitHandler}
         hideLoginSuccessModalHandler={hideLoginSuccessModalHandler}
+        hideLoginFailedModalHandler={hideLoginFailedModalHandler}
       />
     </Fragment>
   );

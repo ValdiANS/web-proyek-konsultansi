@@ -5,8 +5,8 @@ import ProductDetailDesktop from './ProductDetailDesktop';
 import config, { screenConfig } from '../../../script/config/config';
 import ProductDetailMobile from './ProductDetailMobile';
 import { useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { cartActions } from '../../../store/cart-slice';
+import { useDispatch, useSelector } from 'react-redux';
+import { addCartItemToAccount, cartActions } from '../../../store/cart-slice';
 
 const ProductDetail = () => {
   const [screenWidth, screenHeight] = useWindowSize();
@@ -15,6 +15,9 @@ const ProductDetail = () => {
   const { productId } = params;
 
   const dispatch = useDispatch();
+
+  const isUserLogin = useSelector((state) => state.login.isLogin);
+  const userCartId = useSelector((state) => state.login.userCartId);
 
   const [productInfo, setProductInfo] = useState({});
   const [categoryName, setCategoryName] = useState('');
@@ -71,16 +74,33 @@ const ProductDetail = () => {
   const addAmountHandler = () => {
     setItemAmount((prevVal) => prevVal + 1);
 
-    console.log(`Add ${productName} amount`);
+    console.log(`Add ${productInfo?.nama} amount`);
   };
 
   const subtractAmountHandler = () => {
     setItemAmount((prevVal) => (prevVal === 1 ? prevVal : prevVal - 1));
 
-    console.log(`Subtract ${productName} amount`);
+    console.log(`Subtract ${productInfo?.nama} amount`);
   };
 
   const addToCartHandler = () => {
+    if (isUserLogin) {
+      dispatch(
+        addCartItemToAccount(
+          {
+            ...product,
+            kuantitas: itemAmount,
+            totalHarga: itemAmount * product.harga,
+            selected: true,
+          },
+          userCartId
+        )
+      );
+
+      setShowAddToCartSuccessHandler(true);
+      return;
+    }
+
     dispatch(
       cartActions.addCartItem({
         ...productInfo,

@@ -1,13 +1,17 @@
-import { Fragment } from 'react';
+import { Fragment, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import useWindowSize from '../../../hooks/useWindowSize';
-import { screenConfig } from '../../../script/config/config';
+import config, { screenConfig } from '../../../script/config/config';
 import AppFooter from '../../Layout/AppFooter';
 import AppHeader from '../../Layout/AppHeader';
 import MobileNavbar from '../../Nav/MobileNavbar';
 import Navbar from '../../Nav/Navbar';
 
-const ForgetPasswordDesktop = ({ sendEmailSubmitHandler = () => {} }) => {
+const ForgetPasswordDesktop = ({
+  emailValue = '',
+  emailValueChangeHandler = (e) => {},
+  sendEmailSubmitHandler = () => {},
+}) => {
   return (
     <Fragment>
       <AppHeader>
@@ -41,6 +45,8 @@ const ForgetPasswordDesktop = ({ sendEmailSubmitHandler = () => {} }) => {
                 <input
                   type="email"
                   id="email"
+                  value={emailValue}
+                  onChange={emailValueChangeHandler}
                   className="border-b border-b-solid border-b-black"
                 />
               </div>
@@ -61,7 +67,11 @@ const ForgetPasswordDesktop = ({ sendEmailSubmitHandler = () => {} }) => {
   );
 };
 
-const ForgetPasswordMobile = ({ sendEmailSubmitHandler = () => {} }) => {
+const ForgetPasswordMobile = ({
+  emailValue = '',
+  emailValueChangeHandler = (e) => {},
+  sendEmailSubmitHandler = () => {},
+}) => {
   return (
     <Fragment>
       <AppHeader>
@@ -92,6 +102,8 @@ const ForgetPasswordMobile = ({ sendEmailSubmitHandler = () => {} }) => {
               <input
                 type="email"
                 id="email"
+                value={emailValue}
+                onChange={emailValueChangeHandler}
                 className="border-b border-b-solid border-b-black text-lg"
               />
             </div>
@@ -116,25 +128,46 @@ const ForgetPassword = () => {
 
   const navigate = useNavigate();
 
+  const [emailValue, setEmailValue] = useState('');
+
   const sendEmailSubmitHandler = (e) => {
     e.preventDefault();
 
-    alert('Email submitted!');
+    // alert('Email submitted!');
+
+    window.open(
+      config.chatToWhatsappLink(
+        config.whatsappNumber,
+        `*[Lupa Password]*%0a%0aHalo,%0aSaya pengguna Grosir Hijrah Web dan saya lupa akan password akun saya.%0a%0aBerikut email saya:%0a${emailValue}%0a%0aTerima Kasih`
+      )
+    );
 
     navigate('/');
+  };
+
+  const emailValueChangeHandler = (e) => {
+    setEmailValue(e.target.value);
   };
 
   if (screenWidth <= screenConfig.sm) {
     return (
       <Fragment>
-        <ForgetPasswordMobile sendEmailSubmitHandler={sendEmailSubmitHandler} />
+        <ForgetPasswordMobile
+          emailValue={emailValue}
+          emailValueChangeHandler={emailValueChangeHandler}
+          sendEmailSubmitHandler={sendEmailSubmitHandler}
+        />
       </Fragment>
     );
   }
 
   return (
     <Fragment>
-      <ForgetPasswordDesktop sendEmailSubmitHandler={sendEmailSubmitHandler} />
+      <ForgetPasswordDesktop
+        emailValue={emailValue}
+        emailValueChangeHandler={emailValueChangeHandler}
+        sendEmailSubmitHandler={sendEmailSubmitHandler}
+      />
     </Fragment>
   );
 };

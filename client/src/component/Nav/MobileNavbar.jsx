@@ -25,7 +25,7 @@ const MobileNavbar = ({
 
     console.log(enteredSearch);
 
-    alert(`Submitted: ${enteredSearch}`);
+    // alert(`Submitted: ${enteredSearch}`);
 
     navigate(`/search?q=${enteredSearch.trim()}`);
   };

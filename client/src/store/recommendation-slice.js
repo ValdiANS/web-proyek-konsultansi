@@ -42,9 +42,9 @@ const fetchRecommendationsData = () => {
       );
     } catch (error) {
       console.log('Error');
-      console.log(error);
+      console.log(error.message);
 
-      alert(error.message);
+      // alert(error.message);
     }
   };
 };
