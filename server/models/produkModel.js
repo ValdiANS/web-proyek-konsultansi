@@ -14,7 +14,7 @@ var ProdukSchema = new Schema({
     default: 0
   },
   id_kategori:{
-    type: String,
+    type: Schema.ObjectId,
   },
   harga:{
     type: Number

@@ -4,10 +4,10 @@ var Schema = mongoose.Schema;
 
 var DetailWishlistSchema = new Schema({
   id_wishlist:{
-    type: String
+    type: Schema.ObjectId
   },
   id_produk:{
-  	type: String
+  	type: Schema.ObjectId
   }
 });
 

@@ -97,6 +97,39 @@ getProdukById = async (req, res) => {
     }).catch(err => console.log(err))
 }
 
+getProdukByKategori = async (req, res) => {
+    await Produk.find({ id_kategori: req.params.kategori }, (err, results) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err })
+        }
+
+        return res.status(200).json({ success: true, data: results })
+    }).catch(err => console.log(err))
+}
+
+getProdukByKeyword = async (req, res) => {
+    await Produk.aggregate([
+        {$match:{
+            $or:[
+                {nama: {$regex: req.params.key, $options: 'i'}},
+                {brand: {$regex: req.params.key, $options: 'i'}}
+            ]
+        }},
+        {$lookup:{
+            from: "kategoris",
+            localField: "id_kategori",
+            foreignField: "_id",
+            as: "infoKategori"
+        }}
+    ], (err, results) => {
+        if (err) {
+            return res.status(400).json({ success: false, error: err })
+        }
+
+        return res.status(200).json({ success: true, data: results })
+    }).catch(err => console.log(err))
+}
+
 getProduks = async (req, res) => {
     await Produk.find({}, (err, results) => {
         if (err) {
@@ -117,4 +150,6 @@ module.exports = {
     deleteProduk,
     getProduks,
     getProdukById,
+    getProdukByKategori,
+    getProdukByKeyword,
 }
