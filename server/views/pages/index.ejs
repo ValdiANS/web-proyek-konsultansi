@@ -20,7 +20,7 @@
                         <div class="tab-pane fade" id="routesPane" role="tabpanel" aria-labelledby="routesTab" tabindex="0">
                             <h3>Routes</h3>
                             <p>The routes will be described here!</p>
-                            <p><strong>Notes: all of the routes are same.</strong></p>
+                            <p><strong>Notes: all of the routes are same (except "Produk").</strong></p>
                             <hr>
                             <h3>Model Name (misal: Admin)</h3>
                             <ul>
@@ -56,6 +56,28 @@
                                     <ul>
                                         <li>
                                             <p><strong>GET</strong> <span class="badge bg-success">ngga butuh id</span> : fungsinya buat nampilin semua data dari model (misal: Admin).</p>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <hr>
+                            <h3>Model Name: Produk</h3>
+                            <ul>
+                                <li>
+                                    <p><strong>api/modelName (api/produkByKategori):</strong> di sini ada satu method (<strong>GET</strong>)</p>
+                                    <ul>
+                                        <li>
+                                            <p>
+                                                <strong>GET</strong> <span class="badge bg-warning">butuh id</span> : fungsinya buat nampilin list data produk sesuai kategori yang diakses dan nanti di bagian link itu jadi api/produkByKategori/id_kategori (misal: api/produkByKategori/628e59967730e0ade56312ff).
+                                            </p>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li>
+                                    <p><strong>api/modelName (api/searchProduk):</strong> di sini ada satu method (<strong>GET</strong>)</p>
+                                    <ul>
+                                        <li>
+                                            <p><strong>GET</strong> <span class="badge bg-warning">butuh id</span> : fungsinya buat nampilin list data produk sesuai keyword (<strong>nama produk</strong> atau <strong>brand</strong>) yang dimasukkan pada kotak pencarian (search box) dan nanti di bagian link itu jadi api/searchProduk/keyword (misal: api/searchProduk/kopi).</p>
                                         </li>
                                     </ul>
                                 </li>
