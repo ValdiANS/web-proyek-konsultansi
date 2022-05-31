@@ -3,7 +3,11 @@ import TrashIcon from '../../SVG/TrashIcon';
 import AmountControl from '../../ProductItemCard/AmountControl';
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { cartActions } from '../../../store/cart-slice';
+import {
+  cartActions,
+  replaceItemQuantityAndInDb,
+} from '../../../store/cart-slice';
+import { useEffect, useState } from 'react';
 
 const CartItem = ({
   _id = '',
@@ -14,27 +18,51 @@ const CartItem = ({
   kuantitas = 0,
   totalHarga = 0,
   selected = false,
+  detailCartId = '',
 }) => {
   const dispatch = useDispatch();
 
   const localPrice = totalHarga.toLocaleString('id-ID');
 
+  const [itemAmount, setItemAmount] = useState(kuantitas);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      dispatch(replaceItemQuantityAndInDb(_id, itemAmount, detailCartId));
+    }, 500);
+
+    return () => {
+      clearTimeout(timeout);
+    };
+  }, [itemAmount]);
+
   const addAmountHandler = () => {
-    dispatch(
-      cartActions.increaseItemQuantity({
-        _id,
-        kuantitas: 1,
-      })
-    );
+    // dispatch(
+    //   cartActions.increaseItemQuantity({
+    //     _id,
+    //     kuantitas: 1,
+    //   })
+    // );
+
+    setItemAmount((prevAmount) => prevAmount + 1);
   };
 
   const subtractAmountHandler = () => {
-    dispatch(
-      cartActions.decreaseItemQuantity({
-        _id,
-        kuantitas: 1,
-      })
-    );
+    // dispatch(
+    //   cartActions.decreaseItemQuantity({
+    //     _id,
+    //     kuantitas: 1,
+    //   })
+    // );
+
+    setItemAmount((prevAmount) => {
+      if (prevAmount === 1) {
+        dispatch(cartActions.unselectItem({ _id }));
+        return prevAmount;
+      }
+
+      return prevAmount - 1;
+    });
   };
 
   const checkboxClickHandler = () => {
@@ -94,7 +122,7 @@ const CartItem = ({
 
         <div className="grid place-items-end justify-start sm:justify-end">
           <AmountControl
-            amount={kuantitas}
+            amount={itemAmount}
             onAddAmount={addAmountHandler}
             onSubtractAmount={subtractAmountHandler}
             className="p-2 border-black gap-x-8"

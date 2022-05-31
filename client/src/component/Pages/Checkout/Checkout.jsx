@@ -8,7 +8,7 @@ import Navbar from '../../Nav/Navbar';
 import MobileNavbar from '../../Nav/MobileNavbar';
 import AppFooter from '../../Layout/AppFooter';
 import useWindowSize from '../../../hooks/useWindowSize';
-import { screenConfig } from '../../../script/config/config';
+import config, { screenConfig } from '../../../script/config/config';
 
 import { useDispatch, useSelector } from 'react-redux';
 
@@ -61,7 +61,7 @@ const CheckoutDesktop = ({
 
                 <div className="flex flex-row justify-between">
                   <div className="flex flex-col -gap-y-1">
-                    <h3>Harga Normal</h3>
+                    <h3>Harga</h3>
                     <small className="text-[#909090]">
                       ({totalCheckoutItems} Barang)
                     </small>
@@ -69,13 +69,13 @@ const CheckoutDesktop = ({
                   <div>Rp {totalPrice}</div>
                 </div>
 
-                <div className="flex flex-row justify-between mt-2">
+                {/* <div className="flex flex-row justify-between mt-2">
                   <div className="flex flex-col -gap-y-1">
                     <h3>Diskon Produk</h3>
                     <small className="text-[#909090]">(0 Barang)</small>
                   </div>
                   <div className="font-bold text-red-600">-Rp. 0</div>
-                </div>
+                </div> */}
 
                 <div className="flex flex-row justify-between mt-8">
                   <h3>Total Harga</h3>
@@ -208,6 +208,9 @@ const Checkout = () => {
 
   const dispatch = useDispatch();
 
+  const isUserLogin = useSelector((state) => state.login.isLogin);
+  const userId = useSelector((state) => state.login.userId);
+
   const [isShowModal, setIsShowModal] = useState(false);
 
   const checkoutItems = useSelector((state) => state.checkout.items);
@@ -216,10 +219,44 @@ const Checkout = () => {
     state.checkout.totalPrice.toLocaleString('id-ID')
   );
 
-  const orderBtnClickHandler = () => {
+  const totalCheckoutPrice = useSelector((state) => state.checkout.totalPrice);
+
+  const orderBtnClickHandler = async () => {
     // alert('Submitted: Order Sekarang');
 
-    setIsShowModal(true);
+    if (!isUserLogin) {
+      setIsShowModal(true);
+      return;
+    }
+
+    try {
+      const userResponse = await fetch(config.apiUrl.user(userId));
+
+      if (!userResponse.ok) {
+        throw new Error('Could not fetch user data!');
+        return;
+      }
+
+      const userResponseJson = await userResponse.json();
+
+      let whatsappMessage = `Nama: ${userResponseJson.data.nama}%0aNo. Whatsapp: ${userResponseJson.data.no_telp} %0aAlamat: ${userResponseJson.data.alamat} %0a%0a----------%0a%0a`;
+
+      checkoutItems.forEach((item) => {
+        whatsappMessage += `${item.nama} | ${item.kuantitas}x | Rp${item.harga} %0a | Total: ${item.totalHarga} %0a`;
+      });
+
+      whatsappMessage += `%0a----------%0aTotal: Rp${totalCheckoutPrice}`;
+
+      window.open(
+        config.chatToWhatsappLink(config.whatsappNumber, whatsappMessage)
+      );
+
+      navigate('/');
+    } catch (error) {
+      console.log('Failed fetch user data!');
+      console.log('Checkout Error');
+      console.log(error.message);
+    }
   };
 
   const hideModalHandler = () => {

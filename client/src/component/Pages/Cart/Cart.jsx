@@ -50,6 +50,7 @@ const Cart = () => {
         kuantitas={item.kuantitas}
         totalHarga={item.totalHarga}
         selected={item.selected}
+        detailCartId={item.detailCartId}
       />
     );
   });

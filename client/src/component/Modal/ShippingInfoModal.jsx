@@ -22,7 +22,7 @@ const ShippingInfoModal = ({ onHide }) => {
     let whatsappMessage = `Nama: ${enteredName}%0aNo. Whatsapp: ${enteredWhatsappNumber} %0aAlamat: ${enteredAddress} %0a%0a----------%0a%0a`;
 
     checkoutItems.forEach((item) => {
-      whatsappMessage += `${item.nama} | ${item.kuantitas}x | Rp${item.harga} %0a`;
+      whatsappMessage += `${item.nama} | ${item.kuantitas}x | Rp${item.harga} %0a | Total: ${item.totalHarga} %0a`;
     });
 
     whatsappMessage += `%0a----------%0aTotal: Rp${totalCheckoutPrice}`;

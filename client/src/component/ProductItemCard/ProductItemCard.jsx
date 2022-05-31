@@ -1,7 +1,7 @@
 import { Fragment, useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { cartActions } from '../../store/cart-slice';
+import { cartActions, addCartItemToAccount } from '../../store/cart-slice';
 import AddToCartSuccessHandler from '../Modal/AddToCartSuccessHandler';
 
 import Card from '../UI/Card';
@@ -9,6 +9,9 @@ import AmountControl from './AmountControl';
 
 const ProductItemCard = ({ product = {}, amount = 1 }) => {
   const dispatch = useDispatch();
+
+  const isUserLogin = useSelector((state) => state.login.isLogin);
+  const userCartId = useSelector((state) => state.login.userCartId);
 
   const [showAddToCartSuccessHandler, setShowAddToCartSuccessHandler] =
     useState(false);
@@ -30,6 +33,24 @@ const ProductItemCard = ({ product = {}, amount = 1 }) => {
   };
 
   const addToCartHandler = () => {
+    if (isUserLogin) {
+      console.log(userCartId);
+      dispatch(
+        addCartItemToAccount(
+          {
+            ...product,
+            kuantitas: itemAmount,
+            totalHarga: itemAmount * product.harga,
+            selected: true,
+          },
+          userCartId
+        )
+      );
+
+      setShowAddToCartSuccessHandler(true);
+      return;
+    }
+
     dispatch(
       cartActions.addCartItem({
         ...product,

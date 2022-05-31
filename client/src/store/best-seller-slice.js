@@ -40,9 +40,9 @@ const fetchBestSellersData = () => {
       dispatch(bestSellersActions.replaceBestSellers(bestSellersData));
     } catch (error) {
       console.log('Error');
-      console.log(error);
+      console.log(error.message);
 
-      alert(error.message);
+      // alert(error.message);
     }
   };
 };

@@ -1,7 +1,7 @@
 import { Fragment, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import useWindowSize from '../../../hooks/useWindowSize';
-import { screenConfig } from '../../../script/config/config';
+import config, { screenConfig } from '../../../script/config/config';
 import AppFooter from '../../Layout/AppFooter';
 import AppHeader from '../../Layout/AppHeader';
 import RegisterSuccessModal from '../../Modal/RegisterSuccessModal';
@@ -12,6 +12,18 @@ const RegisterDesktop = ({
   showSuccessModal = false,
   registerSubmitHandler = (e) => {},
   hideSuccessModalHandler = () => {},
+  nameValue = '',
+  passwordValue = '',
+  passwordConfirmationValue = '',
+  whatsappNumberValue = '',
+  emailValue = '',
+  addressValue = '',
+  nameValueChangeHandler = (e) => {},
+  passwordValueChangeHandler = (e) => {},
+  passwordConfirmationValueChangeHandler = (e) => {},
+  whatsappNumberValueChangeHandler = (e) => {},
+  emailValueChangeHandler = (e) => {},
+  addressValueChangeHandler = (e) => {},
 }) => {
   return (
     <Fragment>
@@ -43,6 +55,8 @@ const RegisterDesktop = ({
                   <input
                     type="text"
                     id="name"
+                    value={nameValue}
+                    onChange={nameValueChangeHandler}
                     className="border-b border-b-solid border-b-black"
                   />
                 </div>
@@ -54,6 +68,8 @@ const RegisterDesktop = ({
                   <input
                     type="password"
                     id="password"
+                    value={passwordValue}
+                    onChange={passwordValueChangeHandler}
                     className="border-b border-b-solid border-b-black"
                   />
                 </div>
@@ -65,6 +81,8 @@ const RegisterDesktop = ({
                   <input
                     type="password"
                     id="confirmPassword"
+                    value={passwordConfirmationValue}
+                    onChange={passwordConfirmationValueChangeHandler}
                     className="border-b border-b-solid border-b-black"
                   />
                 </div>
@@ -76,6 +94,8 @@ const RegisterDesktop = ({
                   <input
                     type="text"
                     id="noWA"
+                    value={whatsappNumberValue}
+                    onChange={whatsappNumberValueChangeHandler}
                     className="border-b border-b-solid border-b-black"
                   />
                 </div>
@@ -87,6 +107,8 @@ const RegisterDesktop = ({
                   <input
                     type="email"
                     id="email"
+                    value={emailValue}
+                    onChange={emailValueChangeHandler}
                     className="border-b border-b-solid border-b-black"
                   />
                 </div>
@@ -98,6 +120,8 @@ const RegisterDesktop = ({
                   <textarea
                     type="text"
                     id="address"
+                    value={addressValue}
+                    onChange={addressValueChangeHandler}
                     className="border-b border-b-solid border-b-black"
                   ></textarea>
 
@@ -107,7 +131,7 @@ const RegisterDesktop = ({
                   </small>
                 </div>
 
-                <div className="input flex flex-col">
+                {/* <div className="input flex flex-col">
                   <label htmlFor="postalCode" className="text-lg">
                     Kode Pos
                   </label>
@@ -127,7 +151,7 @@ const RegisterDesktop = ({
                     id="district"
                     className="border-b border-b-solid border-b-black"
                   />
-                </div>
+                </div> */}
               </div>
 
               <button
@@ -150,6 +174,18 @@ const RegisterMobile = ({
   showSuccessModal = false,
   registerSubmitHandler = (e) => {},
   hideSuccessModalHandler = () => {},
+  nameValue = '',
+  passwordValue = '',
+  passwordConfirmationValue = '',
+  whatsappNumberValue = '',
+  emailValue = '',
+  addressValue = '',
+  nameValueChangeHandler = (e) => {},
+  passwordValueChangeHandler = (e) => {},
+  passwordConfirmationValueChangeHandler = (e) => {},
+  whatsappNumberValueChangeHandler = (e) => {},
+  emailValueChangeHandler = (e) => {},
+  addressValueChangeHandler = (e) => {},
 }) => {
   return (
     <Fragment>
@@ -183,6 +219,8 @@ const RegisterMobile = ({
                 <input
                   type="text"
                   id="name"
+                  value={nameValue}
+                  onChange={nameValueChangeHandler}
                   className="border-b border-b-solid border-b-black text-lg"
                 />
               </div>
@@ -194,6 +232,8 @@ const RegisterMobile = ({
                 <input
                   type="password"
                   id="password"
+                  value={passwordValue}
+                  onChange={passwordValueChangeHandler}
                   className="border-b border-b-solid border-b-black text-lg"
                 />
               </div>
@@ -205,6 +245,8 @@ const RegisterMobile = ({
                 <input
                   type="password"
                   id="confirmPassword"
+                  value={passwordConfirmationValue}
+                  onChange={passwordConfirmationValueChangeHandler}
                   className="border-b border-b-solid border-b-black text-lg"
                 />
               </div>
@@ -216,6 +258,8 @@ const RegisterMobile = ({
                 <input
                   type="text"
                   id="noWA"
+                  value={whatsappNumberValue}
+                  onChange={whatsappNumberValueChangeHandler}
                   className="border-b border-b-solid border-b-black text-lg"
                 />
               </div>
@@ -227,6 +271,8 @@ const RegisterMobile = ({
                 <input
                   type="email"
                   id="email"
+                  value={emailValue}
+                  onChange={emailValueChangeHandler}
                   className="border-b border-b-solid border-b-black text-lg"
                 />
               </div>
@@ -238,6 +284,8 @@ const RegisterMobile = ({
                 <textarea
                   type="text"
                   id="address"
+                  value={addressValue}
+                  onChange={addressValueChangeHandler}
                   className="border-b border-b-solid border-b-black text-lg"
                 ></textarea>
 
@@ -247,7 +295,7 @@ const RegisterMobile = ({
                 </small>
               </div>
 
-              <div className="input flex flex-col gap-y-2">
+              {/* <div className="input flex flex-col gap-y-2">
                 <label htmlFor="postalCode" className="text-lg font-light">
                   Kode Pos
                 </label>
@@ -267,7 +315,7 @@ const RegisterMobile = ({
                   id="district"
                   className="border-b border-b-solid border-b-black text-lg"
                 />
-              </div>
+              </div> */}
             </div>
 
             <button
@@ -287,22 +335,137 @@ const RegisterMobile = ({
 
 const Register = () => {
   const [screenWidth, screenHeight] = useWindowSize();
-
   const navigate = useNavigate();
 
   const [showSuccessModal, setShowSuccessModal] = useState(false);
 
-  const registerSubmitHandler = (e) => {
-    e.preventDefault();
-    alert('Register submitted!');
+  const [nameValue, setNameValue] = useState('');
+  const [passwordValue, setPasswordValue] = useState('');
+  const [passwordConfirmationValue, setPasswordConfirmationValue] =
+    useState('');
+  const [whatsappNumberValue, setWhatsappNumberValue] = useState('');
+  const [emailValue, setEmailValue] = useState('');
+  const [addressValue, setAddressValue] = useState('');
+  // const [postalCodeValue, setPostalCodeValue] = useState('');
+  // const [subDistrictsValue, setSubDistrictsValue] = useState('');
 
-    setShowSuccessModal(true);
+  const registerSubmitHandler = async (e) => {
+    e.preventDefault();
+
+    // alert('Register submitted!');
+
+    if (
+      nameValue === '' ||
+      passwordValue === '' ||
+      passwordConfirmationValue === '' ||
+      whatsappNumberValue === '' ||
+      emailValue === '' ||
+      addressValue === ''
+    ) {
+      alert('Gagal mendaftar akun! Terdapat yang data kosong!');
+
+      return;
+    }
+
+    if (passwordValue !== passwordConfirmationValue) {
+      alert(
+        'Gagal mendaftar akun! Password dan konfirmasi password tidak sama!'
+      );
+
+      return;
+    }
+
+    try {
+      const usersResponse = await fetch(config.apiUrl.users);
+
+      if (!usersResponse.ok) {
+        throw new Error(
+          'Could not process register! Try again or refresh browser!'
+        );
+      }
+
+      const usersResponseJson = await usersResponse.json();
+      const users = usersResponseJson.data;
+
+      const userInfo = users.find(({ email }) => {
+        return email === emailValue;
+      });
+
+      if (userInfo) {
+        alert('Gagal mendaftar akun! Email sudah terdaftar!');
+
+        setNameValue('');
+        setPasswordValue('');
+        setPasswordConfirmationValue('');
+        setWhatsappNumberValue('');
+        setEmailValue('');
+        setAddressValue('');
+
+        return;
+      }
+
+      const registerResponse = await fetch(config.apiUrl.user(''), {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          nama: nameValue,
+          username: emailValue,
+          password: passwordValue,
+          no_telp: whatsappNumberValue,
+          email: emailValue,
+          alamat: addressValue,
+        }),
+      });
+
+      if (!registerResponse.ok) {
+        throw new Error(
+          'Could not process register! Try again or refresh browser!'
+        );
+      }
+
+      const registerResponseJson = await registerResponse.json();
+
+      if (registerResponseJson.success) {
+        setShowSuccessModal(true);
+      }
+    } catch (error) {
+      console.log('Register error:');
+      console.log(error);
+
+      alert(error.message);
+    }
   };
 
   const hideSuccessModalHandler = () => {
     setShowSuccessModal(false);
 
     navigate('/login');
+  };
+
+  const nameValueChangeHandler = (e) => {
+    setNameValue(e.target.value);
+  };
+
+  const passwordValueChangeHandler = (e) => {
+    setPasswordValue(e.target.value);
+  };
+
+  const passwordConfirmationValueChangeHandler = (e) => {
+    setPasswordConfirmationValue(e.target.value);
+  };
+
+  const whatsappNumberValueChangeHandler = (e) => {
+    setWhatsappNumberValue(e.target.value);
+  };
+
+  const emailValueChangeHandler = (e) => {
+    setEmailValue(e.target.value);
+  };
+
+  const addressValueChangeHandler = (e) => {
+    setAddressValue(e.target.value);
   };
 
   if (screenWidth <= screenConfig.sm) {
@@ -312,6 +475,20 @@ const Register = () => {
           showSuccessModal={showSuccessModal}
           registerSubmitHandler={registerSubmitHandler}
           hideSuccessModalHandler={hideSuccessModalHandler}
+          nameValue={nameValue}
+          passwordValue={passwordValue}
+          passwordConfirmationValue={passwordConfirmationValue}
+          whatsappNumberValue={whatsappNumberValue}
+          emailValue={emailValue}
+          addressValue={addressValue}
+          nameValueChangeHandler={nameValueChangeHandler}
+          passwordValueChangeHandler={passwordValueChangeHandler}
+          passwordConfirmationValueChangeHandler={
+            passwordConfirmationValueChangeHandler
+          }
+          whatsappNumberValueChangeHandler={whatsappNumberValueChangeHandler}
+          emailValueChangeHandler={emailValueChangeHandler}
+          addressValueChangeHandler={addressValueChangeHandler}
         />
       </Fragment>
     );
@@ -323,6 +500,20 @@ const Register = () => {
         showSuccessModal={showSuccessModal}
         registerSubmitHandler={registerSubmitHandler}
         hideSuccessModalHandler={hideSuccessModalHandler}
+        nameValue={nameValue}
+        passwordValue={passwordValue}
+        passwordConfirmationValue={passwordConfirmationValue}
+        whatsappNumberValue={whatsappNumberValue}
+        emailValue={emailValue}
+        addressValue={addressValue}
+        nameValueChangeHandler={nameValueChangeHandler}
+        passwordValueChangeHandler={passwordValueChangeHandler}
+        passwordConfirmationValueChangeHandler={
+          passwordConfirmationValueChangeHandler
+        }
+        whatsappNumberValueChangeHandler={whatsappNumberValueChangeHandler}
+        emailValueChangeHandler={emailValueChangeHandler}
+        addressValueChangeHandler={addressValueChangeHandler}
       />
     </Fragment>
   );
