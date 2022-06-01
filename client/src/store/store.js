@@ -7,16 +7,20 @@ import { bestSellersReducer } from './best-seller-slice';
 import { recommendationsReducer } from './recommendation-slice';
 import { checkoutReducer } from './checkout-slice';
 import { loginReducer } from './login-slice';
+import { adminLoginReducer } from './admin-login-slice';
+import { dashboardReducer } from './dashboard-slice';
 
 const store = configureStore({
   reducer: {
     ui: uiReducer,
     login: loginReducer,
+    admin: adminLoginReducer,
     cart: cartReducer,
     checkout: checkoutReducer,
     categories: categoriesReducer,
     'best-sellers': bestSellersReducer,
     recommendations: recommendationsReducer,
+    dashboard: dashboardReducer,
   },
 });
 

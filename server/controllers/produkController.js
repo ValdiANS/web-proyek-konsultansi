@@ -51,6 +51,9 @@ updateProduk = async (req, res) => {
             })
         }
         found_produk.nama = body.nama
+        found_produk.brand = body.brand
+        found_produk.berat = body.berat
+        found_produk.id_kategori = body.id_kategori
         found_produk.harga = body.harga
         found_produk.stok = body.stok
         found_produk.link_gambar = body.link_gambar

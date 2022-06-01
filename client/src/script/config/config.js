@@ -20,6 +20,8 @@ const config = {
     detailcarts: `${baseApiUrl}api/detailcarts`,
     detailcart: (detailcartId = '') =>
       `${baseApiUrl}api/detailcart/${detailcartId}`,
+    admins: `${baseApiUrl}api/admins`,
+    admin: (adminId = '') => `${baseApiUrl}api/admin/${adminId}`,
   },
   screen: {
     sm: '640',

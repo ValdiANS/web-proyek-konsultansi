@@ -28,6 +28,7 @@ const ProductDetailDesktop = ({
   itemAmount = 1,
   price = 0,
   localPrice,
+  stok = 0,
   addAmountHandler = () => {},
   subtractAmountHandler = () => {},
   addToCartHandler = () => {},
@@ -133,6 +134,12 @@ const ProductDetailDesktop = ({
                         <td className="pb-4 pl-8 text-textSecondary">
                           {weight} gr
                         </td>
+                      </tr>
+
+                      <tr>
+                        <td className="pb-4 text-[#5E5E5E]">Stok</td>
+
+                        <td className="pb-4 pl-8 text-textSecondary">{stok}</td>
                       </tr>
                     </tbody>
                   </table>

@@ -122,4 +122,5 @@ export {
   getLoginInfoFromLocalStorage,
   logoutAndDeleteFromLocalStorage,
 };
+
 export default loginSlice;

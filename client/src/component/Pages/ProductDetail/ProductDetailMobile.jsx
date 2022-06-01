@@ -27,6 +27,7 @@ const ProductDetailMobile = ({
   itemAmount = 1,
   price = 0,
   localPrice,
+  stok = 0,
   addAmountHandler = () => {},
   subtractAmountHandler = () => {},
   addToCartHandler = () => {},
@@ -133,6 +134,14 @@ const ProductDetailMobile = ({
 
                     <td className="text-sm pb-2 pl-8 text-textSecondary">
                       {weight} gr
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td className="text-sm pb-2 text-[#5E5E5E]">Stok</td>
+
+                    <td className="text-sm pb-2 pl-8 text-textSecondary">
+                      {stok}
                     </td>
                   </tr>
                 </tbody>

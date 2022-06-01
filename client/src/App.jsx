@@ -16,6 +16,8 @@ import {
   getCartItemFromAccount,
   getCartItemsFromSessionStorage,
 } from './store/cart-slice';
+import AdminLogin from './component/Pages/AdminLogin/AdminLogin';
+import Dashboard from './component/Pages/Dashboard/Dashboard';
 
 const App = () => {
   const dispatch = useDispatch();
@@ -63,6 +65,8 @@ const App = () => {
         <Route path="/forget-password" element={<ForgetPassword />} />
         <Route path="/register" element={<Register />} />
         <Route path="/search" element={<Search />} />
+        <Route path="/admin" element={<AdminLogin />} />
+        <Route path="/dashboard" element={<Dashboard />} />
 
         <Route path="*" element={<Navigate to="/" replace={true} />} />
       </Routes>

@@ -130,6 +130,7 @@ const ProductDetail = () => {
           itemAmount={itemAmount}
           price={price}
           localPrice={localPrice}
+          stok={productInfo?.stok}
           addAmountHandler={addAmountHandler}
           subtractAmountHandler={subtractAmountHandler}
           addToCartHandler={addToCartHandler}
@@ -151,6 +152,7 @@ const ProductDetail = () => {
         itemAmount={itemAmount}
         price={price}
         localPrice={localPrice}
+        stok={productInfo?.stok}
         addAmountHandler={addAmountHandler}
         subtractAmountHandler={subtractAmountHandler}
         addToCartHandler={addToCartHandler}
