@@ -18,6 +18,7 @@ const CheckoutItem = ({
           src={thumbnailUrl}
           alt={name}
           className="rounded-t-10px w-full h-[80px] sm:h-[150px] object-contain object-center"
+          loading="lazy"
         />
       </Card>
 

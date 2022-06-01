@@ -22,6 +22,7 @@ const NeedCard = ({
           src={thumbnailUrl}
           alt={title}
           className="h-full w-full object-cover object-center"
+          loading="lazy"
         />
       </div>
       <div className="needs-content w-full pr-2 pl-4 py-8">
@@ -41,6 +42,7 @@ const NeedCard = ({
           src={thumbnailUrl}
           alt={title}
           className="h-full w-full object-cover object-center"
+          loading="lazy"
         />
       </div>
       <div className="needs-content w-full pr-2 pl-4 py-8">

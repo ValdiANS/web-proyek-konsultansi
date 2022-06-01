@@ -13,7 +13,7 @@ const CheckoutItemMobile = ({
   return (
     <Card className="px-4 flex flex-row items-center justify-between gap-x-3">
       <Card className="w-24">
-        <img src={thumbnailUrl} alt={name} className="w-full" />
+        <img src={thumbnailUrl} alt={name} className="w-full" loading="lazy" />
       </Card>
 
       <div className="flex flex-col justify-between ">

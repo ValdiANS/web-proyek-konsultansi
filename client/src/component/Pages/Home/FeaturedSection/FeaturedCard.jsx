@@ -15,6 +15,7 @@ const FeaturedCard = ({
             src={thumbnailUrl}
             alt={productName}
             className="h-full object-contain object-left rounded-10px"
+            loading="lazy"
           />
         </a>
       </div>

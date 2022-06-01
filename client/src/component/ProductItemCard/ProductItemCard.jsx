@@ -79,6 +79,7 @@ const ProductItemCard = ({ product = {}, amount = 1 }) => {
             src={product.link_gambar}
             alt={product.nama}
             className="rounded-t-10px object-cover object-center w-full h-full max-h-[150px]"
+            loading="lazy"
           />
         </div>
 

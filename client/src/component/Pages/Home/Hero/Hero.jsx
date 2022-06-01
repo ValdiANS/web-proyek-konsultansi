@@ -63,6 +63,7 @@ const Hero = () => {
               src={url}
               alt={altText}
               className="w-full mx-auto object-cover object-center max-h-[600px] aspect-[2.09/1]"
+              loading="lazy"
             />
           </SwiperSlide>
         ))}
@@ -103,6 +104,7 @@ const Hero = () => {
               src={url}
               alt={altText}
               className="w-full mx-auto object-cover object-center h-full max-h-[300px] aspect-[2.09/1]"
+              loading="lazy"
             />
           </SwiperSlide>
         ))}

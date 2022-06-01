@@ -31,6 +31,7 @@ const MarqueeBrandSection = ({ className = '' }) => {
                   src={indomieGorengAyamPopImage}
                   alt="Brand"
                   className="h-36 object-cover object-center rounded-10px"
+                  loading="lazy"
                 />
               </SwiperSlide>
             ))}
