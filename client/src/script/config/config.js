@@ -1,6 +1,6 @@
 // Ini perlu diganti
 const baseApiUrl = 'https://toko-hijrah.herokuapp.com/';
-const whatsappNumber = '+62xxxxxxxxxx';
+const whatsappNumber = '+6289685687033';
 
 const config = {
   baseApiUrl,
