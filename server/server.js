@@ -45,7 +45,7 @@ if(process.env.NODE_ENV === 'production'){
   console.log('ENV: Production');
   app.use(express.static(path.join(__dirname, '../client/dist')));
   
-  app.use('/', feRouter)
+  app.use(feRouter)
 } else {
   console.log('ENV: Development');
   app.get('/', (req, res) => {

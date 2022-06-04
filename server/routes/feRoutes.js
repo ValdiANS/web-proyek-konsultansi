@@ -2,37 +2,37 @@ const express = require('express')
 
 const router = express.Router()
 
-router.get('', (req, res) =>{
+router.get('/', (req, res) =>{
     res.sendFile(path.join(__dirname, '../../client', 'dist', 'index.html'));
 })
-router.get('cart', (req, res) =>{
+router.get('/cart', (req, res) =>{
     res.sendFile(path.join(__dirname, '../../client', 'dist', 'index.html'));
 })
-router.get('checkout', (req, res) =>{
+router.get('/checkout', (req, res) =>{
     res.sendFile(path.join(__dirname, '../../client', 'dist', 'index.html'));
 })
-router.get('categories/:category', (req, res) =>{
+router.get('/categories/:category', (req, res) =>{
     res.sendFile(path.join(__dirname, '../../client', 'dist', 'index.html'));
 })
-router.get('products/:productId', (req, res) =>{
+router.get('/products/:productId', (req, res) =>{
     res.sendFile(path.join(__dirname, '../../client', 'dist', 'index.html'));
 })
-router.get('login', (req, res) =>{
+router.get('/login', (req, res) =>{
     res.sendFile(path.join(__dirname, '../../client', 'dist', 'index.html'));
 })
-router.get('forget-password', (req, res) =>{
+router.get('/forget-password', (req, res) =>{
     res.sendFile(path.join(__dirname, '../../client', 'dist', 'index.html'));
 })
-router.get('register', (req, res) =>{
+router.get('/register', (req, res) =>{
     res.sendFile(path.join(__dirname, '../../client', 'dist', 'index.html'));
 })
-router.get('search', (req, res) =>{
+router.get('/search', (req, res) =>{
     res.sendFile(path.join(__dirname, '../../client', 'dist', 'index.html'));
 })
-router.get('admin', (req, res) =>{
+router.get('/admin', (req, res) =>{
     res.sendFile(path.join(__dirname, '../../client', 'dist', 'index.html'));
 })
-router.get('dashboard', (req, res) =>{
+router.get('/dashboard', (req, res) =>{
     res.sendFile(path.join(__dirname, '../../client', 'dist', 'index.html'));
 })
 
