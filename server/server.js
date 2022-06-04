@@ -14,6 +14,7 @@ const express = require('express'),
   ProdukRouter = require('./routes/produkRoutes'), 
   UserRouter = require('./routes/userRoutes'), 
   WishlistRouter = require('./routes/wishlistRoutes'), 
+  feRouter = require('./routes/feRoutes'), 
   bodyParser = require('body-parser');
   path = require('path');
   
@@ -44,39 +45,7 @@ if(process.env.NODE_ENV === 'production'){
   console.log('ENV: Production');
   app.use(express.static(path.join(__dirname, '../client/dist')));
   
-  app.get('/', (req, res) =>{
-    res.sendFile(path.join(__dirname, '../client', 'dist', 'index.html'));
-  })
-  app.get('/cart', (req, res) =>{
-    res.sendFile(path.join(__dirname, '../client', 'dist', 'index.html'));
-  })
-  app.get('/checkout', (req, res) =>{
-    res.sendFile(path.join(__dirname, '../client', 'dist', 'index.html'));
-  })
-  app.get('/categoris/:category', (req, res) =>{
-    res.sendFile(path.join(__dirname, '../client', 'dist', 'index.html'));
-  })
-  app.get('/products/:productId', (req, res) =>{
-    res.sendFile(path.join(__dirname, '../client', 'dist', 'index.html'));
-  })
-  app.get('/login', (req, res) =>{
-    res.sendFile(path.join(__dirname, '../client', 'dist', 'index.html'));
-  })
-  app.get('/forget-password', (req, res) =>{
-    res.sendFile(path.join(__dirname, '../client', 'dist', 'index.html'));
-  })
-  app.get('/register', (req, res) =>{
-    res.sendFile(path.join(__dirname, '../client', 'dist', 'index.html'));
-  })
-  app.get('/search', (req, res) =>{
-    res.sendFile(path.join(__dirname, '../client', 'dist', 'index.html'));
-  })
-  app.get('/admin', (req, res) =>{
-    res.sendFile(path.join(__dirname, '../client', 'dist', 'index.html'));
-  })
-  app.get('/dashboard', (req, res) =>{
-    res.sendFile(path.join(__dirname, '../client', 'dist', 'index.html'));
-  })
+  app.use('/', feRouter)
 } else {
   console.log('ENV: Development');
   app.get('/', (req, res) => {
