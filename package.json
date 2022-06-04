@@ -1,0 +1,20 @@
+{
+    "name": "tokohijrah",
+    "version": "1.0.0",
+    "description": "- React\r - Tailwind CSS\r - Vite",
+    "main": "index.js",
+    "scripts": {
+      "test": "echo \"Error: no test specified\" && exit 1",
+      "heroku-postbuild": "npm i --prefix server && NPM_CONFIG_PRODUCTION=false npm i --prefix client && npm run build --prefix client"
+    },
+    "repository": {
+      "type": "git",
+      "url": "git+https://github.com/frxcksz/TokoHijrah.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+      "url": "https://github.com/frxcksz/TokoHijrah/issues"
+    },
+    "homepage": "https://github.com/frxcksz/TokoHijrah#readme"
+  }
