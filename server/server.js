@@ -42,10 +42,40 @@ routes(app); //register the route*/
 
 if(process.env.NODE_ENV === 'production'){
   console.log('ENV: Production');
-  app.use(express.static('../client/dist'));
+  app.use(express.static(path.join(__dirname, '../client/dist')));
   
-  app.get('*', (req, res) =>{
-    res.sendFile(path.resolve(__dirname, '../client', 'dist', 'index.html'));
+  app.get('/', (req, res) =>{
+    res.sendFile(path.join(__dirname, '../client', 'dist', 'index.html'));
+  })
+  app.get('/cart', (req, res) =>{
+    res.sendFile(path.join(__dirname, '../client', 'dist', 'index.html'));
+  })
+  app.get('/checkout', (req, res) =>{
+    res.sendFile(path.join(__dirname, '../client', 'dist', 'index.html'));
+  })
+  app.get('/categoris/:category', (req, res) =>{
+    res.sendFile(path.join(__dirname, '../client', 'dist', 'index.html'));
+  })
+  app.get('/products/:productId', (req, res) =>{
+    res.sendFile(path.join(__dirname, '../client', 'dist', 'index.html'));
+  })
+  app.get('/login', (req, res) =>{
+    res.sendFile(path.join(__dirname, '../client', 'dist', 'index.html'));
+  })
+  app.get('/forget-password', (req, res) =>{
+    res.sendFile(path.join(__dirname, '../client', 'dist', 'index.html'));
+  })
+  app.get('/register', (req, res) =>{
+    res.sendFile(path.join(__dirname, '../client', 'dist', 'index.html'));
+  })
+  app.get('/search', (req, res) =>{
+    res.sendFile(path.join(__dirname, '../client', 'dist', 'index.html'));
+  })
+  app.get('/admin', (req, res) =>{
+    res.sendFile(path.join(__dirname, '../client', 'dist', 'index.html'));
+  })
+  app.get('/dashboard', (req, res) =>{
+    res.sendFile(path.join(__dirname, '../client', 'dist', 'index.html'));
   })
 } else {
   console.log('ENV: Development');
