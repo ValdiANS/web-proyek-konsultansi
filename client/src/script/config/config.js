@@ -1,5 +1,5 @@
 // Ini perlu diganti
-const baseApiUrl = 'http://localhost:8000/';
+const baseApiUrl = 'https://toko-hijrah.herokuapp.com/';
 const whatsappNumber = '+62xxxxxxxxxx';
 
 const config = {
