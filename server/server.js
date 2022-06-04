@@ -1,3 +1,4 @@
+require("dotenv").config({path: "../config.env"});
 const express = require('express'),
   app = express(),
   apiPort = process.env.PORT || 8000,
@@ -13,11 +14,19 @@ const express = require('express'),
   ProdukRouter = require('./routes/produkRoutes'), 
   UserRouter = require('./routes/userRoutes'), 
   WishlistRouter = require('./routes/wishlistRoutes'), 
+  feRouter = require('./routes/feRoutes'), 
   bodyParser = require('body-parser');
+  path = require('path');
   
 // mongoose instance connection url connection
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/TokoHijrahDB'); 
+try {
+  mongoose.connect(process.env.MONGO_URI); 
+  console.log("MongoDB Connection Success!")
+} catch (error){
+  console.log("MongoDB Connection Failed!")
+  process.exit(1);
+}
 
 app.set('view engine', 'ejs')
 app.set('views', 'views/pages')
@@ -32,7 +41,19 @@ app.use(bodyParser.json());
 /*var routes = require('./api/routes/nonameRoutes'); //importing routes
 routes(app); //register the route*/
 
-app.get('/', (req, res) => {
+if(process.env.NODE_ENV === 'production'){
+  console.log('ENV: Production');
+  app.use(express.static(path.join(__dirname, '../client/dist')));
+  
+  app.use(feRouter)
+} else {
+  console.log('ENV: Development');
+  app.get('/', (req, res) => {
+    res.render('')
+  })
+}
+
+app.get('/api/documentation', (req, res) => {
     res.render('')
 })
 

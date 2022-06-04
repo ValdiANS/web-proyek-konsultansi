@@ -33,6 +33,24 @@ createProduk = (req, res) => {
         })
 }
 
+insertManyProduk = (req, res) => {
+    const body = req.body
+
+    if (!body) {
+        return res.status(400).json({
+            success: false,
+            error: 'You must provide a Produk',
+        })
+    }
+
+    Produk.insertMany(body).then(()=>{
+        return res.status(201).json({
+            success: true,
+            message: 'All produks are imported!'
+        })
+    })
+}
+
 updateProduk = async (req, res) => {
     const body = req.body
 
@@ -155,4 +173,5 @@ module.exports = {
     getProdukById,
     getProdukByKategori,
     getProdukByKeyword,
+    insertManyProduk,
 }

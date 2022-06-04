@@ -33,6 +33,24 @@ createKategori = (req, res) => {
         })
 }
 
+insertManyKategori = (req, res) => {
+    const body = req.body
+
+    if (!body) {
+        return res.status(400).json({
+            success: false,
+            error: 'You must provide a Kategori',
+        })
+    }
+
+    Kategori.insertMany(body).then(()=>{
+        return res.status(201).json({
+            success: true,
+            message: 'All kategoris are imported!'
+        })
+    })
+}
+
 updateKategori = async (req, res) => {
     const body = req.body
 
@@ -115,4 +133,5 @@ module.exports = {
     deleteKategori,
     getKategoris,
     getKategoriById,
+    insertManyKategori,
 }

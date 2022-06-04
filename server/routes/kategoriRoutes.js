@@ -5,6 +5,7 @@ const KategoriController = require('../controllers/kategoriController')
 const router = express.Router()
 
 router.post('/kategori', KategoriController.createKategori)
+router.post('/insertManyKategori', KategoriController.insertManyKategori)
 router.put('/kategori/:id', KategoriController.updateKategori)
 router.delete('/kategori/:id', KategoriController.deleteKategori)
 router.get('/kategori/:id', KategoriController.getKategoriById)
