@@ -1,6 +1,6 @@
-#config.env
-#package.json
-#Procfile
+config.env
+package.json
+Procfile
 
 # Logs
 client/logs
