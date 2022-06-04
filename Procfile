@@ -1,1 +1,1 @@
-web: sh -c 'cd ./server && nodemon server.js'
+web: sh -c 'cd ./server && npm i && nodemon server.js'
