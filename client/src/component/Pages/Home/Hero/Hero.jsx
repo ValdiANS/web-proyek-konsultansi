@@ -94,9 +94,6 @@ const Hero = () => {
         pagination={pagination}
         modules={[Pagination]}
         className="relative"
-        style={{
-          zIndex: -1,
-        }}
       >
         {imgList.map(({ url, altText }, index) => (
           <SwiperSlide key={index + 1}>

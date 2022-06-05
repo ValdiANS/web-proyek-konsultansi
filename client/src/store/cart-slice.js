@@ -572,6 +572,33 @@ const deleteCartItemAndInDb = (detailCartId, productId) => {
   };
 };
 
+const deleteAllCartItemAndInDb = (cartItems = []) => {
+  return async (dispatch) => {
+    try {
+      cartItems.forEach(async (cartItem) => {
+        const deleteDetailCartResponse = await fetch(
+          config.apiUrl.detailcart(cartItem.detailCartId),
+          {
+            method: 'DELETE',
+          }
+        );
+
+        if (!deleteDetailCartResponse.ok) {
+          throw new Error(
+            'Could not delete cart items! Try again or refresh browser!'
+          );
+        }
+      });
+
+      dispatch(cartSlice.actions.deleteAllCartItem());
+    } catch (error) {
+      console.log('Failed to delete all cart item!');
+      console.log('Cart Slice Error');
+      console.log(error.message);
+    }
+  };
+};
+
 const cartReducer = cartSlice.reducer;
 const cartActions = cartSlice.actions;
 
@@ -584,5 +611,6 @@ export {
   replaceItemQuantityAndInSessionStorage,
   getCartItemsFromSessionStorage,
   deleteCartItemAndInDb,
+  deleteAllCartItemAndInDb,
 };
 export default cartSlice;

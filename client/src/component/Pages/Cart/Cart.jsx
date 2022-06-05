@@ -3,7 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import useWindowSize from '../../../hooks/useWindowSize';
 import { screenConfig } from '../../../script/config/config';
-import { cartActions } from '../../../store/cart-slice';
+import {
+  cartActions,
+  deleteAllCartItemAndInDb,
+} from '../../../store/cart-slice';
 import { checkoutActions } from '../../../store/checkout-slice';
 
 import CartDesktop from './CartDesktop';
@@ -17,6 +20,7 @@ const Cart = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const isUserLogin = useSelector((state) => state.login.isLogin);
   const cartItems = useSelector((state) => state.cart.items);
   const selectedItems = cartItems.filter((item) => item.selected);
 
@@ -31,6 +35,12 @@ const Cart = () => {
   console.log(isAllChecked);
 
   const allItemDeleteHandler = () => {
+    if (isUserLogin) {
+      dispatch(deleteAllCartItemAndInDb(cartItems));
+
+      return;
+    }
+
     dispatch(cartActions.deleteAllCartItem());
   };
 

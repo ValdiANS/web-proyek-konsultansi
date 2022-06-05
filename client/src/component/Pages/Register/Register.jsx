@@ -427,7 +427,25 @@ const Register = () => {
 
       const registerResponseJson = await registerResponse.json();
 
-      if (registerResponseJson.success) {
+      const newCartResponse = await fetch(config.apiUrl.cart(''), {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          id_user: registerResponseJson.id,
+        }),
+      });
+
+      if (!newCartResponse.ok) {
+        throw new Error(
+          'Could not process register! Try again or refresh browser!'
+        );
+      }
+
+      const newCartResponseJson = await newCartResponse.json();
+
+      if (registerResponseJson.success && newCartResponseJson.success) {
         setShowSuccessModal(true);
       }
     } catch (error) {
