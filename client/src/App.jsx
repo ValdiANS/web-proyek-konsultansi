@@ -22,6 +22,8 @@ import Dashboard from './component/Pages/Dashboard/Dashboard';
 const App = () => {
   const dispatch = useDispatch();
 
+  const isUserLoginLocalStorage = localStorage.getItem('isLogin') || '';
+
   dispatch(getLoginInfoFromLocalStorage());
 
   const isUserLogin = useSelector((state) => state.login.isLogin);
@@ -42,7 +44,7 @@ const App = () => {
   const [isFirstRender, setIsFirstRender] = useState(true);
 
   useEffect(() => {
-    if (!isUserLogin) {
+    if (!isUserLoginLocalStorage) {
       if (!isFirstRender) {
         sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
         return;

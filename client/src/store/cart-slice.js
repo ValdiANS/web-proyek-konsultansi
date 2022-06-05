@@ -116,6 +116,9 @@ const cartSlice = createSlice({
       state.items = state.items.filter(
         (item) => item._id !== action.payload._id
       );
+
+      const selectedItems = state.items.filter((item) => item.selected);
+      state.totalPrice = calculateTotalPrice(selectedItems);
     },
 
     deleteAllCartItem(state, action) {
@@ -400,6 +403,7 @@ const getCartItemFromAccount = (userCartId) => {
       const detailCartsResponseJson = await detailCartsResponse.json();
 
       if (!detailCartsResponseJson?.success) {
+        dispatch(cartSlice.actions.replaceCartItems([]));
         return;
       }
 
@@ -508,11 +512,63 @@ const replaceItemQuantityAndInDb = (productId, newQuantity, detailCartId) => {
   };
 };
 
+const replaceItemQuantityAndInSessionStorage = (productId, newQuantity) => {
+  return (dispatch) => {
+    try {
+      const cartItems = JSON.parse(sessionStorage.getItem('cartItems')) || [];
+
+      const productIndex = cartItems.findIndex(
+        (product) => product._id === productId
+      );
+
+      cartItems[productIndex].kuantitas = newQuantity;
+
+      sessionStorage.setItem('cartItems', JSON.stringify(cartItems));
+
+      dispatch(
+        cartSlice.actions.replaceItemQuantity({
+          _id: productId,
+          kuantitas: newQuantity,
+        })
+      );
+    } catch (error) {
+      console.log('Failed to replace item quantity in session storage!');
+      console.log('Cart Slice Error');
+      console.log(error.message);
+    }
+  };
+};
+
 const getCartItemsFromSessionStorage = () => {
   return (dispatch) => {
     const cartItems = JSON.parse(sessionStorage.getItem('cartItems')) || [];
 
     dispatch(cartSlice.actions.replaceCartItems(cartItems));
+  };
+};
+
+const deleteCartItemAndInDb = (detailCartId, productId) => {
+  return async (dispatch) => {
+    try {
+      const deleteDetailCartResponse = await fetch(
+        config.apiUrl.detailcart(detailCartId),
+        {
+          method: 'DELETE',
+        }
+      );
+
+      if (!deleteDetailCartResponse.ok) {
+        throw new Error(
+          'Could not delete cart items! Try again or refresh browser!'
+        );
+      }
+
+      dispatch(cartSlice.actions.deleteCartItem({ _id: productId }));
+    } catch (error) {
+      console.log('Failed to delete cart item!');
+      console.log('Cart Slice Error');
+      console.log(error.message);
+    }
   };
 };
 
@@ -525,6 +581,8 @@ export {
   addCartItemToAccount,
   getCartItemFromAccount,
   replaceItemQuantityAndInDb,
+  replaceItemQuantityAndInSessionStorage,
   getCartItemsFromSessionStorage,
+  deleteCartItemAndInDb,
 };
 export default cartSlice;

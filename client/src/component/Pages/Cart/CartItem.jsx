@@ -2,10 +2,12 @@ import Card from '../../UI/Card';
 import TrashIcon from '../../SVG/TrashIcon';
 import AmountControl from '../../ProductItemCard/AmountControl';
 import { Link } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import {
   cartActions,
+  deleteCartItemAndInDb,
   replaceItemQuantityAndInDb,
+  replaceItemQuantityAndInSessionStorage,
 } from '../../../store/cart-slice';
 import { useEffect, useState } from 'react';
 
@@ -21,19 +23,24 @@ const CartItem = ({
   detailCartId = '',
 }) => {
   const dispatch = useDispatch();
+  const isUserLogin = useSelector((state) => state.login.isLogin);
 
   const localPrice = totalHarga.toLocaleString('id-ID');
 
   const [itemAmount, setItemAmount] = useState(kuantitas);
 
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      dispatch(replaceItemQuantityAndInDb(_id, itemAmount, detailCartId));
-    }, 500);
+    if (isUserLogin) {
+      const timeout = setTimeout(() => {
+        dispatch(replaceItemQuantityAndInDb(_id, itemAmount, detailCartId));
+      }, 300);
 
-    return () => {
-      clearTimeout(timeout);
-    };
+      return () => {
+        clearTimeout(timeout);
+      };
+    }
+
+    dispatch(replaceItemQuantityAndInSessionStorage(_id, itemAmount));
   }, [itemAmount]);
 
   const addAmountHandler = () => {
@@ -70,6 +77,11 @@ const CartItem = ({
   };
 
   const deleteClickHandler = () => {
+    if (isUserLogin) {
+      dispatch(deleteCartItemAndInDb(detailCartId, _id));
+      return;
+    }
+
     dispatch(cartActions.deleteCartItem({ _id }));
   };
 

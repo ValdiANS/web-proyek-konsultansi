@@ -90,7 +90,11 @@ const getLoginInfoFromLocalStorage = () => {
         const respData = await response.json();
 
         dispatch(
-          loginSlice.actions.setLogin({ id: userId, userInfo: respData.data })
+          loginSlice.actions.setLogin({
+            id: userId,
+            userInfo: respData.data,
+            userCartId,
+          })
         );
       } catch (error) {
         console.log('Login slice Error:');
